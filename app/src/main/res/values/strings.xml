@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fani Furniture</string>
+    <string name="home">Home</string>
+    <string name="CopyRight">Copyright %d by Dam Vu Long</string>
+    <string name="gitHub">Github</string>
+    <string name="email">Email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
