@@ -7,10 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -20,11 +25,18 @@ public class RegisterActivity extends AppCompatActivity {
     EditText Password;
     EditText ConfirmPassword;
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initUI();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     public void onRegister(View view) {
@@ -46,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(userPhoneNumber)) {
-            Toast.makeText(this, "Please Enter Your Phonenumber!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Enter Your Phone Number!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -61,11 +73,30 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (userPassword.length() < 6) {
-            Toast.makeText(this, "Password too short, enter minium 6 characters!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        if (userPassword != userConfirmPassword) {
+            Toast.makeText(this, "Password does not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(userEmail, userPassword)
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Successfully Register!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Registration Failed!" + task.getException(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
     }
 
     public void onLogin(View view) {
@@ -78,6 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
         PhoneNumber = findViewById(R.id.et_phone_number);
         Password = findViewById(R.id.et_password);
         ConfirmPassword = findViewById(R.id.et_confirm_password);
+
+        auth = FirebaseAuth.getInstance();
 
     }
 
