@@ -155,22 +155,22 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/button_login"
+                        android:onClick="onRegister"
                         android:text="Register"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:onClick="onRegister"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_have_account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:onClick="onLogin"
                         android:text="Already Have An Account?"
                         android:textAlignment="center"
                         android:textColor="@color/light"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:onClick="onLogin"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -232,10 +232,10 @@
     <View
         android:layout_width="11dp"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ic_back_bg"/>
+        android:background="@drawable/ic_back_bg" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="30dp"
         android:adjustViewBounds="false"
-        android:src="@drawable/ic_back_img"/>
+        android:src="@drawable/ic_back_img" />
 
 </RelativeLayout>
 
