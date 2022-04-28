@@ -8,6 +8,7 @@
 
 package com.example.fani.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -31,6 +33,7 @@ import com.example.fani.adapter.PopularProductsAdapter;
 import com.example.fani.model.CategoryModel;
 import com.example.fani.model.NewProductsModel;
 import com.example.fani.model.PopularProductsModel;
+import com.example.fani.ui.ShowAllActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +45,10 @@ import java.util.List;
 
 
 public class HomeFragment extends Fragment {
+
+    TextView catShowAll;
+    TextView newShowAll;
+    TextView popShowAll;
 
     RecyclerView catRecyclerview;
     //Category recyclerview
@@ -75,7 +82,38 @@ public class HomeFragment extends Fragment {
         newProductsRecyclerview = root.findViewById(R.id.rcv_new_product);
         popularProductsRecyclerview = root.findViewById(R.id.rcv_popular);
 
+        catShowAll = root.findViewById(R.id.category_see_all);
+        newShowAll = root.findViewById(R.id.newProducts_see_all);
+        popShowAll = root.findViewById(R.id.popular_see_all);
+
         db = FirebaseFirestore.getInstance();
+
+        //event click See All Category
+        catShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //event click See All New Products
+        newShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //event click See All Popular Products
+        popShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //image slider
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);

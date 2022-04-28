@@ -32,6 +32,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -75,4 +76,8 @@ dependencies {
 
     //dimens
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    //razorpay
+    implementation 'com.razorpay:checkout:1.6.19'
+
 }

@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.onbroading.Onbroading2Fragment">
+    tools:context=".fragment.onbroading.Onbroading3Fragment">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="200dp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_300sdp"
         android:src="@drawable/amongus" />
 
     <TextView

@@ -9,6 +9,7 @@
 package com.example.fani.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.fani.R;
 import com.example.fani.model.CategoryModel;
+import com.example.fani.ui.DetailedActivity;
 
 import java.util.List;
 
@@ -45,6 +47,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.catImg);
         holder.catName.setText(list.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailedActivity.class);
+                intent.putExtra("detailed", list.get(holder.getAdapterPosition()).getType());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
