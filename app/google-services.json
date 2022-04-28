@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "742882520924",
+    "project_id": "fani-furniture",
+    "storage_bucket": "fani-furniture.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742882520924:android:df644ad18bf45624cfdb99",
+        "android_client_info": {
+          "package_name": "com.example.fani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742882520924-igg5m2b4t3uqroj66irbp24ut5i3aq3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpy-mnu-vrftDaRJhALK0rm3P8o6TSqHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742882520924-igg5m2b4t3uqroj66irbp24ut5i3aq3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
