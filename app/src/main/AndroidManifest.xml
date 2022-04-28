@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fani">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fani">
         <activity
+            android:name=".ui.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ShowAllActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.OnbroadingActivity"
             android:exported="true">
             <intent-filter>
@@ -20,9 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity"></activity>
-        <activity android:name=".ui.LoginActivity"></activity>
-        <activity android:name=".ui.RegisterActivity"></activity>
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.DetailedActivity" />
+        <activity android:name=".ui.AboutUsActivity" />
     </application>
 
 </manifest>

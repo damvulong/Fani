@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by damvulong on 4/29/22, 2:09 AM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 4/29/22, 2:09 AM
+  ~  */
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.PaymentMethodActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/method_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light"
+        app:title="Payment Method" />
+
+    <Button
+        android:id="@+id/pay_paypal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:textAlignment="center"
+        android:text="Pay by Paypal"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18sdp"/>
+
+    <Button
+        android:id="@+id/pay_razorpay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:textAlignment="center"
+        android:text="Pay by RazorPay"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18sdp"/>
+
+</LinearLayout>

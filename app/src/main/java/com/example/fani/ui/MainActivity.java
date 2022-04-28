@@ -1,3 +1,11 @@
+/*
+ * *
+ *  * Created by damvulong on 4/18/22, 10:31 PM
+ *  * Copyright (c) 2022 . All rights reserved.
+ *  * Last modified 4/10/22, 1:51 AM
+ *
+ */
+
 package com.example.fani.ui;
 
 import androidx.annotation.NonNull;
@@ -14,28 +22,27 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.fani.R;
-import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.fragment.CartFragment;
 import com.example.fani.fragment.HomeFragment;
 import com.example.fani.fragment.ProfileFragment;
 import com.example.fani.fragment.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ActivityMainBinding binding;
 
     private DrawerLayout mDrawerLayout;
-
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
+        initUI();
         replaceFragment(new HomeFragment());
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
 
@@ -63,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDrawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
@@ -116,5 +122,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void initUI() {
+        mDrawerLayout = findViewById(R.id.drawerLayout);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 }

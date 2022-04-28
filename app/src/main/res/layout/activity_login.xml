@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
     android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".ui.LoginActivity">
 
     <ScrollView
@@ -28,12 +28,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/dark"
-                    android:textSize="@dimen/_25sdp"
-                    android:textStyle="bold"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="Alredy\nhave an \nAccount?"/>
+                    android:text="Alredy\nhave an \nAccount?"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/_25sdp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,11 +54,11 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:backgroundTint="@color/light"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,11 +72,11 @@
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:backgroundTint="@color/light"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,21 +87,22 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Forgot password?"
                 android:textColor="@color/primary"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_login"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/button_login"
+                android:onClick="onLogin"
                 android:text="Login"
-                android:onClick="onLogin"/>
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -109,8 +110,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/light"
                 android:textSize="@dimen/_17sdp"
-                android:textStyle="bold"
-                android:onClick="onRegister"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_weight="3"
-                    android:background="@color/black"/>
+                    android:background="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,13 +131,13 @@
                     android:layout_weight="6"
                     android:text="Use another method"
                     android:textAlignment="center"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="3"
-                    android:background="@color/black"/>
+                    android:background="@color/black" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_google_plus"/>
+                    android:src="@drawable/ic_google_plus" />
 
             </LinearLayout>
 

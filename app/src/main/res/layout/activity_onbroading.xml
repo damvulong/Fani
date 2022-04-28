@@ -10,29 +10,29 @@
         android:id="@+id/onbroading_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="@id/circleIndicator"/>
+        app:layout_constraintTop_toTopOf="@id/circleIndicator" />
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/circleIndicator"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/btn_get_started"
         app:ci_drawable="@drawable/bg_circle"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/btn_get_started" />
 
     <Button
         android:id="@+id/btn_get_started"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:textSize="19dp"
-        android:textColor="@color/white"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_getstart"
         android:text="Get Started"
         android:textAllCaps="false"
-        android:background="@drawable/button_getstart"/>
+        android:textColor="@color/white"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

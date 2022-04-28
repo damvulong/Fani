@@ -1,3 +1,11 @@
+/*
+ * *
+ *  * Created by damvulong on 4/18/22, 10:28 PM
+ *  * Copyright (c) 2022 . All rights reserved.
+ *  * Last modified 4/12/22, 5:10 PM
+ *
+ */
+
 package com.example.fani.ui;
 
 import android.content.Intent;
@@ -42,7 +50,6 @@ public class OnbroadingActivity extends AppCompatActivity {
 
         viewPagerAdapter = new OnbroadingAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPager.setAdapter(viewPagerAdapter);
-
         circleIndicator.setViewPager(mViewPager);
 
     }

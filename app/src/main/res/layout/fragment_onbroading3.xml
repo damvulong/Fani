@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:gravity="center"
-    tools:context=".onbroading.Onbroading2Fragment">
+    android:orientation="vertical"
+    tools:context=".fragment.onbroading.Onbroading3Fragment">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="200dp"
-        android:src="@drawable/amongus"/>
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_300sdp"
+        android:src="@drawable/amongus" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,8 +23,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
         android:gravity="center"
+        android:paddingTop="20dp"
         android:text="We operate our own logistics, deliveries are asap, and without complications, just order and we bring the product to you."
         android:textSize="20dp" />
 

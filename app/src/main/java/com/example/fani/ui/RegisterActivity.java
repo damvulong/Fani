@@ -1,3 +1,11 @@
+/*
+ * *
+ *  * Created by damvulong on 4/18/22, 10:27 PM
+ *  * Copyright (c) 2022 . All rights reserved.
+ *  * Last modified 4/12/22, 7:03 PM
+ *
+ */
+
 package com.example.fani.ui;
 
 import android.content.Intent;
@@ -12,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityMainBinding;
+import com.example.fani.utils.LogUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,14 +42,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         initUI();
 
-        if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish();
-        }
+        LogUtil.d(auth.getCurrentUser().toString());
+//        if (auth.getCurrentUser() != null) {
+//            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+//            finish();
+//        }
     }
 
     public void onRegister(View view) {
-
         String userName = Name.getText().toString();
         String userEmail = Email.getText().toString();
         String userPhoneNumber = PhoneNumber.getText().toString();
