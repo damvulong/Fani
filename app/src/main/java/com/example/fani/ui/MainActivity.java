@@ -25,47 +25,29 @@ import com.example.fani.R;
 import com.example.fani.fragment.CartFragment;
 import com.example.fani.fragment.HomeFragment;
 import com.example.fani.fragment.ProfileFragment;
-import com.example.fani.fragment.SearchFragment;
+import com.example.fani.fragment.FavoriteFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
     private DrawerLayout mDrawerLayout;
     private BottomNavigationView bottomNavigationView;
+
+    private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_FAVORITE = 1;
+    private static final int FRAGMENT_CART = 2;
+    private static final int FRAGMENT_PROFILE = 3;
+
+    private int mCurrentFragment = FRAGMENT_HOME;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
-        replaceFragment(new HomeFragment());
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-
-            switch (item.getItemId()) {
-
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-
-                case R.id.search:
-                    replaceFragment(new SearchFragment());
-                    break;
-
-                case R.id.cart:
-                    replaceFragment(new CartFragment());
-                    break;
-
-                case R.id.profile:
-                    replaceFragment(new ProfileFragment());
-                    break;
-
-            }
-
-            return true;
-        });
+        //replaceFragment(new HomeFragment());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,44 +57,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navigationView);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.getMenu().findItem(R.id.home).setChecked(true);
-    }
+        replaceFragment(new HomeFragment());
+        navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentFrameLayout, fragment);
-        fragmentTransaction.commit();
-    }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            int id = item.getItemId();
+            if (id == R.id.bottom_home) {
+                openHomeFragment();
+                navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+            } else if (id == R.id.bottom_favorite) {
+                openFavoriteFragment();
+                navigationView.getMenu().findItem(R.id.nav_favorite).setChecked(true);
+            } else if (id == R.id.bottom_cart) {
+                openCartFragment();
+                navigationView.getMenu().findItem(R.id.nav_cart).setChecked(true);
+            } else if (id == R.id.bottom_profile) {
+                openProfileFragment();
+                navigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
+            }
 
-        switch (item.getItemId()) {
+            return true;
+        });
 
-            case R.id.home:
-                replaceFragment(new HomeFragment());
-                break;
-
-            case R.id.search:
-                replaceFragment(new SearchFragment());
-                break;
-
-            case R.id.cart:
-                replaceFragment(new CartFragment());
-                break;
-
-            case R.id.profile:
-                replaceFragment(new ProfileFragment());
-                break;
-
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
@@ -122,6 +93,64 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            openHomeFragment();
+            bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
+        } else if (id == R.id.nav_favorite) {
+            openFavoriteFragment();
+            bottomNavigationView.getMenu().findItem(R.id.bottom_favorite).setChecked(true);
+        } else if (id == R.id.nav_cart) {
+            openCartFragment();
+            bottomNavigationView.getMenu().findItem(R.id.bottom_cart).setChecked(true);
+        } else if (id == R.id.nav_profile) {
+            openProfileFragment();
+            bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void  openHomeFragment() {
+        if (mCurrentFragment != FRAGMENT_HOME) {
+            replaceFragment(new HomeFragment());
+            mCurrentFragment = FRAGMENT_HOME;
+        }
+    }
+
+    private void openFavoriteFragment() {
+        if (mCurrentFragment != FRAGMENT_FAVORITE) {
+            replaceFragment(new FavoriteFragment());
+            mCurrentFragment = FRAGMENT_FAVORITE;
+        }
+    }
+
+    private void openCartFragment() {
+        if (mCurrentFragment != FRAGMENT_CART) {
+            replaceFragment(new CartFragment());
+            mCurrentFragment = FRAGMENT_CART;
+        }
+    }
+
+    private void openProfileFragment() {
+        if (mCurrentFragment != FRAGMENT_PROFILE) {
+            replaceFragment(new ProfileFragment());
+            mCurrentFragment = FRAGMENT_PROFILE;
+        }
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contentFrameLayout, fragment);
+        fragmentTransaction.commit();
     }
 
     private void initUI() {

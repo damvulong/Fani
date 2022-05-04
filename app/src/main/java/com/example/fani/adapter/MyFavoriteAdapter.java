@@ -1,8 +1,8 @@
 /*
  * *
- *  * Created by damvulong on 4/20/22, 5:17 AM
+ *  * Created by damvulong on 5/5/22, 12:54 AM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 4/20/22, 5:17 AM
+ *  * Last modified 5/5/22, 12:54 AM
  *
  */
 
@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fani.R;
-import com.example.fani.model.MyCartModel;
+import com.example.fani.model.MyFavoriteModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,15 +30,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
+public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.ViewHolder>{
 
     Context context;
-    List<MyCartModel> list;
+    List<MyFavoriteModel> list;
 
     FirebaseFirestore firestore;
     FirebaseAuth auth;
 
-    public MyCartAdapter(Context context, List<MyCartModel> list) {
+    public MyFavoriteAdapter(Context context, List<MyFavoriteModel> list) {
         this.context = context;
         this.list = list;
         firestore = FirebaseFirestore.getInstance();
@@ -47,24 +47,21 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     @NonNull
     @Override
-    public MyCartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_cart_item, parent, false));
+    public MyFavoriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_favorite_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyCartAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyFavoriteAdapter.ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.imgCart);
-        holder.name.setText(list.get(position).getProductName());
-        holder.quantityCart.setText(list.get(position).getTotalQuantity());
-        holder.totalPrice.setText(String.valueOf(list.get(position).getTotalPrice()));
-        holder.priceCart.setText(list.get(position).getProductPrice());
+        Glide.with(context).load(list.get(position).getImg_url()).into(holder.imgFavorite);
+        holder.productName.setText(list.get(position).getProductName());
+        holder.productPrice.setText(list.get(position).getProductPrice());
 
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
+        holder.deteleFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                        .collection("User")
+                firestore.collection("AddToFav")
                         .document(list.get(holder.getAdapterPosition()).getDocumentId())
                         .delete()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -82,7 +79,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                         });
             }
         });
-
     }
 
     @Override
@@ -92,23 +88,21 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgCart;
-        TextView name;
-        TextView totalPrice;
-        TextView quantityCart;
-        TextView priceCart;
-        ImageButton deleteItem;
+        ImageView imgFavorite;
+        TextView productName;
+        TextView productPrice;
+
+        ImageButton deteleFav;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgCart = itemView.findViewById(R.id.img_cart);
-            name = itemView.findViewById(R.id.product_name_cart);
-            quantityCart = itemView.findViewById(R.id.quantity_cart);
-            totalPrice = itemView.findViewById(R.id.totalPrice_cart);
-            priceCart = itemView.findViewById(R.id.price_cart);
-            deleteItem = itemView.findViewById(R.id.delete_item);
+            imgFavorite = itemView.findViewById(R.id.img_fav);
+            productName = itemView.findViewById(R.id.product_name_fav);
+            productPrice = itemView.findViewById(R.id.price_fav);
 
+            deteleFav = itemView.findViewById(R.id.delete_fav);
         }
     }
 }

@@ -1,31 +1,28 @@
 /*
  * *
- *  * Created by damvulong on 4/20/22, 5:14 AM
+ *  * Created by damvulong on 5/5/22, 12:50 AM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 4/20/22, 5:14 AM
+ *  * Last modified 5/5/22, 12:50 AM
  *
  */
 
 package com.example.fani.model;
 
-public class MyCartModel {
+public class MyFavoriteModel {
 
     String img_url;
     String productName;
     String productPrice;
-    String totalQuantity;
-    int totalPrice;
+
     String documentId;
 
-    public MyCartModel() {
+    public MyFavoriteModel() {
     }
 
-    public MyCartModel(String img_url, String productName, String productPrice, String totalQuantity, int totalPrice) {
+    public MyFavoriteModel(String img_url, String productName, String productPrice) {
         this.img_url = img_url;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.totalQuantity = totalQuantity;
-        this.totalPrice = totalPrice;
     }
 
     public String getDocumentId() {
@@ -58,21 +55,5 @@ public class MyCartModel {
 
     public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
-    }
-
-    public String getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(String totalQuantity) {
-        this.totalQuantity = totalQuantity;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
     }
 }

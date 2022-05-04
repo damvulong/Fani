@@ -28,7 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_total"
-        tools:orientation="vertical"
         tools:listitem="@layout/my_cart_item"/>
 
     <Button

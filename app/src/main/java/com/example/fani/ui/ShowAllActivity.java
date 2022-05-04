@@ -48,7 +48,7 @@ public class ShowAllActivity extends AppCompatActivity {
         showAllAdapter = new ShowAllAdapter(this, showAllModelList);
         recyclerView.setAdapter(showAllAdapter);
 
-        if (type == null && type.isEmpty()) {
+        if (type == null || type.isEmpty()) {
             firestore.collection("ShowAll")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -84,6 +84,23 @@ public class ShowAllActivity extends AppCompatActivity {
 
         if (type != null && type.equalsIgnoreCase("table")) {
             firestore.collection("ShowAll").whereEqualTo("type", "table")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot doc:task.getResult().getDocuments()){
+                                    ShowAllModel showAllModel = doc.toObject(ShowAllModel.class);
+                                    showAllModelList.add(showAllModel);
+                                    showAllAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    });
+        }
+
+        if (type != null && type.equalsIgnoreCase("sofas")) {
+            firestore.collection("ShowAll").whereEqualTo("type", "sofas")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
