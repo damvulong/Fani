@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/amongus" />
+                    android:src="@drawable/ic_login_hero" />
 
             </RelativeLayout>
 

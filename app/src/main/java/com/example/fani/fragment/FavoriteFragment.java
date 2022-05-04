@@ -8,11 +8,9 @@
 
 package com.example.fani.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.fani.R;
 import com.example.fani.adapter.MyCartAdapter;
-import com.example.fani.adapter.NewProductsAdapter;
-import com.example.fani.model.MyCartModel;
-import com.example.fani.model.ShowAllModel;
-import com.example.fani.ui.AddAddressActivity;
-import com.example.fani.ui.AddressActivity;
-import com.example.fani.ui.LoginActivity;
+import com.example.fani.adapter.MyFavoriteAdapter;
+import com.example.fani.model.MyFavoriteModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,38 +33,36 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartFragment extends Fragment {
 
-    Button btnBuyNow;
+public class FavoriteFragment extends Fragment {
 
     RecyclerView recyclerView;
-    List<MyCartModel> myCartModelList;
-    MyCartAdapter myCartAdapter;
+    List<MyFavoriteModel> myFavoriteModelList;
+    MyFavoriteAdapter myFavoriteAdapter;
 
-    FirebaseAuth auth;
     FirebaseFirestore firestore;
+    FirebaseAuth auth;
 
-    public CartFragment() {
+    public FavoriteFragment() {
         // Required empty public constructor
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_cart, container, false);
+        View root = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-        recyclerView = root.findViewById(R.id.rcv_cart);
+        recyclerView = root.findViewById(R.id.rcv_fav);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        myCartModelList = new ArrayList<>();
-        myCartAdapter = new MyCartAdapter(getActivity(), myCartModelList);
-        recyclerView.setAdapter(myCartAdapter);
+        myFavoriteModelList = new ArrayList<>();
+        myFavoriteAdapter = new MyFavoriteAdapter(getActivity(), myFavoriteModelList);
+        recyclerView.setAdapter(myFavoriteAdapter);
 
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("AddToFav").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -80,23 +71,14 @@ public class CartFragment extends Fragment {
 
                         String documentId = doc.getId();
 
-                        MyCartModel myCartModel = doc.toObject(MyCartModel.class);
+                        MyFavoriteModel myFavoriteModel = doc.toObject(MyFavoriteModel.class);
 
-                        myCartModel.setDocumentId(documentId);
+                        myFavoriteModel.setDocumentId(documentId);
 
-                        myCartModelList.add(myCartModel);
-                        myCartAdapter.notifyDataSetChanged();
+                        myFavoriteModelList.add(myFavoriteModel);
+                        myFavoriteAdapter.notifyDataSetChanged();
                     }
                 }
-            }
-        });
-
-        btnBuyNow = root.findViewById(R.id.buy_now);
-        btnBuyNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AddressActivity.class);
-                startActivity(intent);
             }
         });
 

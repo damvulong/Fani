@@ -50,10 +50,6 @@ public class PaymentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //amount = getIntent().getDoubleExtra("amount", 0.0);
-        //subTotal.setText(amount+"$");
-
-
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

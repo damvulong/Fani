@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.fani.R;
 import com.example.fani.model.CategoryModel;
 import com.example.fani.ui.DetailedActivity;
+import com.example.fani.ui.ShowAllActivity;
 
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detailed", list.get(holder.getAdapterPosition()).getType());
+                Intent intent = new Intent(context, ShowAllActivity.class);
+                intent.putExtra("type", list.get(holder.getAdapterPosition()).getType());
                 context.startActivity(intent);
             }
         });

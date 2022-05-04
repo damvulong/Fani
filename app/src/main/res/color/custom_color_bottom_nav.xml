@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by damvulong on 5/1/22, 1:39 AM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 5/1/22, 1:39 AM
+  ~  */
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:color="@color/white" android:state_checked="false"/>
+    <item android:color="@color/light" android:state_checked="true"/>
+</selector>
