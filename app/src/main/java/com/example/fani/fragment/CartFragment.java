@@ -8,12 +8,16 @@
 
 package com.example.fani.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,15 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.fani.R;
 import com.example.fani.adapter.MyCartAdapter;
-import com.example.fani.adapter.NewProductsAdapter;
 import com.example.fani.model.MyCartModel;
-import com.example.fani.model.ShowAllModel;
-import com.example.fani.ui.AddAddressActivity;
 import com.example.fani.ui.AddressActivity;
-import com.example.fani.ui.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,7 @@ import java.util.List;
 
 public class CartFragment extends Fragment {
 
+    TextView total;
     Button btnBuyNow;
 
     RecyclerView recyclerView;
@@ -50,6 +52,8 @@ public class CartFragment extends Fragment {
 
     FirebaseAuth auth;
     FirebaseFirestore firestore;
+
+    int amount = 0;
 
     public CartFragment() {
         // Required empty public constructor
@@ -63,6 +67,12 @@ public class CartFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+
+        total = root.findViewById(R.id.tv_total);
+
+        //get data my cart adapter
+        LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
 
         recyclerView = root.findViewById(R.id.rcv_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -102,4 +112,14 @@ public class CartFragment extends Fragment {
 
         return root;
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int totalBill = intent.getIntExtra("totalAmount", 0);
+            total.setText("Total Bill :   " + totalBill+"$");
+            amount = totalBill;
+        }
+    };
 }

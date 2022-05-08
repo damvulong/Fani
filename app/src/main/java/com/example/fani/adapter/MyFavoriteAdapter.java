@@ -56,7 +56,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Vi
 
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.imgFavorite);
         holder.productName.setText(list.get(position).getProductName());
-        holder.productPrice.setText(list.get(position).getProductPrice());
+        holder.productPrice.setText(list.get(position).getProductPrice()+"$");
 
         holder.deteleFav.setOnClickListener(new View.OnClickListener() {
             @Override

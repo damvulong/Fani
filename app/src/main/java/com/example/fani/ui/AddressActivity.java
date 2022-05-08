@@ -10,10 +10,14 @@ package com.example.fani.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -56,11 +60,11 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         initUI();
 
         //get Data from detailed activity
-        Object obj = getIntent().getSerializableExtra("item");
+        //Object obj = getIntent().getSerializableExtra("item");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         addressModelList = new ArrayList<>();
-        addressAdapter = new AddressAdapter(getApplicationContext(),addressModelList, this);
+        addressAdapter = new AddressAdapter(getApplicationContext(), addressModelList, this);
         recyclerView.setAdapter(addressAdapter);
 
         firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
@@ -91,9 +95,8 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(AddressActivity.this, PaymentActivity.class));
 
-                double amount = 0.0;
+                /*double amount = 0.0;
 
                 if (obj instanceof NewProductsModel) {
                     NewProductsModel newProductsModel = (NewProductsModel) obj;
@@ -104,10 +107,19 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                 } if (obj instanceof ShowAllModel) {
                     ShowAllModel showAllModel = (ShowAllModel) obj;
                     amount = showAllModel.getPrice();
-                }
+                }*/
+
+                //int amount = getIntent().getIntExtra("totalAmount", 0);
+
+                int amount = 0;
+
+                amount = getIntent().getIntExtra("totalAmount",0);
 
                 Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
+                //intent.putExtra("amount", amount);
                 intent.putExtra("amount", amount);
+
+                //intent.putExtra("amount", amount);
                 startActivity(intent);
 
             }
