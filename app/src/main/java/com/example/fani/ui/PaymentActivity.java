@@ -10,10 +10,14 @@ package com.example.fani.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,10 +39,9 @@ public class PaymentActivity extends AppCompatActivity {
     TextView discount;
     TextView shipping;
 
+    int amount = 0;
+
     Button btnPay;
-
-    String sAmount = "100";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class PaymentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        amount = getIntent().getIntExtra("amount", 0);
+
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +62,8 @@ public class PaymentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        subTotal.setText(amount+"$");
     }
 
     private void initUI() {

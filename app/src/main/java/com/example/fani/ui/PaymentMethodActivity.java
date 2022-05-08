@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.fani.R;
+import com.example.fani.adapter.MyCartAdapter;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -29,8 +30,6 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     Button btnPaypal;
     Button btnRazorpay;
 
-    String sAmount = "100";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +39,6 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
         //Toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        int amount = Math.round(Float.parseFloat(sAmount) * 100);
 
         //Pay by RazorPay
         btnRazorpay.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +58,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
                     object.put("description", "Reference No. #123");
                     //Currency
                     object.put("currency", "USD");
-                    object.put("amount", amount);
+                    object.put("amount", MyCartAdapter.totalAmount*100);
                     //Put mobile number
                     object.put("prefill.contact", "+84795664880");
                     //Put email

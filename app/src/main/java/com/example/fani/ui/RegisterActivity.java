@@ -105,7 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     public void onLogin(View view) {

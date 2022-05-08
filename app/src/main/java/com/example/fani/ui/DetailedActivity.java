@@ -16,6 +16,7 @@ import com.example.fani.R;
 import com.example.fani.model.NewProductsModel;
 import com.example.fani.model.PopularProductsModel;
 import com.example.fani.model.ShowAllModel;
+import com.example.fani.utils.LogUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,8 @@ public class DetailedActivity extends AppCompatActivity {
 
     int totalQuantity = 1;
     int totalPrice = 0;
+
+    String TextQuantity = "";
 
     //New Products
     NewProductsModel newProductsModel = null;
@@ -77,7 +80,7 @@ public class DetailedActivity extends AppCompatActivity {
             description.setText(newProductsModel.getDescription());
             price.setText(String.valueOf(newProductsModel.getPrice()));
 
-            textImg = Glide.with(getApplicationContext()).load(newProductsModel.getImg_url()).into(detailedImg).toString();
+            textImg = newProductsModel.getImg_url();
 
             totalPrice = newProductsModel.getPrice() * totalQuantity;
         }
@@ -90,7 +93,7 @@ public class DetailedActivity extends AppCompatActivity {
             description.setText(popularProductsModel.getDescription());
             price.setText(String.valueOf(popularProductsModel.getPrice()));
 
-            textImg = Glide.with(getApplicationContext()).load(popularProductsModel.getImg_url()).into(detailedImg).toString();
+            textImg = popularProductsModel.getImg_url();
 
             totalPrice = popularProductsModel.getPrice() * totalQuantity;
         }
@@ -103,7 +106,7 @@ public class DetailedActivity extends AppCompatActivity {
             description.setText(showAllModel.getDescription());
             price.setText(String.valueOf(showAllModel.getPrice()));
 
-            textImg = Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(detailedImg).toString();
+            textImg = showAllModel.getImg_url();
 
             totalPrice = showAllModel.getPrice() * totalQuantity;
         }
@@ -163,7 +166,7 @@ public class DetailedActivity extends AppCompatActivity {
         final HashMap<String, Object> favMap = new HashMap<>();
 
         //TODO put img
-        favMap.put("img_url", null);
+        favMap.put("img_url", textImg);
         favMap.put("productName", name.getText().toString());
         favMap.put("productPrice", price.getText().toString());
 
@@ -183,7 +186,7 @@ public class DetailedActivity extends AppCompatActivity {
         final HashMap<String, Object> cartMap = new HashMap<>();
 
         //TODO put img
-        cartMap.put("img_url", null);
+        cartMap.put("img_url", textImg);
         cartMap.put("productName", name.getText().toString());
         cartMap.put("productPrice", price.getText().toString());
         cartMap.put("quantity", quantity.getText().toString());
