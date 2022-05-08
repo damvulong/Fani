@@ -130,7 +130,7 @@
             </RelativeLayout>
 
             <ImageButton
-                android:id="@+id/delete_fav"
+                android:id="@+id/delete_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

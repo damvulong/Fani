@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.fani.R;
 import com.example.fani.adapter.MyCartAdapter;
+import com.example.fani.fragment.CartFragment;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -58,7 +59,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
                     object.put("description", "Reference No. #123");
                     //Currency
                     object.put("currency", "USD");
-                    object.put("amount", MyCartAdapter.totalAmount*100);
+                    object.put("amount", CartFragment.amount * 100);
                     //Put mobile number
                     object.put("prefill.contact", "+84795664880");
                     //Put email
