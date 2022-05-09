@@ -10,13 +10,13 @@
     <ImageView
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_300sdp"
-        android:src="@drawable/amongus" />
+        android:src="@drawable/onboarding3" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="Fast Delivery"
+        android:text="Easy to Payment"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dp"
-        android:text="We operate our own logistics, deliveries are asap, and without complications, just order and we bring the product to you."
+        android:text="Easy onlie payment with Razorpay"
         android:textSize="20dp" />
 
 </LinearLayout>

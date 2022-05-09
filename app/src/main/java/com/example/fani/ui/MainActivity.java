@@ -18,8 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.fani.R;
 import com.example.fani.fragment.CartFragment;
@@ -28,6 +30,7 @@ import com.example.fani.fragment.ProfileFragment;
 import com.example.fani.fragment.FavoriteFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -112,6 +115,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_profile) {
             openProfileFragment();
             bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_aboutUS) {
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            startActivity(intent);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
