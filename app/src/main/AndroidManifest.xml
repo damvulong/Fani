@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fani">
         <activity
+            android:name=".ui.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.PaymentMethodActivity"
             android:exported="false" />
         <activity

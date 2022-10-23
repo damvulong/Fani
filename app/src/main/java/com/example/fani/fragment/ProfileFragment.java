@@ -8,6 +8,7 @@
 
 package com.example.fani.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,22 +16,35 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.fani.R;
+import com.example.fani.ui.ChangePasswordActivity;
 
 
 public class ProfileFragment extends Fragment {
 
+    Button btnChangePassword;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        btnChangePassword = root.findViewById(R.id.btn_change_password);
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return root;
     }
 }

@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
-            android:hint="Email"
+            android:hint="Name"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textSize="12sp" />
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
-            android:hint="Email"
+            android:hint="Phone Number"
             android:inputType="number"
             android:maxLines="1"
             android:textSize="12sp" />
