@@ -10,6 +10,7 @@ package com.example.fani.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.fani.R;
 import com.example.fani.model.MyCartModel;
+import com.example.fani.utils.LogUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +38,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     Context context;
     List<MyCartModel> list;
-
-    public static int totalAmount = 0;
 
     FirebaseFirestore firestore;
     FirebaseAuth auth;
@@ -60,7 +60,11 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.imgCart);
         holder.name.setText(list.get(position).getProductName());
-        holder.quantityCart.setText(list.get(position).getTotalQuantity());
+        Log.e("name", list.get(position).getProductName());
+
+        holder.quantityCart.setText(String.valueOf(list.get(position).getTotalQuantity()));
+        Log.e("quantity", String.valueOf(list.get(position).getTotalQuantity()));
+
         holder.totalPrice.setText(String.valueOf(list.get(position).getTotalPrice()));
         holder.priceCart.setText(list.get(position).getProductPrice());
 
@@ -86,13 +90,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                         });
             }
         });
-
-        //Total amount
-        totalAmount = totalAmount + list.get(position).getTotalPrice();
-        Intent intent = new Intent("MyTotalAmount");
-        intent.putExtra("totalAmount", totalAmount);
-
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
 

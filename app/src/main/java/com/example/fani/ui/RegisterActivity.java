@@ -42,11 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         initUI();
 
-        LogUtil.d(auth.getCurrentUser().toString());
-//        if (auth.getCurrentUser() != null) {
-//            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-//            finish();
-//        }
+
     }
 
     public void onRegister(View view) {
@@ -86,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (userPassword != userConfirmPassword) {
+        if (!userPassword.equals(userConfirmPassword)) {
             Toast.makeText(this, "Password does not match", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -101,7 +97,6 @@ public class RegisterActivity extends AppCompatActivity {
                             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         } else {
                             Toast.makeText(RegisterActivity.this, "Registration Failed!" + task.getException(), Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });

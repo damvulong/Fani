@@ -112,38 +112,25 @@ public class DetailedActivity extends AppCompatActivity {
         }
 
         //Event Add to Cart
-        addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addToCart();
-            }
-        });
+        addToCart.setOnClickListener(view -> addToCart());
 
         //Event Add to Favorite
-        addFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addToFav();
-            }
-        });
+        addFav.setOnClickListener(view -> addToFav());
 
         //Plus item
-        addItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (totalQuantity < 10) {
-                    totalQuantity++;
-                    quantity.setText(String.valueOf(totalQuantity));
+        addItems.setOnClickListener(view -> {
+            if (totalQuantity < 10) {
+                totalQuantity++;
+                quantity.setText(String.valueOf(totalQuantity));
 
-                    if (newProductsModel != null) {
-                        totalPrice = newProductsModel.getPrice() * totalQuantity;
-                    }
-                    if (popularProductsModel != null) {
-                        totalPrice = popularProductsModel.getPrice() * totalQuantity;
-                    }
-                    if (showAllModel != null) {
-                        totalPrice = showAllModel.getPrice() * totalQuantity;
-                    }
+                if (newProductsModel != null) {
+                    totalPrice = newProductsModel.getPrice() * totalQuantity;
+                }
+                if (popularProductsModel != null) {
+                    totalPrice = popularProductsModel.getPrice() * totalQuantity;
+                }
+                if (showAllModel != null) {
+                    totalPrice = showAllModel.getPrice() * totalQuantity;
                 }
             }
         });
@@ -189,18 +176,15 @@ public class DetailedActivity extends AppCompatActivity {
         cartMap.put("img_url", textImg);
         cartMap.put("productName", name.getText().toString());
         cartMap.put("productPrice", price.getText().toString());
-        cartMap.put("quantity", quantity.getText().toString());
+        cartMap.put("totalQuantity", totalQuantity);
         cartMap.put("totalPrice", totalPrice);
 
 
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("User").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+                .collection("User").add(cartMap).addOnCompleteListener(task -> {
+                    Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
+                    finish();
+                });
     }
 
     private void initUI() {

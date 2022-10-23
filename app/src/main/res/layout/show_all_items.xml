@@ -7,8 +7,8 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/_160sdp"
+    android:layout_height="@dimen/_300sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/_5sdp">
 
@@ -29,7 +29,7 @@
                 android:id="@+id/item_img"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 app:srcCompat="@drawable/ic_launcher_foreground"/>
 
             <TextView

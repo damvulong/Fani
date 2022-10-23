@@ -13,14 +13,14 @@ public class MyCartModel {
     String img_url;
     String productName;
     String productPrice;
-    String totalQuantity;
+    int totalQuantity;
     int totalPrice;
     String documentId;
 
     public MyCartModel() {
     }
 
-    public MyCartModel(String img_url, String productName, String productPrice, String totalQuantity, int totalPrice) {
+    public MyCartModel(String img_url, String productName, String productPrice, int totalQuantity, int totalPrice) {
         this.img_url = img_url;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -60,11 +60,11 @@ public class MyCartModel {
         this.productPrice = productPrice;
     }
 
-    public String getTotalQuantity() {
+    public int getTotalQuantity() {
         return totalQuantity;
     }
 
-    public void setTotalQuantity(String totalQuantity) {
+    public void setTotalQuantity(int totalQuantity) {
         this.totalQuantity = totalQuantity;
     }
 

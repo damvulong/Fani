@@ -53,7 +53,8 @@ public class CartFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseFirestore firestore;
 
-    int amount = 0;
+    public static double amount = 0.0;
+
 
     public CartFragment() {
         // Required empty public constructor
@@ -70,9 +71,7 @@ public class CartFragment extends Fragment {
 
         total = root.findViewById(R.id.tv_total);
 
-        //get data my cart adapter
-        LocalBroadcastManager.getInstance(getActivity())
-                .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
+
 
         recyclerView = root.findViewById(R.id.rcv_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -98,6 +97,7 @@ public class CartFragment extends Fragment {
                         myCartAdapter.notifyDataSetChanged();
                     }
                 }
+                calculateTotalAmount(myCartModelList);
             }
         });
 
@@ -113,13 +113,15 @@ public class CartFragment extends Fragment {
         return root;
     }
 
-    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            int totalBill = intent.getIntExtra("totalAmount", 0);
-            total.setText("Total Bill :   " + totalBill+"$");
-            amount = totalBill;
+    private void calculateTotalAmount(List<MyCartModel> myCartModelList) {
+        double totalAmount = 0.0;
+        for (MyCartModel myCartModel : myCartModelList) {
+            totalAmount += myCartModel.getTotalPrice();
         }
-    };
+
+        total.setText("Total Amount:   " + totalAmount+ "$");
+        amount = totalAmount;
+    }
+
+
 }
