@@ -59,15 +59,15 @@ public class LoginActivity extends AppCompatActivity {
     public void onLogin(View view) {
 
         //FAKE data
-       // String userEmailFake = "admin@gmail.com";
+        // String userEmailFake = "admin@gmail.com";
         //String passwordEmailFake = "123456";
 
         String userEmail = Email.getText().toString();
         String userPassword = Password.getText().toString();
 
         //TODO fake data
-      //  userEmail = userEmailFake;
-       // userPassword = passwordEmailFake;
+        // userEmail = userEmailFake;
+        // userPassword = passwordEmailFake;
 
         if (TextUtils.isEmpty(userEmail)) {
             Toast.makeText(this, "Please Enter Your Email!", Toast.LENGTH_SHORT).show();
