@@ -8,6 +8,7 @@
 
 package com.example.fani.fragment;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -34,11 +35,16 @@ import com.example.fani.model.CategoryModel;
 import com.example.fani.model.NewProductsModel;
 import com.example.fani.model.PopularProductsModel;
 import com.example.fani.ui.ShowAllActivity;
+import com.example.fani.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.zoho.commons.Fonts;
+import com.zoho.commons.InitConfig;
+import com.zoho.livechat.android.listeners.InitListener;
+import com.zoho.salesiqembed.ZohoSalesIQ;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,13 +94,13 @@ public class HomeFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
+        InitConfig initConfig = new InitConfig();
+        initConfig.setFont(Fonts.REGULAR, "Error");
+
         //event click See All Category
-        catShowAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ShowAllActivity.class);
-                startActivity(intent);
-            }
+        catShowAll.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), ShowAllActivity.class);
+            startActivity(intent);
         });
 
         //event click See All New Products

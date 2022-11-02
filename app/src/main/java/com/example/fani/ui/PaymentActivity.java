@@ -8,6 +8,7 @@
 
 package com.example.fani.ui;
 
+import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -26,6 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fani.R;
+import com.maxpilotto.creditcardview.CreditCardView;
+import com.maxpilotto.creditcardview.animations.RotationAnimation;
+import com.maxpilotto.creditcardview.models.Brand;
+import com.maxpilotto.creditcardview.models.CardArea;
+import com.maxpilotto.creditcardview.models.CardInput;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -38,6 +44,8 @@ public class PaymentActivity extends AppCompatActivity {
     TextView subTotal;
     TextView discount;
     TextView shipping;
+    CreditCardView card;
+    CardArea area;
 
     int amount = 0;
 
@@ -55,15 +63,25 @@ public class PaymentActivity extends AppCompatActivity {
 
         amount = getIntent().getIntExtra("amount", 0);
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PaymentActivity.this, PaymentMethodActivity.class);
-                startActivity(intent);
-            }
+        btnPay.setOnClickListener(view -> {
+            Intent intent = new Intent(PaymentActivity.this, PaymentMethodActivity.class);
+            startActivity(intent);
         });
 
-        subTotal.setText(amount+"$");
+        creditCardView();
+
+        subTotal.setText(amount + "$");
+    }
+
+    private void creditCardView() {
+        card.setFlipOnClick(true);
+        card.setFlipOnEditAnimation(new RotationAnimation());
+        card.setStyle(Brand.VISA, com.maxpilotto.creditcardview.R.style.DefaultVisa);
+        // TODO set text view
+       // card.pairInput(CardInput.HOLDER,textView);
+
+       // card.pairInput();
+
     }
 
     private void initUI() {
@@ -73,6 +91,7 @@ public class PaymentActivity extends AppCompatActivity {
         shipping = findViewById(R.id.tv_shipping);
 
         btnPay = findViewById(R.id.btn_pay);
+        card = findViewById(R.id.ccv_payment);
 
     }
 

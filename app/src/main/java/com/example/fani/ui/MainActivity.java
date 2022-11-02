@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,9 +29,11 @@ import com.example.fani.fragment.CartFragment;
 import com.example.fani.fragment.HomeFragment;
 import com.example.fani.fragment.ProfileFragment;
 import com.example.fani.fragment.FavoriteFragment;
+import com.example.fani.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.zoho.salesiqembed.ZohoSalesIQ;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,7 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+
         //replaceFragment(new HomeFragment());
+        ZohoSalesIQ.init(getApplication(), Constants.APP_KEY, Constants.ACCESS_KEY);
+        ZohoSalesIQ.showLauncher(true);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void  openHomeFragment() {
+    private void openHomeFragment() {
         if (mCurrentFragment != FRAGMENT_HOME) {
             replaceFragment(new HomeFragment());
             mCurrentFragment = FRAGMENT_HOME;
