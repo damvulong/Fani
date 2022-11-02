@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.fani.R;
 import com.example.fani.adapter.MyCartAdapter;
 import com.example.fani.fragment.CartFragment;
+import com.example.fani.utils.LogUtil;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -42,33 +43,31 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Pay by RazorPay
-        btnRazorpay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Checkout checkout = new Checkout();
+        btnRazorpay.setOnClickListener(view -> {
+            Checkout checkout = new Checkout();
 
-                checkout.setKeyID("rzp_test_L4tt6SFP4UJPVt");
-                checkout.setImage(R.drawable.amongus);
+            checkout.setKeyID("rzp_test_L4tt6SFP4UJPVt");
+            checkout.setImage(R.drawable.amongus);
 
-                JSONObject object = new JSONObject();
+            JSONObject object = new JSONObject();
 
-                try {
-                    //Set Company Name
-                    object.put("name", "Fani Furniture App");
-                    //Ref no
-                    object.put("description", "Reference No. #123");
-                    //Currency
-                    object.put("currency", "USD");
-                    object.put("amount", CartFragment.amount * 100);
-                    //Put mobile number
-                    object.put("prefill.contact", "+84795664880");
-                    //Put email
-                    object.put("prefill.email", "kingdamlong1708@gmail.com");
-                    //Open Razorpay
-                    checkout.open(PaymentMethodActivity.this, object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            try {
+                //Set Company Name
+                object.put("name", "Fani Furniture App");
+                //Ref no
+                object.put("description", "Reference No. #123");
+                //Currency
+                object.put("currency", "USD");
+                object.put("amount", CartFragment.amount * 100);
+                //Put mobile number
+                object.put("prefill.contact", "+84795664880");
+                //Put email
+                object.put("prefill.email", "kingdamlong1708@gmail.com");
+                //Open Razorpay
+                checkout.open(PaymentMethodActivity.this, object);
+            } catch (JSONException e) {
+                LogUtil.e("Error payment" + e.getMessage());
+                e.printStackTrace();
             }
         });
     }

@@ -62,4 +62,10 @@ dependencies {
     //razorpay
     implementation 'com.razorpay:checkout:1.6.19'
 
+    //Credit card https://github.com/maxpilotto/credit-card-view#grid-and-area-click
+    implementation 'com.github.maxpilotto:credit-card-view:8.0.0'
+
+    implementation 'com.zoho.salesiq:mobilisten:4.2.9'
+
+
 }
