@@ -36,6 +36,7 @@ import com.example.fani.model.NewProductsModel;
 import com.example.fani.model.PopularProductsModel;
 import com.example.fani.ui.ShowAllActivity;
 import com.example.fani.utils.Constants;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,10 +70,12 @@ public class HomeFragment extends Fragment {
     RecyclerView popularProductsRecyclerview;
     //Popular Products recyclerview
     PopularProductsAdapter popularProductsAdapter;
-    List<PopularProductsModel>  popularProductsModelList;
+    List<PopularProductsModel> popularProductsModelList;
 
     //FireStore
     FirebaseFirestore db;
+
+    private ShimmerFrameLayout mCategory;
 
 
     public HomeFragment() {
@@ -81,7 +84,7 @@ public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         catRecyclerview = root.findViewById(R.id.rcv_category);
@@ -94,8 +97,13 @@ public class HomeFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
+        mCategory = root.findViewById(R.id.sflCategory);
+
         InitConfig initConfig = new InitConfig();
         initConfig.setFont(Fonts.REGULAR, "Error");
+
+        // init view when loading data
+        mCategory.startShimmer();
 
         //event click See All Category
         catShowAll.setOnClickListener(view -> {
@@ -125,9 +133,9 @@ public class HomeFragment extends Fragment {
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel(R.drawable.discount1,"Discount On Furniture", ScaleTypes.FIT));
-        slideModels.add(new SlideModel(R.drawable.discount2,"Discount On Furniture", ScaleTypes.FIT));
-        slideModels.add(new SlideModel(R.drawable.discount3,"Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.discount1, "Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.discount2, "Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.discount3, "Discount On Furniture", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
@@ -148,10 +156,12 @@ public class HomeFragment extends Fragment {
 
                                 CategoryModel categoryModel = document.toObject(CategoryModel.class);
                                 categoryModelList.add(categoryModel);
+                                mCategory.setVisibility(View.GONE);
+                                catRecyclerview.setVisibility(View.VISIBLE);
                                 categoryAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -175,7 +185,7 @@ public class HomeFragment extends Fragment {
                                 newProductsAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -199,7 +209,7 @@ public class HomeFragment extends Fragment {
                                 popularProductsAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
