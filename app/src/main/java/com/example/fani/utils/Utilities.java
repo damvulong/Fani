@@ -20,11 +20,8 @@ public class Utilities {
 
     public static void showSnackBar(View view, String message) {
         final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-
         snackbar.setAction("DISMISS", v -> snackbar.dismiss());
-
         snackbar.show();
-
     }
 
     /**

@@ -27,8 +27,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    /** Document: https://developer.android.com/topic/libraries/view-binding */
     buildFeatures {
-        viewBinding = true // for view binding
+        viewBinding true
     }
 }
 
@@ -51,14 +52,14 @@ dependencies {
     //About Page
     implementation 'io.github.medyo:android-about-page:2.0.0'
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     // RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     //dimens
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
     //razorpay
     implementation 'com.razorpay:checkout:1.6.19'
 
@@ -71,4 +72,6 @@ dependencies {
     //https://github.com/facebook/shimmer-android?fbclid=IwAR2Nh9lNdj6qf2ZcehVpZdf2qNj9XurX2DF41XawvtDqyuLVxAdlJcJl9Ug
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
 
+    // Android lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }

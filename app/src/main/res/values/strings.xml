@@ -14,4 +14,12 @@
     <string name="title_see_all">See All</string>
     <string name="title_new_products">New Products</string>
     <string name="title_popular_products">Popular Products</string>
+    <string name="Error_username_empty">Please Enter Username!</string>
+    <string name="Error_email_empty">Please Enter Your Email!</string>
+    <string name="Error_phone_number_empty">Please Enter Your Phone Number!</string>
+    <string name="Error_password_empty">Please Enter Password!</string>
+    <string name="Error_confirm_password_empty">Please Confirm Password!</string>
+    <string name="Error_password_short">Password too short, enter minimum 6 characters!</string>
+    <string name="Error_password_not_match">Password does not match</string>
+    <string name="title_logout_successfully">Logout Successfully!</string>
 </resources>

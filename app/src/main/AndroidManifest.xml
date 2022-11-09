@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fani">
         <activity
-            android:name=".ui.ChangePasswordActivity"
+            android:name=".presentation.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PaymentMethodActivity"
+            android:name=".presentation.PaymentMethodActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PaymentActivity"
+            android:name=".presentation.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddAddressActivity"
+            android:name=".presentation.AddAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddressActivity"
+            android:name=".presentation.AddressActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ShowAllActivity"
+            android:name=".presentation.ShowAllActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.OnbroadingActivity"
+            android:name=".presentation.OnbroadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.DetailedActivity" />
-        <activity android:name=".ui.AboutUsActivity" />
+        <activity android:name=".presentation.main.MainActivity" />
+        <activity android:name=".presentation.login.LoginActivity" />
+        <activity android:name=".presentation.register.RegisterActivity" />
+        <activity android:name=".presentation.DetailedActivity" />
+        <activity android:name=".presentation.AboutUsActivity" />
     </application>
 
 </manifest>

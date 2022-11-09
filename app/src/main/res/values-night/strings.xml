@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by damlong on 11/9/22, 5:17 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/9/22, 5:17 PM
+  ~  */
+  -->
+
+<resources>
+    <string name="Error_username_empty">Please Enter Username!</string>
+    <string name="title_logout_successfully">Logout Successfully!</string>
+</resources>

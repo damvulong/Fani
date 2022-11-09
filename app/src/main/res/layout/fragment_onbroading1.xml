@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.onbroading.Onbroading1Fragment">
+    tools:context=".presentation.fragment.onbroading.Onbroading1Fragment">
 
     <ImageView
         android:layout_width="@dimen/_200sdp"
