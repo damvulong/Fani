@@ -93,6 +93,9 @@ public class DetailedActivity extends AppCompatActivity {
             Glide.with(getApplicationContext()).load(popularProductsModel.getImg_url()).into(detailedImg);
             name.setText(popularProductsModel.getName());
             rating.setText(popularProductsModel.getRating());
+            /**Rating bar*/
+            float numberOfStarsPopular = Float.parseFloat(popularProductsModel.getRating());
+            ratingBar.setRating(numberOfStarsPopular);
             description.setText(popularProductsModel.getDescription());
             price.setText(String.valueOf(popularProductsModel.getPrice()));
 
@@ -106,6 +109,9 @@ public class DetailedActivity extends AppCompatActivity {
             Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(detailedImg);
             name.setText(showAllModel.getName());
             rating.setText(showAllModel.getRating());
+            /**Rating bar*/
+            float numberOfStarsAllProducts = Float.parseFloat(showAllModel.getRating());
+            ratingBar.setRating(numberOfStarsAllProducts);
             description.setText(showAllModel.getDescription());
             price.setText(String.valueOf(showAllModel.getPrice()));
 
