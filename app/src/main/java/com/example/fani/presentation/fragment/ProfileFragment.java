@@ -10,13 +10,12 @@ package com.example.fani.presentation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.fani.R;
 import com.example.fani.presentation.ChangePasswordActivity;
@@ -37,12 +36,9 @@ public class ProfileFragment extends Fragment {
 
         btnChangePassword = root.findViewById(R.id.btn_change_password);
 
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                startActivity(intent);
-            }
+        btnChangePassword.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+            startActivity(intent);
         });
 
         return root;

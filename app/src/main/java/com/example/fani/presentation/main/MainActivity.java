@@ -8,40 +8,33 @@
 
 package com.example.fani.presentation.main;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 import com.example.fani.R;
-import com.example.fani.databinding.ActivityLoginBinding;
 import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.AboutUsActivity;
 import com.example.fani.presentation.fragment.CartFragment;
+import com.example.fani.presentation.fragment.FavoriteFragment;
 import com.example.fani.presentation.fragment.Home.HomeFragment;
 import com.example.fani.presentation.fragment.ProfileFragment;
-import com.example.fani.presentation.fragment.FavoriteFragment;
 import com.example.fani.presentation.login.LoginActivity;
-import com.example.fani.presentation.login.LoginViewModel;
 import com.example.fani.utils.Constants;
-import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.zoho.salesiqembed.ZohoSalesIQ;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -146,10 +139,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             binding.bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
         } else if (id == R.id.nav_logout) {
             /**Handle logout in firebase*/
-            mainViewModel.logOut();
             Intent intent = new Intent(this, LoginActivity.class);
+            /**This is handle create more activity without call back
+             * Follow this document: https://stackoverflow.com/questions/20235697/go-back-to-2nd-previous-activity
+             * */
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
+            mainViewModel.logOut();
 
         } else if (id == R.id.nav_aboutUS) {
             Intent intent = new Intent(this, AboutUsActivity.class);

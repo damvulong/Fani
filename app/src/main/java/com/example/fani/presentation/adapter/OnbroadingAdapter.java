@@ -27,13 +27,10 @@ public class OnbroadingAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
-                return new Onbroading1Fragment();
             case 1:
                 return new Onbroading2Fragment();
             case 2:
                 return new Onbroading3Fragment();
-
             default:
                 return new Onbroading1Fragment();
         }

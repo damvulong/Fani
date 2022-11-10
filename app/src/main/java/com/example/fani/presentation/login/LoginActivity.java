@@ -61,15 +61,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void checkValidationEmailAndPassword() {
         // TODO fake data to check
-        String userEmailFake = "admin@gmail.com";
-        String passwordEmailFake = "123456";
+        //String userEmailFake = "admin@gmail.com";
+        //String passwordEmailFake = "123456";
 
         String userEmail = binding.etEmail.getText().toString();
         String userPassword = binding.etPassword.getText().toString();
 
         //TODO fake data to check
-        userEmail = userEmailFake;
-        userPassword = passwordEmailFake;
+        //userEmail = userEmailFake;
+        //userPassword = passwordEmailFake;
 
         if (TextUtils.isEmpty(userEmail)) {
             Toast.makeText(this, "Please Enter Your Email!", Toast.LENGTH_SHORT).show();

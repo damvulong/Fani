@@ -17,7 +17,6 @@ import com.example.fani.R;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.data.model.ShowAllModel;
-import com.example.fani.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

@@ -8,16 +8,16 @@
 
 package com.example.fani.presentation;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import com.example.fani.R;
-import com.example.fani.presentation.adapter.ShowAllAdapter;
 import com.example.fani.data.model.ShowAllModel;
+import com.example.fani.presentation.adapter.ShowAllAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;

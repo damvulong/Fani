@@ -10,6 +10,11 @@ package com.example.fani.presentation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,16 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.example.fani.R;
-import com.example.fani.presentation.adapter.MyCartAdapter;
 import com.example.fani.data.model.MyCartModel;
 import com.example.fani.presentation.AddressActivity;
+import com.example.fani.presentation.adapter.MyCartAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,12 +97,9 @@ public class CartFragment extends Fragment {
         });
 
         btnBuyNow = root.findViewById(R.id.buy_now);
-        btnBuyNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AddressActivity.class);
-                startActivity(intent);
-            }
+        btnBuyNow.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), AddressActivity.class);
+            startActivity(intent);
         });
 
         return root;
