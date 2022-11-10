@@ -12,5 +12,6 @@ public class Constants {
     public static final String CLIENT_ID = "1000.NNFQFOI4EICNA90TO2IP5EPKT41GCM";
     public static final String CLIENT_SECRET = "1000.NNFQFOI4EICNA90TO2IP5EPKT41GCM";
 
+    public static final long TIME_REPLY = 1000;
 
 }
