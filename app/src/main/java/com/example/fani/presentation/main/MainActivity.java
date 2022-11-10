@@ -35,6 +35,8 @@ import com.example.fani.presentation.login.LoginActivity;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.Utilities;
 import com.google.android.material.navigation.NavigationView;
+import com.zoho.commons.LauncherModes;
+import com.zoho.commons.LauncherProperties;
 import com.zoho.salesiqembed.ZohoSalesIQ;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,11 +72,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
-
+        // #10 TODO https://salesiq.zoho.com/long1234/settings/brands/712564000000002056/installation/android
+        ZohoSalesIQ.init(getApplication(), Constants.APP_KEY_ZOHO, Constants.ACCESS_KEY_ZOHO);
+        //to set can moving
+        ZohoSalesIQ.setLauncherProperties(new LauncherProperties(LauncherModes.FLOATING));
+        ZohoSalesIQ.showLauncher(true);
 
         //replaceFragment(new HomeFragment());
-        ZohoSalesIQ.init(getApplication(), Constants.APP_KEY, Constants.ACCESS_KEY);
-        ZohoSalesIQ.showLauncher(true);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
