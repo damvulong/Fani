@@ -27,7 +27,7 @@ Throught this document of android: https://developer.android.com/topic/architect
 
 ## Demo
 
---> TODO: Convert MP4 to gif
+https://github.com/damvulong/Fani/blob/master/315242255_8275081525866441_520774160253841731_n.gif
 
 
 ## Tech Stack
