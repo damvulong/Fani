@@ -25,6 +25,7 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:src="@drawable/amongus"
+            android:layout_centerHorizontal="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +38,8 @@
             android:text="Product Name"
             android:textSize="@dimen/_17sdp"
             android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/popular_img" />
@@ -56,6 +59,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
+                android:layout_centerHorizontal="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -68,6 +72,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
+                android:layout_centerHorizontal="true"
                 app:layout_constraintBottom_toBottomOf="@+id/dollar"
                 app:layout_constraintStart_toEndOf="@id/dollar"
                 app:layout_constraintTop_toTopOf="@id/dollar" />

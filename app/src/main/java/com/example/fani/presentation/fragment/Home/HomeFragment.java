@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db;
 
     private ShimmerFrameLayout mCategory;
+    private ShimmerFrameLayout mAllProducts;
 
 
     public HomeFragment() {
@@ -94,12 +95,14 @@ public class HomeFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         mCategory = root.findViewById(R.id.sflCategory);
+        mAllProducts = root.findViewById(R.id.sflAllProducts);
 
         InitConfig initConfig = new InitConfig();
         initConfig.setFont(Fonts.REGULAR, "Error");
 
         // init view when loading data
         mCategory.startShimmer();
+        mAllProducts.startShimmer();
 
         //event click See All Category
         catShowAll.setOnClickListener(view -> {
@@ -193,6 +196,8 @@ public class HomeFragment extends Fragment {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             PopularProductsModel popularProductsModel = document.toObject(PopularProductsModel.class);
                             popularProductsModelList.add(popularProductsModel);
+                            mAllProducts.setVisibility(View.GONE);
+                            popularProductsRecyclerview.setVisibility(View.VISIBLE);
                             popularProductsAdapter.notifyDataSetChanged();
                         }
                     } else {

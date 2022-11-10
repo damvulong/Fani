@@ -47,7 +47,6 @@
 
         </LinearLayout>
 
-
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/sflCategory"
             android:layout_width="match_parent"
@@ -89,7 +88,6 @@
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="5dp">
-
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -133,7 +131,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -160,6 +158,36 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/sflAllProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/shimmer_placeholder_all_products"></include>
+
+                    <include layout="@layout/shimmer_placeholder_all_products"></include>
+
+                    <include layout="@layout/shimmer_placeholder_all_products"></include>
+
+                    <include layout="@layout/shimmer_placeholder_all_products"></include>
+
+                    <include layout="@layout/shimmer_placeholder_all_products"></include>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_popular"
                 android:layout_width="wrap_content"
@@ -171,7 +199,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="3"
                 tools:listitem="@layout/new_products" />
-        </LinearLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 
