@@ -3,10 +3,12 @@
 package com.example.fani.data.repositories;
 
 import android.app.Application;
+import android.os.SystemClock;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.fani.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,6 +20,7 @@ public class AuthAppRepository {
     private MutableLiveData<FirebaseUser> userLiveData;
     private MutableLiveData<Boolean> loggedOutLiveData;
 
+    private long mLastClickTime = 0;
 
     public AuthAppRepository(Application application) {
         this.application = application;
@@ -35,6 +38,10 @@ public class AuthAppRepository {
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < Constants.TIME_REPLY) {
+                        return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
                     if (task.isSuccessful()) {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                         Toast.makeText(application.getApplicationContext(), "Login Successfully!", Toast.LENGTH_SHORT).show();
