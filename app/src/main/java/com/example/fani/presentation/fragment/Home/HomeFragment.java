@@ -34,6 +34,7 @@ import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
+import com.example.fani.utils.LogUtil;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,7 +75,6 @@ public class HomeFragment extends Fragment {
     private ShimmerFrameLayout mCategory;
     private ShimmerFrameLayout mAllProducts;
     private ShimmerFrameLayout mNewProducts;
-
 
 
     public HomeFragment() {
@@ -164,6 +164,7 @@ public class HomeFragment extends Fragment {
                         }
                     } else {
                         Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        LogUtil.e("" + task.getException());
                     }
                 });
 
@@ -187,6 +188,7 @@ public class HomeFragment extends Fragment {
                         }
                     } else {
                         Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        LogUtil.e("" + task.getException());
                     }
                 });
 
@@ -209,6 +211,7 @@ public class HomeFragment extends Fragment {
                         }
                     } else {
                         Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        LogUtil.e("" + task.getException());
                     }
                 });
         return root;

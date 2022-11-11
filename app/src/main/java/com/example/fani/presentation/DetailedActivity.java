@@ -1,15 +1,12 @@
 package com.example.fani.presentation;
 
+import static com.example.fani.R.string.message_add_to_favorite;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -17,27 +14,20 @@ import com.example.fani.R;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.data.model.ShowAllModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.fani.databinding.ActivityDetailedBinding;
+import com.example.fani.utils.Constants;
+import com.example.fani.utils.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
 public class DetailedActivity extends AppCompatActivity {
 
-    ImageView detailedImg;
-    TextView rating, name, description, price, quantity;
-    Button addToCart;
-    ImageView addItems, removeItems;
-    ImageButton addFav;
-    RatingBar ratingBar;
+    private ActivityDetailedBinding binding;
 
     int totalQuantity = 1;
     int totalPrice = 0;
-
-    String TextQuantity = "";
 
     //New Products
     NewProductsModel newProductsModel = null;
@@ -58,6 +48,12 @@ public class DetailedActivity extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_detailed);
 
+        /* setup view biding
+         Document: https://developer.android.com/topic/libraries/view-binding*/
+        binding = ActivityDetailedBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         initUI();
 
         final Object obj = getIntent().getSerializableExtra("detailed");
@@ -70,50 +66,50 @@ public class DetailedActivity extends AppCompatActivity {
             showAllModel = (ShowAllModel) obj;
         }
 
-        //New Products
+        /*New Products*/
         if (newProductsModel != null) {
-            Glide.with(getApplicationContext()).load(newProductsModel.getImg_url()).into(detailedImg);
-            name.setText(newProductsModel.getName());
-            rating.setText(newProductsModel.getRating());
+            Glide.with(getApplicationContext()).load(newProductsModel.getImg_url()).into(binding.imgDetail);
+            binding.txtNameDetail.setText(newProductsModel.getName());
+            binding.txtRating.setText(newProductsModel.getRating());
 
-            /**Rating bar*/
+            /*Rating bar*/
             float numberOfStars = Float.parseFloat(newProductsModel.getRating());
-            ratingBar.setRating(numberOfStars);
+            binding.rbRatingStar.setRating(numberOfStars);
 
-            description.setText(newProductsModel.getDescription());
-            price.setText(String.valueOf(newProductsModel.getPrice()));
+            binding.txtDetailedDesc.setText(newProductsModel.getDescription());
+            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(newProductsModel.getPrice())));
 
             textImg = newProductsModel.getImg_url();
 
             totalPrice = newProductsModel.getPrice() * totalQuantity;
         }
 
-        //Popular Products
+        /*Popular Products*/
         if (popularProductsModel != null) {
-            Glide.with(getApplicationContext()).load(popularProductsModel.getImg_url()).into(detailedImg);
-            name.setText(popularProductsModel.getName());
-            rating.setText(popularProductsModel.getRating());
-            /**Rating bar*/
+            Glide.with(getApplicationContext()).load(popularProductsModel.getImg_url()).into(binding.imgDetail);
+            binding.txtNameDetail.setText(popularProductsModel.getName());
+            binding.txtRating.setText(popularProductsModel.getRating());
+            /*Rating bar*/
             float numberOfStarsPopular = Float.parseFloat(popularProductsModel.getRating());
-            ratingBar.setRating(numberOfStarsPopular);
-            description.setText(popularProductsModel.getDescription());
-            price.setText(String.valueOf(popularProductsModel.getPrice()));
+            binding.rbRatingStar.setRating(numberOfStarsPopular);
+            binding.txtDetailedDesc.setText(popularProductsModel.getDescription());
+            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(popularProductsModel.getPrice())));
 
             textImg = popularProductsModel.getImg_url();
 
             totalPrice = popularProductsModel.getPrice() * totalQuantity;
         }
 
-        //Show All Products
+        /*Show All Products*/
         if (showAllModel != null) {
-            Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(detailedImg);
-            name.setText(showAllModel.getName());
-            rating.setText(showAllModel.getRating());
-            /**Rating bar*/
+            Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(binding.imgDetail);
+            binding.txtNameDetail.setText(showAllModel.getName());
+            binding.txtRating.setText(showAllModel.getRating());
+            /*Rating bar*/
             float numberOfStarsAllProducts = Float.parseFloat(showAllModel.getRating());
-            ratingBar.setRating(numberOfStarsAllProducts);
-            description.setText(showAllModel.getDescription());
-            price.setText(String.valueOf(showAllModel.getPrice()));
+            binding.rbRatingStar.setRating(numberOfStarsAllProducts);
+            binding.txtDetailedDesc.setText(showAllModel.getDescription());
+            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(showAllModel.getPrice())));
 
             textImg = showAllModel.getImg_url();
 
@@ -121,16 +117,16 @@ public class DetailedActivity extends AppCompatActivity {
         }
 
         //Event Add to Cart
-        addToCart.setOnClickListener(view -> addToCart());
+        binding.btnAddToCart.setOnClickListener(view12 -> addToCart());
 
         //Event Add to Favorite
-        addFav.setOnClickListener(view -> addToFav());
+        binding.btnFavorite.setOnClickListener(view2 -> addToFav());
 
         //Plus item
-        addItems.setOnClickListener(view -> {
+        binding.btnAddItem.setOnClickListener(view3 -> {
             if (totalQuantity < 10) {
                 totalQuantity++;
-                quantity.setText(String.valueOf(totalQuantity));
+                binding.txtQuantity.setText(String.valueOf(totalQuantity));
 
                 if (newProductsModel != null) {
                     totalPrice = newProductsModel.getPrice() * totalQuantity;
@@ -145,13 +141,10 @@ public class DetailedActivity extends AppCompatActivity {
         });
 
         //Minus item
-        removeItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (totalQuantity > 1) {
-                    totalQuantity--;
-                    quantity.setText((String.valueOf(totalQuantity)));
-                }
+        binding.btnRemoveItem.setOnClickListener(view1 -> {
+            if (totalQuantity > 1) {
+                totalQuantity--;
+                binding.txtQuantity.setText((String.valueOf(totalQuantity)));
             }
         });
     }
@@ -163,16 +156,13 @@ public class DetailedActivity extends AppCompatActivity {
 
         //TODO put img
         favMap.put("img_url", textImg);
-        favMap.put("productName", name.getText().toString());
-        favMap.put("productPrice", price.getText().toString());
+        favMap.put("productName", binding.txtNameDetail.getText().toString());
+        favMap.put("productPrice", binding.txtPrice.getText().toString());
 
-
-        firestore.collection("AddToFav").add(favMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                Toast.makeText(DetailedActivity.this, "Added To Favorite", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        firestore.collection("AddToFav").add(favMap).addOnCompleteListener(task -> {
+            Toast.makeText(DetailedActivity.this, message_add_to_favorite, Toast.LENGTH_SHORT).show();
+            //TODO
+            finish();
         });
     }
 
@@ -183,8 +173,8 @@ public class DetailedActivity extends AppCompatActivity {
 
         //TODO put img
         cartMap.put("img_url", textImg);
-        cartMap.put("productName", name.getText().toString());
-        cartMap.put("productPrice", price.getText().toString());
+        cartMap.put("productName", binding.txtNameDetail.getText().toString());
+        cartMap.put("productPrice", binding.txtPrice.getText().toString());
         cartMap.put("totalQuantity", totalQuantity);
         cartMap.put("totalPrice", totalPrice);
 
@@ -197,22 +187,6 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        detailedImg = findViewById(R.id.detailed_img);
-        name = findViewById(R.id.detailed_name);
-        description = findViewById(R.id.detailed_desc);
-        rating = findViewById(R.id.rating);
-        price = findViewById(R.id.price);
-        quantity = findViewById(R.id.quantity);
-
-        addItems = findViewById(R.id.add_item);
-        removeItems = findViewById(R.id.remove_item);
-
-        ratingBar = findViewById(R.id.detailed_rating);
-
-        addToCart = findViewById(R.id.add_to_cart);
-
-        addFav = findViewById(R.id.ib_add_fav);
-
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
     }

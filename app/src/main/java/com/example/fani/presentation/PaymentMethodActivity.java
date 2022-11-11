@@ -9,6 +9,7 @@
 package com.example.fani.presentation;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.fani.R;
+import com.example.fani.databinding.ActivityDetailedBinding;
+import com.example.fani.databinding.ActivityPaymentMethodBinding;
 import com.example.fani.presentation.fragment.CartFragment;
 import com.example.fani.utils.LogUtil;
 import com.razorpay.Checkout;
@@ -26,22 +29,26 @@ import org.json.JSONObject;
 
 public class PaymentMethodActivity extends AppCompatActivity implements PaymentResultListener {
 
-    Toolbar toolbar;
-    Button btnPaypal;
-    Button btnRazorpay;
+    private ActivityPaymentMethodBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_method);
-        initUI();
+
+           /* setup view biding
+         Document: https://developer.android.com/topic/libraries/view-binding*/
+        binding = ActivityPaymentMethodBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+
 
         //Toolbar
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.tbMethod);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Pay by RazorPay
-        btnRazorpay.setOnClickListener(view -> {
+        binding.btnPayRazorpay.setOnClickListener(view1 -> {
             Checkout checkout = new Checkout();
 
             checkout.setKeyID("rzp_test_L4tt6SFP4UJPVt");
@@ -87,11 +94,5 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     @Override
     public void onPaymentError(int i, String s) {
         Toast.makeText(this, "Payment Cancel", Toast.LENGTH_SHORT).show();
-    }
-
-    private void initUI() {
-        toolbar = findViewById(R.id.method_toolbar);
-        btnPaypal = findViewById(R.id.pay_paypal);
-        btnRazorpay = findViewById(R.id.pay_razorpay);
     }
 }
