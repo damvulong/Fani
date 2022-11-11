@@ -21,6 +21,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            //Zoho
+            buildConfigField("String", "APP_KEY_ZOHO", "\"VaD9WWDrd%2BUyNrCbSciPRlNUzJUe57RfG9NWSham%2FDfeh3%2F0hvSx8CyTm%2BwHDCPz\"")
+            buildConfigField("String", "ACCESS_KEY_ZOHO", "\"VXYedrQX8SngHF5fh8GrF%2FruDPIO8ho5FievuUc9V%2F0C7dpQpYAZafQqpH3%2BoP9%2FzlUeqWPkSrZ2L0Wv53c8AQCQoWZwHcVtnRbPdM3D1squctAlSNZSNBosYqmg2vxdJjnWQe1bmo4%2BM9SyMqEcWq3%2B0ClJaj9X\"")
+
+            //RazorPay
+            buildConfigField("String", "APP_KEY_RAZORPAY", "\"rzp_test_L4tt6SFP4UJPVt\"")
+
+
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -74,4 +84,7 @@ dependencies {
 
     // Android lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    // Momo pay
+    implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
 }

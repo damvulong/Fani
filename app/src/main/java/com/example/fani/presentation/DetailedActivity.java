@@ -2,6 +2,7 @@ package com.example.fani.presentation;
 
 import static com.example.fani.R.string.message_add_to_favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.data.model.ShowAllModel;
 import com.example.fani.databinding.ActivityDetailedBinding;
+import com.example.fani.presentation.main.MainActivity;
+import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
@@ -117,7 +120,11 @@ public class DetailedActivity extends AppCompatActivity {
         }
 
         //Event Add to Cart
-        binding.btnAddToCart.setOnClickListener(view12 -> addToCart());
+
+        binding.btnAddToCart.setOnClickListener(view12 -> {
+            addToCart();
+            startActivity(new Intent(DetailedActivity.this, MainActivity.class));
+        });
 
         //Event Add to Favorite
         binding.btnFavorite.setOnClickListener(view2 -> addToFav());
@@ -162,7 +169,7 @@ public class DetailedActivity extends AppCompatActivity {
         firestore.collection("AddToFav").add(favMap).addOnCompleteListener(task -> {
             Toast.makeText(DetailedActivity.this, message_add_to_favorite, Toast.LENGTH_SHORT).show();
             //TODO
-            finish();
+           // finish();
         });
     }
 
@@ -182,7 +189,8 @@ public class DetailedActivity extends AppCompatActivity {
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").add(cartMap).addOnCompleteListener(task -> {
                     Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
-                    finish();
+             //       finish();
+
                 });
     }
 

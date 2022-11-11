@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.AboutUsActivity;
@@ -32,7 +33,6 @@ import com.example.fani.presentation.fragment.FavoriteFragment;
 import com.example.fani.presentation.fragment.Home.HomeFragment;
 import com.example.fani.presentation.fragment.ProfileFragment;
 import com.example.fani.presentation.login.LoginActivity;
-import com.example.fani.utils.Constants;
 import com.example.fani.utils.Utilities;
 import com.google.android.material.navigation.NavigationView;
 import com.zoho.commons.LauncherModes;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         // #10 TODO https://salesiq.zoho.com/long1234/settings/brands/712564000000002056/installation/android
-        ZohoSalesIQ.init(getApplication(), Constants.APP_KEY_ZOHO, Constants.ACCESS_KEY_ZOHO);
+        ZohoSalesIQ.init(getApplication(), BuildConfig.APP_KEY_ZOHO, BuildConfig.ACCESS_KEY_ZOHO);
         //to set can moving
         ZohoSalesIQ.setLauncherProperties(new LauncherProperties(LauncherModes.FLOATING));
         ZohoSalesIQ.showLauncher(true);
