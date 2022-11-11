@@ -73,6 +73,8 @@ public class HomeFragment extends Fragment {
 
     private ShimmerFrameLayout mCategory;
     private ShimmerFrameLayout mAllProducts;
+    private ShimmerFrameLayout mNewProducts;
+
 
 
     public HomeFragment() {
@@ -96,6 +98,7 @@ public class HomeFragment extends Fragment {
 
         mCategory = root.findViewById(R.id.sflCategory);
         mAllProducts = root.findViewById(R.id.sflAllProducts);
+        mNewProducts = root.findViewById(R.id.sflNewProducts);
 
         InitConfig initConfig = new InitConfig();
         initConfig.setFont(Fonts.REGULAR, "Error");
@@ -103,6 +106,8 @@ public class HomeFragment extends Fragment {
         // init view when loading data
         mCategory.startShimmer();
         mAllProducts.startShimmer();
+        mNewProducts.startShimmer();
+
 
         //event click See All Category
         catShowAll.setOnClickListener(view -> {
@@ -176,6 +181,8 @@ public class HomeFragment extends Fragment {
 
                             NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
                             newProductsModelList.add(newProductsModel);
+                            mNewProducts.setVisibility(View.GONE);
+                            newProductsRecyclerview.setVisibility(View.VISIBLE);
                             newProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
