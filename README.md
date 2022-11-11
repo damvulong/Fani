@@ -3,7 +3,7 @@
 
 This is an application e-commerce platform which relate to decor or furniture of home. Base on the clean architech MVVM and SOLID.
 
-![Logo](https://cdn-icons-png.flaticon.com/512/780/780284.png | width=100)
+![Logo](https://cdn-icons-png.flaticon.com/512/780/780284.png =250x250)
 
 
 ## Features
