@@ -152,15 +152,6 @@ public class HomeFragment extends Fragment {
         catRecyclerview.setHasFixedSize(true);
         catRecyclerview.setAdapter(categoryAdapter);
 
-        /*Get category via viewModel*/
-/*        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(),categoryModelList ->{
-            categoryAdapter = new CategoryAdapter(getActivity(), categoryModelList);
-            catRecyclerview.setAdapter(categoryAdapter);
-            mCategory.setVisibility(View.GONE);
-            catRecyclerview.setVisibility(View.VISIBLE);
-            categoryAdapter.notifyDataSetChanged();
-        });*/
-
         homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(List<CategoryModel> categoryModelList) {
@@ -170,25 +161,6 @@ public class HomeFragment extends Fragment {
                 categoryAdapter.notifyDataSetChanged();
             }
         });
-
-/*        db.collection("Category")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            CategoryModel categoryModel = document.toObject(CategoryModel.class);
-                            categoryModelList.add(categoryModel);
-                            mCategory.setVisibility(View.GONE);
-                            catRecyclerview.setVisibility(View.VISIBLE);
-                            categoryAdapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
-                        LogUtil.e("" + task.getException());
-                    }
-                });*/
-
 
         //New Products
         newProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
