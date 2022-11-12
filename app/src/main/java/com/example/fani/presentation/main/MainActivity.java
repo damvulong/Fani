@@ -27,7 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityMainBinding;
-import com.example.fani.presentation.AboutUsActivity;
+import com.example.fani.presentation.aboutus.AboutUsActivity;
 import com.example.fani.presentation.fragment.CartFragment;
 import com.example.fani.presentation.fragment.FavoriteFragment;
 import com.example.fani.presentation.fragment.Home.HomeFragment;
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FRAGMENT_PROFILE = 3;
 
     private int mCurrentFragment = FRAGMENT_HOME;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

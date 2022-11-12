@@ -9,6 +9,7 @@
 package com.example.fani.presentation;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,27 +17,35 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.R;
+import com.example.fani.databinding.ActivityChangePasswordBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-    Button btnChangeNewPass;
-    EditText etNewPass;
+    private ActivityChangePasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
 
-        btnChangeNewPass = findViewById(R.id.btn_change_new_password);
-        etNewPass = findViewById(R.id.et_new_password);
+        /** Setup view biding
+         Document: https://developer.android.com/topic/libraries/view-binding*/
+        binding = ActivityChangePasswordBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        btnChangeNewPass.setOnClickListener(view -> onClickChangePassword());
+        handleEvent();
+    }
+
+    private void handleEvent() {
+        binding.btnChangeNewPassword.setOnClickListener(view -> {
+            onClickChangePassword();
+        });
     }
 
     private void onClickChangePassword() {
-        String newPass = etNewPass.getText().toString();
+        String newPass = binding.etNewPassword.getText().toString();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         user.updatePassword(newPass)

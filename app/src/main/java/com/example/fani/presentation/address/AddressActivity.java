@@ -1,15 +1,16 @@
 /*
  * *
- *  * Created by damvulong on 4/20/22, 5:52 AM
+ *  * Created by damvulong on 11/12/22, 8:55 PM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 4/20/22, 5:52 AM
+ *  * Last modified 11/12/22, 7:28 PM
  *
  */
 
-package com.example.fani.presentation;
+package com.example.fani.presentation.address;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fani.R;
 import com.example.fani.data.model.AddressModel;
+import com.example.fani.databinding.ActivityAddressBinding;
+import com.example.fani.presentation.addaddress.AddAddressActivity;
 import com.example.fani.presentation.adapter.AddressAdapter;
+import com.example.fani.presentation.payment.PaymentActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,10 +36,8 @@ import java.util.List;
 
 public class AddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress {
 
-    Button addAddress;
-    Button payment;
+    private ActivityAddressBinding binding;
 
-    RecyclerView recyclerView;
     private List<AddressModel> addressModelList;
     private AddressAdapter addressAdapter;
 
@@ -47,16 +49,22 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address);
+
+        /** Setup view biding
+         Document: https://developer.android.com/topic/libraries/view-binding*/
+        binding = ActivityAddressBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         initUI();
 
         //get Data from detailed activity
         //Object obj = getIntent().getSerializableExtra("item");
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.rvAddress.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         addressModelList = new ArrayList<>();
         addressAdapter = new AddressAdapter(getApplicationContext(), addressModelList, this);
-        recyclerView.setAdapter(addressAdapter);
+        binding.rvAddress.setAdapter(addressAdapter);
 
         firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
                 .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -65,7 +73,6 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
 
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot doc:task.getResult().getDocuments()){
-
                         AddressModel addressModel = doc.toObject(AddressModel.class);
                         addressModelList.add(addressModel);
                         addressAdapter.notifyDataSetChanged();
@@ -74,11 +81,18 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
             }
         });
 
-        //Event Add Address
-        addAddress.setOnClickListener(view -> startActivity(new Intent(AddressActivity.this, AddAddressActivity.class)));
+        handleEvent();
 
+
+    }
+
+    private void handleEvent() {
+        //Event add address
+        binding.btnAddAddress.setOnClickListener(view -> {
+            startActivity(new Intent(AddressActivity.this, AddAddressActivity.class));
+        });
         //Event Payment
-        payment.setOnClickListener(view -> {
+        binding.btnPayment.setOnClickListener(view -> {
 
             /*double amount = 0.0;
 
@@ -108,14 +122,7 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
 
         });
     }
-
     private void initUI() {
-
-        addAddress = findViewById(R.id.btn_add_address);
-        payment = findViewById(R.id.btn_payment);
-
-        recyclerView = findViewById(R.id.rcv_address);
-
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
     }
