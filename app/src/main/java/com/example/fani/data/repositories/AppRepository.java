@@ -20,7 +20,6 @@ public class AppRepository {
     OnFirebaseStoreTaskComplete onFirebaseStoreTaskComplete;
     private CollectionReference categoryRef = mFirestore.collection("Category");
 
-
     public AppRepository(OnFirebaseStoreTaskComplete onFirebaseStoreTaskComplete) {
         this.onFirebaseStoreTaskComplete = onFirebaseStoreTaskComplete;
     }
@@ -37,7 +36,6 @@ public class AppRepository {
 
     public interface OnFirebaseStoreTaskComplete {
         void categoryDataAdded(List<CategoryModel> categoryModelList);
-
         void onError(Exception e);
     }
 
