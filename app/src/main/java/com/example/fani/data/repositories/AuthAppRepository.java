@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fani.utils.Constants;
+import com.example.fani.utils.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,6 +35,7 @@ public class AuthAppRepository {
         }
     }
 
+
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
@@ -56,7 +58,7 @@ public class AuthAppRepository {
                     if (task.isSuccessful()) {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                     } else {
-                        Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage());
                     }
                 });
     }
@@ -64,12 +66,12 @@ public class AuthAppRepository {
     public void forgotPassword(String email) {
         firebaseAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
-                        if (task.isSuccessful()) {
-                            userLiveData.postValue(firebaseAuth.getCurrentUser());
-                            Toast.makeText(application.getApplicationContext(), "Check your Email", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(application.getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    };
+                    if (task.isSuccessful()) {
+                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        Utilities.showToast(application.getApplicationContext(), "Check your Email");
+                    } else {
+                        Utilities.showToast(application.getApplicationContext(), "Error: " + task.getException().getMessage());
+                    }
                 });
     }
 
