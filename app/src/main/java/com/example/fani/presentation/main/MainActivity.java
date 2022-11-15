@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
+import com.example.fani.data.State.FragmentState;
 import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.aboutUs.AboutUsActivity;
 import com.example.fani.presentation.fragment.CartFragment;
@@ -45,12 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //init View Model
     private MainViewModel mainViewModel;
 
-    private static final int FRAGMENT_HOME = 0;
-    private static final int FRAGMENT_FAVORITE = 1;
-    private static final int FRAGMENT_CART = 2;
-    private static final int FRAGMENT_PROFILE = 3;
-
-    private int mCurrentFragment = FRAGMENT_HOME;
+    private int mCurrentFragment = FragmentState.home.value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,30 +158,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void openHomeFragment() {
-        if (mCurrentFragment != FRAGMENT_HOME) {
+        if (mCurrentFragment != FragmentState.home.value) {
             replaceFragment(new HomeFragment());
-            mCurrentFragment = FRAGMENT_HOME;
+            mCurrentFragment = FragmentState.home.value;
         }
     }
 
     private void openFavoriteFragment() {
-        if (mCurrentFragment != FRAGMENT_FAVORITE) {
+        if (mCurrentFragment != FragmentState.favorite.value) {
             replaceFragment(new FavoriteFragment());
-            mCurrentFragment = FRAGMENT_FAVORITE;
+            mCurrentFragment = FragmentState.favorite.value;
         }
     }
 
     private void openCartFragment() {
-        if (mCurrentFragment != FRAGMENT_CART) {
+        if (mCurrentFragment != FragmentState.cart.value) {
             replaceFragment(new CartFragment());
-            mCurrentFragment = FRAGMENT_CART;
+            mCurrentFragment = FragmentState.cart.value;
         }
     }
 
     private void openProfileFragment() {
-        if (mCurrentFragment != FRAGMENT_PROFILE) {
+        if (mCurrentFragment != FragmentState.profile.value) {
             replaceFragment(new ProfileFragment());
-            mCurrentFragment = FRAGMENT_PROFILE;
+            mCurrentFragment = FragmentState.profile.value;
         }
     }
 
