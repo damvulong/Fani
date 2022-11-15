@@ -12,6 +12,8 @@ import com.example.fani.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import javax.inject.Inject;
+
 public class AuthAppRepository {
 
     private Application application;
@@ -22,6 +24,7 @@ public class AuthAppRepository {
 
     private long mLastClickTime = 0;
 
+    @Inject
     public AuthAppRepository(Application application) {
         this.application = application;
         this.firebaseAuth = FirebaseAuth.getInstance();
@@ -33,7 +36,6 @@ public class AuthAppRepository {
             loggedOutLiveData.postValue(false);
         }
     }
-
 
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)

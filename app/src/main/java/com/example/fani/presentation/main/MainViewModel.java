@@ -16,12 +16,18 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.fani.data.repositories.AuthAppRepository;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class MainViewModel extends AndroidViewModel {
 
     //init
     private AuthAppRepository authAppRepository;
     private MutableLiveData<Boolean> loggedOutLiveData;
 
+    @Inject
     public MainViewModel(@NonNull Application application) {
         super(application);
         authAppRepository = new AuthAppRepository(application);

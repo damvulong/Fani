@@ -10,46 +10,43 @@ package com.example.fani.presentation.fragment.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.fani.R;
-import com.example.fani.presentation.adapter.CategoryAdapter;
-import com.example.fani.presentation.adapter.NewProductsAdapter;
-import com.example.fani.presentation.adapter.PopularProductsAdapter;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
+import com.example.fani.presentation.adapter.CategoryAdapter;
+import com.example.fani.presentation.adapter.NewProductsAdapter;
+import com.example.fani.presentation.adapter.PopularProductsAdapter;
 import com.example.fani.utils.LogUtil;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.zoho.commons.Fonts;
 import com.zoho.commons.InitConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
     TextView catShowAll;
@@ -91,6 +88,8 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         //define viewModel
+        // mWordViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(WordViewModel.class);
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         catRecyclerview = root.findViewById(R.id.rcv_category);
@@ -152,14 +151,12 @@ public class HomeFragment extends Fragment {
         catRecyclerview.setHasFixedSize(true);
         catRecyclerview.setAdapter(categoryAdapter);
 
-        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
-            @Override
-            public void onChanged(List<CategoryModel> categoryModelList) {
-                categoryAdapter.setCategoryListModels(categoryModelList);
-                mCategory.setVisibility(View.GONE);
-                catRecyclerview.setVisibility(View.VISIBLE);
-                categoryAdapter.notifyDataSetChanged();
-            }
+        homeViewModel.getCategories();
+        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), categoryModelList -> {
+            categoryAdapter.setCategoryListModels(categoryModelList);
+            mCategory.setVisibility(View.GONE);
+            catRecyclerview.setVisibility(View.VISIBLE);
+            categoryAdapter.notifyDataSetChanged();
         });
 
         //New Products
