@@ -34,6 +34,7 @@ import vn.momo.momo_partner.MoMoParameterNameMap;
 public class PaymentMethodActivity extends AppCompatActivity implements PaymentResultListener {
 
     private ActivityPaymentMethodBinding binding;
+
     private String username = "Fani Furniture App";
     private String clientId = "billid_89733120112";
     private String partnerCode = "FANI";

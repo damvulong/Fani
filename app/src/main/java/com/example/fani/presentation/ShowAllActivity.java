@@ -9,6 +9,7 @@
 package com.example.fani.presentation;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fani.R;
 import com.example.fani.data.model.ShowAllModel;
+import com.example.fani.databinding.ActivityShowAllBinding;
 import com.example.fani.presentation.adapter.ShowAllAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +31,8 @@ import java.util.List;
 
 public class ShowAllActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+    private ActivityShowAllBinding binding;
+
     ShowAllAdapter showAllAdapter;
     List<ShowAllModel> showAllModelList;
 
@@ -38,15 +41,22 @@ public class ShowAllActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all);
+
+        /** Setup view biding
+         Document: https://developer.android.com/topic/libraries/view-binding*/
+        binding = ActivityShowAllBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+
+        setContentView(view);
+
         initUI();
 
         String type= getIntent().getStringExtra("type");
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.rcvShowAll.setLayoutManager(new GridLayoutManager(this, 2));
         showAllModelList = new ArrayList<>();
         showAllAdapter = new ShowAllAdapter(this, showAllModelList);
-        recyclerView.setAdapter(showAllAdapter);
+        binding.rcvShowAll.setAdapter(showAllAdapter);
 
         if (type == null || type.isEmpty()) {
             firestore.collection("ShowAll")
@@ -153,8 +163,6 @@ public class ShowAllActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        recyclerView = findViewById(R.id.rcv_show_all);
-
         firestore = FirebaseFirestore.getInstance();
     }
 }

@@ -142,10 +142,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            tools:text="@string/title_price"
             android:textColor="@color/black"
             android:textSize="@dimen/_25sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/title_price" />
 
         <Button
             android:id="@+id/btnAddToCart"

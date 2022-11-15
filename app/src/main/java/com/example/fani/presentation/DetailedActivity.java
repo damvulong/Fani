@@ -49,9 +49,8 @@ public class DetailedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_detailed);
 
-        /* setup view biding
+        /** setup view biding
          Document: https://developer.android.com/topic/libraries/view-binding*/
         binding = ActivityDetailedBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
