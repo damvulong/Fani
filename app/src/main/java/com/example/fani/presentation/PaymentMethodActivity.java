@@ -103,7 +103,8 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
             requestMapping();
         });
 
-
+        // Pay by Paypal
+        // https://github.com/paypal/PayPal-Android-SDK
         binding.btnPayPayPal.setOnClickListener(view13 -> {
             getPayment();
         });
@@ -111,15 +112,11 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     }
 
     private void getPayment() {
-
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(CartFragment.amount * 100)), "USD", username, PayPalPayment.PAYMENT_INTENT_SALE);
-
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
-
         startActivityForResult(intent, Constants.PAYPAL_REQUEST_CODE);
-
     }
 
     @Override
@@ -134,7 +131,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
                 try {
                     String paymentDetails = confirm.toJSONObject().toString(4);
                     JSONObject payObj = new JSONObject(paymentDetails);
-                    LogUtil.e(""+payObj);
+                    LogUtil.e("" + payObj);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     LogUtil.e("Something went wrong");

@@ -93,6 +93,7 @@ dependencies {
     implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
 
     //PayPal
+    //https://github.com/paypal/PayPal-Android-SDK
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation('com.paypal.sdk:paypal-android-sdk:2.16.0') {
         exclude group: 'io.card'
