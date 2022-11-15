@@ -2,13 +2,19 @@
 
 package com.example.fani.data.repositories;
 
+import static com.example.fani.utils.Constants.TAG;
+
 import android.app.Application;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fani.utils.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -55,6 +61,20 @@ public class AuthAppRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
                     if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        firebaseUser.sendEmailVerification()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(application.getApplicationContext(), "Veryfication Email has been sent", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                    }
+                                });
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                     } else {
                         Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
