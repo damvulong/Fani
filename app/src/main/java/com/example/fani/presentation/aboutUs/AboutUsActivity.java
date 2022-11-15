@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.fani.presentation.aboutus;
+package com.example.fani.presentation.aboutUs;
 
 import android.os.Bundle;
 import android.view.View;

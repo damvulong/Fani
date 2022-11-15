@@ -70,7 +70,6 @@ public class AuthAppRepository {
         return loggedOutLiveData;
     }
 
-
     public void logOut() {
         firebaseAuth.signOut();
         loggedOutLiveData.postValue(true);

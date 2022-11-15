@@ -40,5 +40,4 @@ public class AppRepository {
 
         void onError(Exception e);
     }
-
 }

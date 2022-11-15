@@ -66,8 +66,6 @@ public class CartFragment extends Fragment {
 
         total = root.findViewById(R.id.tv_total);
 
-
-
         recyclerView = root.findViewById(R.id.rcv_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         myCartModelList = new ArrayList<>();
@@ -110,7 +108,6 @@ public class CartFragment extends Fragment {
         for (MyCartModel myCartModel : myCartModelList) {
             totalAmount += myCartModel.getTotalPrice();
         }
-
         total.setText("Total Amount:   " + totalAmount+ "$");
         amount = totalAmount;
     }

@@ -6,9 +6,8 @@
  *
  */
 
-package com.example.fani.presentation.fragment.Home;
+package com.example.fani.presentation.fragment.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -22,10 +21,6 @@ public class HomeViewModel extends ViewModel implements AppRepository.OnFirebase
     MutableLiveData<List<CategoryModel>> categoryListMutableLiveData = new MutableLiveData<>();
 
     private AppRepository firebaseRepository = new AppRepository(this);
-
-    public LiveData<List<CategoryModel>> getQuizListModelData() {
-        return categoryListMutableLiveData;
-    }
 
     public HomeViewModel() {
         firebaseRepository.getCategoryData();

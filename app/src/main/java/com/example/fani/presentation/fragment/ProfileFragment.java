@@ -40,7 +40,6 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
             startActivity(intent);
         });
-
         return root;
     }
 }

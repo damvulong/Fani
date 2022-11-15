@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.fani.presentation.fragment.Home;
+package com.example.fani.presentation.fragment.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,11 +38,8 @@ import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
 import com.example.fani.utils.LogUtil;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.zoho.commons.Fonts;
 import com.zoho.commons.InitConfig;
 

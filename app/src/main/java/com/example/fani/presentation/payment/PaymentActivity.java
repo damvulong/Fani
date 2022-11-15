@@ -69,6 +69,5 @@ public class PaymentActivity extends AppCompatActivity {
        // card.pairInput(CardInput.HOLDER,textView);
 
        // card.pairInput();
-
     }
 }

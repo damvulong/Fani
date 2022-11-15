@@ -184,15 +184,13 @@ public class DetailedActivity extends AppCompatActivity {
         cartMap.put("totalQuantity", totalQuantity);
         cartMap.put("totalPrice", totalPrice);
 
-
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").add(cartMap).addOnCompleteListener(task -> {
                     Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
-             //       finish();
+                    finish();
 
                 });
     }
-
     private void initUI() {
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();

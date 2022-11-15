@@ -14,9 +14,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fani.R;
 import com.example.fani.data.model.ShowAllModel;
 import com.example.fani.databinding.ActivityShowAllBinding;
 import com.example.fani.presentation.adapter.ShowAllAdapter;
@@ -159,9 +157,7 @@ public class ShowAllActivity extends AppCompatActivity {
                         }
                     });
         }
-
     }
-
     private void initUI() {
         firestore = FirebaseFirestore.getInstance();
     }

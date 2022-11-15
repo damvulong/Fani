@@ -27,10 +27,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityMainBinding;
-import com.example.fani.presentation.aboutus.AboutUsActivity;
+import com.example.fani.presentation.aboutUs.AboutUsActivity;
 import com.example.fani.presentation.fragment.CartFragment;
 import com.example.fani.presentation.fragment.FavoriteFragment;
-import com.example.fani.presentation.fragment.Home.HomeFragment;
+import com.example.fani.presentation.fragment.home.HomeFragment;
 import com.example.fani.presentation.fragment.ProfileFragment;
 import com.example.fani.presentation.login.LoginActivity;
 import com.example.fani.utils.Utilities;
@@ -195,5 +195,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.contentFrameLayout, fragment);
         fragmentTransaction.commit();
     }
-
 }

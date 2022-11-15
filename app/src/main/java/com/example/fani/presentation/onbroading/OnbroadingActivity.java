@@ -56,5 +56,4 @@ public class OnbroadingActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
     }
-
 }
