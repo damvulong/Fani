@@ -34,7 +34,6 @@ public class AuthAppRepository {
         }
     }
 
-
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
@@ -59,6 +58,18 @@ public class AuthAppRepository {
                     } else {
                         Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                });
+    }
+
+    public void forgotPassword(String email) {
+        firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(application.getMainExecutor(), task -> {
+                        if (task.isSuccessful()) {
+                            userLiveData.postValue(firebaseAuth.getCurrentUser());
+                            Toast.makeText(application.getApplicationContext(), "Check your Email", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(application.getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    };
                 });
     }
 
