@@ -21,6 +21,7 @@ import com.example.fani.databinding.ActivityLoginBinding;
 import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.LogUtil;
+import com.example.fani.utils.Utilities;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,17 +73,17 @@ public class LoginActivity extends AppCompatActivity {
         //userPassword = passwordEmailFake;
 
         if (TextUtils.isEmpty(userEmail)) {
-            Toast.makeText(this, "Please Enter Your Email!", Toast.LENGTH_SHORT).show();
+            Utilities.showToast(this, "Please Enter Your Email!");
             return;
         }
 
         if (TextUtils.isEmpty(userPassword)) {
-            Toast.makeText(this, "Please Enter Password!", Toast.LENGTH_SHORT).show();
+            Utilities.showToast(this, "Please Enter Password!");
             return;
         }
 
         if (userPassword.length() < 6) {
-            Toast.makeText(this, "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+            Utilities.showToast(this, "Password too short, enter minimum 6 characters!");
             return;
         }
 

@@ -23,6 +23,7 @@ import com.example.fani.databinding.ActivityPaymentMethodBinding;
 import com.example.fani.presentation.fragment.CartFragment;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
+import com.example.fani.utils.Utilities;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -49,7 +50,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     private String clientId = "billid_89733120112";
     private String partnerCode = "FANI";
 
-    public static PayPalConfiguration configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+    public static PayPalConfiguration configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
             .clientId(BuildConfig.CLIENT_ID);
 
     @Override
@@ -112,7 +113,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     }
 
     private void getPayment() {
-        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(CartFragment.amount * 100)), "USD", username, PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(CartFragment.amount)), "USD", username, PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
@@ -125,22 +126,26 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
 
         if (requestCode == Constants.PAYPAL_REQUEST_CODE) {
 
-            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (resultCode == Activity.RESULT_OK) {
 
-            if (confirm != null) {
-                try {
-                    String paymentDetails = confirm.toJSONObject().toString(4);
-                    JSONObject payObj = new JSONObject(paymentDetails);
-                    LogUtil.e("" + payObj);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    LogUtil.e("Something went wrong");
+                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                if (confirm != null) {
+                    try {
+                        String paymentDetails = confirm.toJSONObject().toString(4);
+                        JSONObject payObj = new JSONObject(paymentDetails);
+                        LogUtil.e("" + payObj);
+                        Utilities.showToast(getApplicationContext(), "PaymentConfirmation info received from PayPal");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        LogUtil.e("Something went wrong");
+                    }
                 }
+            } else if (requestCode == Activity.RESULT_CANCELED) {
+                LogUtil.e("Something went wrong");
+            } else {
+                LogUtil.e("Something went wrong else");
             }
-        } else if (requestCode == Activity.RESULT_CANCELED) {
-            LogUtil.e("Something went wrong");
-        } else {
-            LogUtil.e("Something went wrong else");
         }
     }
 
@@ -182,5 +187,11 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     @Override
     public void onPaymentError(int i, String s) {
         Toast.makeText(this, "Payment Cancel", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
     }
 }

@@ -2,12 +2,8 @@
 
 package com.example.fani.data.repositories;
 
-import static com.example.fani.utils.Constants.TAG;
-
 import android.app.Application;
 import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -53,7 +49,7 @@ public class AuthAppRepository {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                         Utilities.showToast(application.getApplicationContext(),"Login Successfully!");
                     } else {
-                        Toast.makeText(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage());
                     }
                 });
     }
@@ -67,18 +63,18 @@ public class AuthAppRepository {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(application.getApplicationContext(), "Veryfication Email has been sent", Toast.LENGTH_SHORT).show();
+                                        Utilities.showToast(application.getApplicationContext(), "Veryfication Email has been sent");
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                        Utilities.showToast(application.getApplicationContext(), "onFailure: Email not sent " + e.getMessage());
                                     }
                                 });
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                     } else {
-                        Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage());
                     }
                 });
     }
