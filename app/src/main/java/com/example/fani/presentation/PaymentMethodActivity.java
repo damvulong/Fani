@@ -8,23 +8,33 @@
 
 package com.example.fani.presentation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityPaymentMethodBinding;
 import com.example.fani.presentation.fragment.CartFragment;
+import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +48,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
     private String username = "Fani Furniture App";
     private String clientId = "billid_89733120112";
     private String partnerCode = "FANI";
+
+    public static PayPalConfiguration configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(BuildConfig.CLIENT_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +95,56 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
             }
         });
 
-       /* Pay by momo
-        TODO https://business.momo.vn/ need to merchantName from momo
-        Currently due to system maintenance*/
+
+        // Pay by momo
+        // TODO https://business.momo.vn/ need to merchantName from momo
+        // Currently due to system maintenance
         binding.btnPayMomo.setOnClickListener(view12 -> {
             requestMapping();
         });
+
+
+        binding.btnPayPayPal.setOnClickListener(view13 -> {
+            getPayment();
+        });
+
+    }
+
+    private void getPayment() {
+
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(CartFragment.amount * 100)), "USD", username, PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
+
+        startActivityForResult(intent, Constants.PAYPAL_REQUEST_CODE);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constants.PAYPAL_REQUEST_CODE) {
+
+            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+            if (confirm != null) {
+                try {
+                    String paymentDetails = confirm.toJSONObject().toString(4);
+                    JSONObject payObj = new JSONObject(paymentDetails);
+                    LogUtil.e(""+payObj);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    LogUtil.e("Something went wrong");
+                }
+            }
+        } else if (requestCode == Activity.RESULT_CANCELED) {
+            LogUtil.e("Something went wrong");
+        } else {
+            LogUtil.e("Something went wrong else");
+        }
     }
 
     private void requestMapping() {

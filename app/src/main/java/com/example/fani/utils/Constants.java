@@ -10,5 +10,6 @@ public class Constants {
     public static final String CLIENT_SECRET = "1000.NNFQFOI4EICNA90TO2IP5EPKT41GCM";
 
     public static final long TIME_REPLY = 1000;
+    public static final int PAYPAL_REQUEST_CODE = 123;
 
 }

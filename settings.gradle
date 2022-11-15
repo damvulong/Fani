@@ -12,6 +12,15 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.zohodl.com' }
+        maven {
+            url  "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+            credentials {
+                // Be sure to add these non-sensitive credentials in order to retrieve dependencies from
+                // the private repository.
+                username mavanUsername
+                password mavanPassword
+            }
+        }
     }
 }
 rootProject.name = "Fani"
