@@ -29,11 +29,15 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<CategoryModel> list;
+    private List<CategoryModel> categoryModelList ;
 
-    public CategoryAdapter(Context context, List<CategoryModel> list) {
+    public void setCategoryListModels(List<CategoryModel> categoryModelList) {
+        this.categoryModelList = categoryModelList;
+    }
+
+    public CategoryAdapter(Context context) {
         this.context = context;
-        this.list = list;
+
     }
 
     @NonNull
@@ -45,14 +49,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.catImg);
-        holder.catName.setText(list.get(position).getName());
+        Glide.with(context).load(categoryModelList.get(position).getImg_url()).into(holder.catImg);
+        holder.catName.setText(categoryModelList.get(position).getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ShowAllActivity.class);
-                intent.putExtra("type", list.get(holder.getAdapterPosition()).getType());
+                intent.putExtra("type", categoryModelList.get(holder.getAdapterPosition()).getType());
                 context.startActivity(intent);
             }
         });
@@ -61,7 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return categoryModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
