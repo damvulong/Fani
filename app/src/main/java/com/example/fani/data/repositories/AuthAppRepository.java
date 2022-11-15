@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fani.utils.Constants;
+import com.example.fani.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +51,7 @@ public class AuthAppRepository {
                     mLastClickTime = SystemClock.elapsedRealtime();
                     if (task.isSuccessful()) {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
-                        Toast.makeText(application.getApplicationContext(), "Login Successfully!", Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(),"Login Successfully!");
                     } else {
                         Toast.makeText(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
