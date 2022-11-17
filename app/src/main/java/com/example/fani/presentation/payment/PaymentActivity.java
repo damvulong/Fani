@@ -19,7 +19,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityPaymentBinding;
+import com.example.fani.databinding.FragmentCartBinding;
 import com.example.fani.presentation.PaymentMethodActivity;
+import com.example.fani.presentation.fragment.CartFragment;
 import com.maxpilotto.creditcardview.CreditCardView;
 import com.maxpilotto.creditcardview.animations.RotationAnimation;
 import com.maxpilotto.creditcardview.models.Brand;
@@ -29,7 +31,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private ActivityPaymentBinding binding;
 
-    int amount = 0;
+    //int amount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,13 @@ public class PaymentActivity extends AppCompatActivity {
         setSupportActionBar(binding.tbPayment);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        amount = getIntent().getIntExtra("amount", 0);
-
         handleEvent();
 
         creditCardView();
 
-        binding.tvSubTotalMoney.setText(amount + "$");
+        binding.tvSubTotalMoney.setText(String.valueOf(CartFragment.amount) + "$");
+
+        binding.tvTotalMoney.setText(String.valueOf(CartFragment.amount) + "$");
     }
 
     private void handleEvent() {
