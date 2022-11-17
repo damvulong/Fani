@@ -4,11 +4,14 @@ package com.example.fani.data.repositories;
 
 import android.app.Application;
 import android.os.SystemClock;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fani.utils.Constants;
+import com.example.fani.utils.Utilities;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,9 +47,9 @@ public class AuthAppRepository {
                     mLastClickTime = SystemClock.elapsedRealtime();
                     if (task.isSuccessful()) {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
-                        Toast.makeText(application.getApplicationContext(), "Login Successfully!", Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(),"Login Successfully!");
                     } else {
-                        Toast.makeText(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage());
                     }
                 });
     }
@@ -55,9 +58,23 @@ public class AuthAppRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
                     if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        firebaseUser.sendEmailVerification()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Utilities.showToast(application.getApplicationContext(), "Veryfication Email has been sent");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Utilities.showToast(application.getApplicationContext(), "onFailure: Email not sent " + e.getMessage());
+                                    }
+                                });
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                     } else {
-                        Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage());
                     }
                 });
     }

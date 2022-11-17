@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityAddAddressBinding;
+import com.example.fani.utils.Utilities;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,12 +97,12 @@ public class AddAddressActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DocumentReference> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(AddAddressActivity.this, "Address Added", Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(AddAddressActivity.this, "Address Added");
                     }
                 }
             });
         } else {
-            Toast.makeText(AddAddressActivity.this, "Kindly Fill All Field", Toast.LENGTH_SHORT).show();
+            Utilities.showToast(AddAddressActivity.this, "Kindly Fill All Field");
         }
     }
 

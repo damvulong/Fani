@@ -37,6 +37,7 @@ import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
 import com.example.fani.utils.LogUtil;
+import com.example.fani.utils.Utilities;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -149,14 +150,11 @@ public class HomeFragment extends Fragment {
         catRecyclerview.setHasFixedSize(true);
         catRecyclerview.setAdapter(categoryAdapter);
 
-        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
-            @Override
-            public void onChanged(List<CategoryModel> categoryModelList) {
-                categoryAdapter.setCategoryListModels(categoryModelList);
-                mCategory.setVisibility(View.GONE);
-                catRecyclerview.setVisibility(View.VISIBLE);
-                categoryAdapter.notifyDataSetChanged();
-            }
+        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), categoryModelList -> {
+            categoryAdapter.setCategoryListModels(categoryModelList);
+            mCategory.setVisibility(View.GONE);
+            catRecyclerview.setVisibility(View.VISIBLE);
+            categoryAdapter.notifyDataSetChanged();
         });
 
         //New Products
@@ -178,7 +176,7 @@ public class HomeFragment extends Fragment {
                             newProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(getActivity(), "" + task.getException());
                         LogUtil.e("" + task.getException());
                     }
                 });
@@ -201,7 +199,7 @@ public class HomeFragment extends Fragment {
                             popularProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(getActivity(), "" + task.getException());
                         LogUtil.e("" + task.getException());
                     }
                 });

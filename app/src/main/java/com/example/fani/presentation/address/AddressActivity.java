@@ -67,19 +67,16 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         binding.rvAddress.setAdapter(addressAdapter);
 
         firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
-                .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                .collection("Address").get().addOnCompleteListener(task -> {
 
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot doc:task.getResult().getDocuments()){
-                        AddressModel addressModel = doc.toObject(AddressModel.class);
-                        addressModelList.add(addressModel);
-                        addressAdapter.notifyDataSetChanged();
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot doc:task.getResult().getDocuments()){
+                            AddressModel addressModel = doc.toObject(AddressModel.class);
+                            addressModelList.add(addressModel);
+                            addressAdapter.notifyDataSetChanged();
+                        }
                     }
-                }
-            }
-        });
+                });
 
         handleEvent();
 
