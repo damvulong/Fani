@@ -88,7 +88,6 @@ public class DetailedActivity extends AppCompatActivity {
 
             if (newProductsModel.getUrlModelAr() == null) {
                 binding.btnVirtual.setVisibility(View.GONE);
-
             } else {
                 binding.btnVirtual.setVisibility(View.VISIBLE);
                 binding.btnVirtual.setOnClickListener(view13 -> {
