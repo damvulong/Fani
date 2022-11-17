@@ -99,7 +99,7 @@ public class DetailedActivity extends AppCompatActivity {
                                     .appendQueryParameter("mode", "ar_only")
                                     .appendQueryParameter("resizable", "false")
                                     .appendQueryParameter("link", "app://myurl.com")
-                                    .appendQueryParameter("title", newProductsModel.getName() + " " + newProductsModel.getPrice())
+                                    .appendQueryParameter("title", newProductsModel.getName() + " - $" + newProductsModel.getPrice())
                                     .build();
                     sceneViewerIntent.setData(intentUri);
                     sceneViewerIntent.setPackage("com.google.ar.core");
