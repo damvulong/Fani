@@ -29,4 +29,5 @@
     <string name="title_pay_by_paypal">Pay by Paypal</string>
     <string name="title_pay_by_razorpay">Pay by RazorPay</string>
     <string name="title_pay_by_momo">Pay by momo</string>
+    <string name="btn_try_in_your_home">Try in your home</string>
 </resources>

@@ -8,6 +8,8 @@
 
 package com.example.fani.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class NewProductsModel implements Serializable {
@@ -17,17 +19,22 @@ public class NewProductsModel implements Serializable {
     String name;
     String rating;
     int price;
+    String urlModelAr;
+
+    String isArGoogle;
 
     public NewProductsModel() {
 
     }
 
-    public NewProductsModel(String description, String img_url, String name, String rating, int price) {
+    public NewProductsModel(String description, String img_url, String name, String rating, int price, String urlModelAr, String isArGoogle) {
         this.description = description;
         this.img_url = img_url;
         this.name = name;
         this.rating = rating;
         this.price = price;
+        this.urlModelAr = urlModelAr;
+        this.isArGoogle = isArGoogle;
     }
 
     public String getDescription() {
@@ -68,5 +75,21 @@ public class NewProductsModel implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getUrlModelAr() {
+        return urlModelAr;
+    }
+
+    public void setUrlModelAr(String urlModelAr) {
+        this.urlModelAr = urlModelAr;
+    }
+
+    public String getArGoogle() {
+        return isArGoogle;
+    }
+
+    public void setArGoogle(String arGoogle) {
+        isArGoogle = arGoogle;
     }
 }
