@@ -47,7 +47,7 @@ public class AuthAppRepository {
                     mLastClickTime = SystemClock.elapsedRealtime();
                     if (task.isSuccessful()) {
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
-                        Utilities.showToast(application.getApplicationContext(),"Login Successfully!");
+                        Utilities.showToast(application.getApplicationContext(), "Login Successfully!");
                     } else {
                         Utilities.showToast(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage());
                     }

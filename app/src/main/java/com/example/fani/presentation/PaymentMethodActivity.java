@@ -24,6 +24,7 @@ import com.example.fani.presentation.fragment.CartFragment;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -92,6 +93,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
                 checkout.open(PaymentMethodActivity.this, object);
             } catch (JSONException e) {
                 LogUtil.e("Error payment" + e.getMessage());
+                FirebaseCrashlytics.getInstance().recordException(e);
                 e.printStackTrace();
             }
         });
@@ -138,6 +140,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
                         Utilities.showToast(getApplicationContext(), "PaymentConfirmation info received from PayPal");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        FirebaseCrashlytics.getInstance().recordException(e);
                         LogUtil.e("Something went wrong");
                     }
                 }
@@ -164,6 +167,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
             jsonObject.put("key", "value");
         } catch (JSONException e) {
             e.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(e);
         }
 
         eventValue.put(MoMoParameterNameMap.EXTRA, jsonObject);
