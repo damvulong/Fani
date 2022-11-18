@@ -159,15 +159,15 @@ public class DetailedActivity extends AppCompatActivity {
 
                 if (newProductsModel != null) {
                     totalPrice = newProductsModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
                 if (popularProductsModel != null) {
                     totalPrice = popularProductsModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
                 if (showAllModel != null) {
                     totalPrice = showAllModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
             }
         });
@@ -180,15 +180,15 @@ public class DetailedActivity extends AppCompatActivity {
 
                 if (newProductsModel != null) {
                     totalPrice = newProductsModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
                 if (popularProductsModel != null) {
                     totalPrice = popularProductsModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
                 if (showAllModel != null) {
                     totalPrice = showAllModel.getPrice() * totalQuantity;
-                    binding.tvPrice.setText("$" + String.valueOf(totalPrice));
+                    binding.tvPrice.setText(Utilities.convertDollar(totalPrice));
                 }
             }
         });

@@ -12,4 +12,6 @@ public class Constants {
     public static final long TIME_REPLY = 1000;
     public static final int PAYPAL_REQUEST_CODE = 123;
 
+    public static final String DOLLAR = "$";
+
 }
