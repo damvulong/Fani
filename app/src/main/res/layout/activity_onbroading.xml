@@ -29,7 +29,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_getstart"
-        android:text="Get Started"
+        android:text="@string/get_started"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="19dp"

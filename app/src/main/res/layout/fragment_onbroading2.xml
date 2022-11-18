@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="Convenient Shopping"
+        android:text="@string/convenient_shopping"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dp"
-        android:text="Keep safe! Shopping from home"
+        android:text="@string/keep_safe_shopping_from_home"
         android:textSize="20dp" />
 
 </LinearLayout>

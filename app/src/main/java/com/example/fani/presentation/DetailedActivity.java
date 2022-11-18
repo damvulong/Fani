@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +17,6 @@ import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.data.model.ShowAllModel;
 import com.example.fani.databinding.ActivityDetailedBinding;
 import com.example.fani.presentation.main.MainActivity;
-import com.example.fani.presentation.register.RegisterActivity;
-import com.example.fani.utils.Constants;
-import com.example.fani.utils.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

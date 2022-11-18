@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth=".9"
-        tools:text="Total Price: $40" />
+        tools:text="@string/total_price" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_cart"
@@ -37,7 +37,7 @@
         android:layout_margin="@dimen/_10sdp"
         android:background="@color/light"
         android:padding="@dimen/_14sdp"
-        android:text="Buy Now"
+        android:text="@string/buy_now"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

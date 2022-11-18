@@ -94,7 +94,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:padding="@dimen/_5sdp"
-        android:text="Description"
+        android:text="@string/description"
         android:textColor="@color/black"
         android:textSize="@dimen/_20sdp"
         android:textStyle="bold" />

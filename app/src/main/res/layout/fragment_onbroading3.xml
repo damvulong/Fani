@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="Easy to Payment"
+        android:text="@string/easy_to_payment"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dp"
-        android:text="Easy onlie payment with Razorpay"
+        android:text="@string/easy_online_payment_with_many_gateway"
         android:textSize="20dp" />
 
 </LinearLayout>
