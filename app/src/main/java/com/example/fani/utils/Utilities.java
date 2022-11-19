@@ -42,4 +42,7 @@ public class Utilities {
         return copyright;
     }
 
+    public static String currencyUnit(Integer value) {
+        return (Constants.DOLLAR + String.valueOf(value)) ;
+    }
 }

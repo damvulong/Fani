@@ -80,7 +80,7 @@ public class DetailedActivity extends AppCompatActivity {
             binding.rbRatingStar.setRating(numberOfStars);
 
             binding.txtDetailedDesc.setText(newProductsModel.getDescription());
-            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(newProductsModel.getPrice())));
+            binding.tvPrice.setText(getString(R.string.title_price_unit, String.valueOf(newProductsModel.getPrice())));
 
             textImg = newProductsModel.getImg_url();
 
@@ -117,7 +117,7 @@ public class DetailedActivity extends AppCompatActivity {
             float numberOfStarsPopular = Float.parseFloat(popularProductsModel.getRating());
             binding.rbRatingStar.setRating(numberOfStarsPopular);
             binding.txtDetailedDesc.setText(popularProductsModel.getDescription());
-            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(popularProductsModel.getPrice())));
+            binding.tvPrice.setText(getString(R.string.title_price_unit, String.valueOf(popularProductsModel.getPrice())));
 
             textImg = popularProductsModel.getImg_url();
 
@@ -133,7 +133,7 @@ public class DetailedActivity extends AppCompatActivity {
             float numberOfStarsAllProducts = Float.parseFloat(showAllModel.getRating());
             binding.rbRatingStar.setRating(numberOfStarsAllProducts);
             binding.txtDetailedDesc.setText(showAllModel.getDescription());
-            binding.txtPrice.setText(getString(R.string.title_price_unit, String.valueOf(showAllModel.getPrice())));
+            binding.tvPrice.setText(getString(R.string.title_price_unit, String.valueOf(showAllModel.getPrice())));
 
             textImg = showAllModel.getImg_url();
 
@@ -158,12 +158,15 @@ public class DetailedActivity extends AppCompatActivity {
 
                 if (newProductsModel != null) {
                     totalPrice = newProductsModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
                 }
                 if (popularProductsModel != null) {
                     totalPrice = popularProductsModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
                 }
                 if (showAllModel != null) {
                     totalPrice = showAllModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
                 }
             }
         });
@@ -173,8 +176,22 @@ public class DetailedActivity extends AppCompatActivity {
             if (totalQuantity > 1) {
                 totalQuantity--;
                 binding.txtQuantity.setText((String.valueOf(totalQuantity)));
+
+                if (newProductsModel != null) {
+                    totalPrice = newProductsModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
+                }
+                if (popularProductsModel != null) {
+                    totalPrice = popularProductsModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
+                }
+                if (showAllModel != null) {
+                    totalPrice = showAllModel.getPrice() * totalQuantity;
+                    binding.tvPrice.setText(Utilities.currencyUnit(totalPrice));
+                }
             }
         });
+
     }
 
     //Add to Favorite
@@ -185,7 +202,7 @@ public class DetailedActivity extends AppCompatActivity {
         //TODO put img
         favMap.put("img_url", textImg);
         favMap.put("productName", binding.txtNameDetail.getText().toString());
-        favMap.put("productPrice", binding.txtPrice.getText().toString());
+        favMap.put("productPrice", binding.tvPrice.getText().toString());
 
         firestore.collection("AddToFav").add(favMap).addOnCompleteListener(task -> {
             Toast.makeText(DetailedActivity.this, message_add_to_favorite, Toast.LENGTH_SHORT).show();
@@ -202,7 +219,7 @@ public class DetailedActivity extends AppCompatActivity {
         //TODO put img
         cartMap.put("img_url", textImg);
         cartMap.put("productName", binding.txtNameDetail.getText().toString());
-        cartMap.put("productPrice", binding.txtPrice.getText().toString());
+        cartMap.put("productPrice", binding.tvPrice.getText().toString());
         cartMap.put("totalQuantity", totalQuantity);
         cartMap.put("totalPrice", totalPrice);
 
@@ -210,7 +227,6 @@ public class DetailedActivity extends AppCompatActivity {
                 .collection("User").add(cartMap).addOnCompleteListener(task -> {
                     Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
                     finish();
-
                 });
     }
 
