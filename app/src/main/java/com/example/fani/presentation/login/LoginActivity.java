@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.databinding.ActivityLoginBinding;
+import com.example.fani.presentation.forgotpassword.ForgotPasswordActivity;
 import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.LogUtil;
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loginViewModel.getUserLiveData().observe(this, firebaseUser -> {
             if (firebaseUser != null) {
@@ -58,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         });
         /**Move to Register page*/
         binding.txtRegister.setOnClickListener(view -> onRegister());
+
+        /**Move to Forgot Password page*/
+        binding.tvForgotPassword.setOnClickListener(view -> onForgotPassword());
     }
 
     public void checkValidationEmailAndPassword() {
@@ -90,6 +93,10 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.login(userEmail, userPassword);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
+    }
+
+    public void onForgotPassword() {
+        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
     }
 
     public void onRegister() {
