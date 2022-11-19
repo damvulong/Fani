@@ -38,21 +38,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
-        android:textAlignment="center"
         android:text="@string/title_pay_by_razorpay"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/_18sdp"/>
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnPayMomo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
-        android:textAlignment="center"
         android:text="@string/title_pay_by_momo"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/_18sdp"/>
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold" />
 
 </LinearLayout>

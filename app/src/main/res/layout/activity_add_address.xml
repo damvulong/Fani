@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.AddAddressActivity"
+    tools:context=".presentation.addaddress.AddAddressActivity"
     android:layout_margin="@dimen/_10sdp"
     android:padding="@dimen/_15sdp">
 
@@ -34,7 +34,7 @@
         android:layout_marginTop="@dimen/_20sdp">
 
         <EditText
-            android:id="@+id/ad_name"
+            android:id="@+id/et_add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/_20sdp">
 
         <EditText
-            android:id="@+id/address"
+            android:id="@+id/et_add_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
@@ -70,7 +70,7 @@
         android:layout_marginTop="@dimen/_20sdp">
 
         <EditText
-            android:id="@+id/ad_city"
+            android:id="@+id/et_add_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
@@ -88,7 +88,7 @@
         android:layout_marginTop="@dimen/_20sdp">
 
         <EditText
-            android:id="@+id/ad_postal_code"
+            android:id="@+id/et_add_postal_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
@@ -106,7 +106,7 @@
         android:layout_marginTop="@dimen/_20sdp">
 
         <EditText
-            android:id="@+id/ad_phone_number"
+            android:id="@+id/et_add_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light"
@@ -118,7 +118,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_ad_address"
+        android:id="@+id/btn_add_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

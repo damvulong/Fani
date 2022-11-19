@@ -1,12 +1,12 @@
 /*
  * *
- *  * Created by thaituan on 11/9/22, 2:35 PM
+ *  * Created by damvulong on 11/9/22, 2:35 PM
  *  * Copyright (c) 2022 . All rights reserved.
  *  * Last modified 11/9/22, 2:33 PM
  *
  */
 
-package com.example.fani.presentation.fragment.Home;
+package com.example.fani.presentation.fragment.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,12 +37,10 @@ import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
 import com.example.fani.utils.LogUtil;
+import com.example.fani.utils.Utilities;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.zoho.commons.Fonts;
 import com.zoho.commons.InitConfig;
 
@@ -76,6 +76,8 @@ public class HomeFragment extends Fragment {
     private ShimmerFrameLayout mAllProducts;
     private ShimmerFrameLayout mNewProducts;
 
+    //init ViewModel
+    private HomeViewModel homeViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,6 +87,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //define viewModel
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         catRecyclerview = root.findViewById(R.id.rcv_category);
         newProductsRecyclerview = root.findViewById(R.id.rcv_new_product);
@@ -116,21 +121,15 @@ public class HomeFragment extends Fragment {
         });
 
         //event click See All New Products
-        newShowAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ShowAllActivity.class);
-                startActivity(intent);
-            }
+        newShowAll.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), ShowAllActivity.class);
+            startActivity(intent);
         });
 
         //event click See All Popular Products
-        popShowAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ShowAllActivity.class);
-                startActivity(intent);
-            }
+        popShowAll.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), ShowAllActivity.class);
+            startActivity(intent);
         });
 
         //image slider
@@ -143,30 +142,20 @@ public class HomeFragment extends Fragment {
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
+        categoryAdapter = new CategoryAdapter(getContext());
 
         //Category
         catRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         categoryModelList = new ArrayList<>();
-        categoryAdapter = new CategoryAdapter(getActivity(), categoryModelList);
+        catRecyclerview.setHasFixedSize(true);
         catRecyclerview.setAdapter(categoryAdapter);
 
-        db.collection("Category")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            CategoryModel categoryModel = document.toObject(CategoryModel.class);
-                            categoryModelList.add(categoryModel);
-                            mCategory.setVisibility(View.GONE);
-                            catRecyclerview.setVisibility(View.VISIBLE);
-                            categoryAdapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
-                        LogUtil.e("" + task.getException());
-                    }
-                });
+        homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), categoryModelList -> {
+            categoryAdapter.setCategoryListModels(categoryModelList);
+            mCategory.setVisibility(View.GONE);
+            catRecyclerview.setVisibility(View.VISIBLE);
+            categoryAdapter.notifyDataSetChanged();
+        });
 
         //New Products
         newProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -187,7 +176,7 @@ public class HomeFragment extends Fragment {
                             newProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(getActivity(), "" + task.getException());
                         LogUtil.e("" + task.getException());
                     }
                 });
@@ -210,7 +199,7 @@ public class HomeFragment extends Fragment {
                             popularProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        Utilities.showToast(getActivity(), "" + task.getException());
                         LogUtil.e("" + task.getException());
                     }
                 });

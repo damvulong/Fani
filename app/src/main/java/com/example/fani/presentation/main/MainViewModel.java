@@ -32,10 +32,7 @@ public class MainViewModel extends AndroidViewModel {
         authAppRepository.logOut();
     }
 
-
     public MutableLiveData<Boolean> getLoggedOutLiveData() {
         return loggedOutLiveData;
     }
-
-
 }

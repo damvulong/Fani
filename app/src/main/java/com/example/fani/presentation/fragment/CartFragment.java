@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fani.R;
 import com.example.fani.data.model.MyCartModel;
-import com.example.fani.presentation.AddressActivity;
+import com.example.fani.presentation.address.AddressActivity;
 import com.example.fani.presentation.adapter.MyCartAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,8 +65,6 @@ public class CartFragment extends Fragment {
         firestore = FirebaseFirestore.getInstance();
 
         total = root.findViewById(R.id.tv_total);
-
-
 
         recyclerView = root.findViewById(R.id.rcv_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -110,7 +108,6 @@ public class CartFragment extends Fragment {
         for (MyCartModel myCartModel : myCartModelList) {
             totalAmount += myCartModel.getTotalPrice();
         }
-
         total.setText("Total Amount:   " + totalAmount+ "$");
         amount = totalAmount;
     }

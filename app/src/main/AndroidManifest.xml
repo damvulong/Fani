@@ -24,19 +24,19 @@
             android:name=".presentation.PaymentMethodActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.PaymentActivity"
+            android:name=".presentation.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.AddAddressActivity"
+            android:name=".presentation.addaddress.AddAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.AddressActivity"
+            android:name=".presentation.address.AddressActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ShowAllActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.OnbroadingActivity"
+            android:name=".presentation.onbroading.OnbroadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
         <activity android:name=".presentation.login.LoginActivity" />
         <activity android:name=".presentation.register.RegisterActivity" />
         <activity android:name=".presentation.DetailedActivity" />
-        <activity android:name=".presentation.AboutUsActivity" />
+        <activity android:name=".presentation.aboutUs.AboutUsActivity" />
     </application>
 
 </manifest>

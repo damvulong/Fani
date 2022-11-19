@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -26,6 +27,10 @@ android {
             buildConfigField("String", "APP_KEY_ZOHO", "\"VaD9WWDrd%2BUyNrCbSciPRlNUzJUe57RfG9NWSham%2FDfeh3%2F0hvSx8CyTm%2BwHDCPz\"")
             buildConfigField("String", "ACCESS_KEY_ZOHO", "\"VXYedrQX8SngHF5fh8GrF%2FruDPIO8ho5FievuUc9V%2F0C7dpQpYAZafQqpH3%2BoP9%2FzlUeqWPkSrZ2L0Wv53c8AQCQoWZwHcVtnRbPdM3D1squctAlSNZSNBosYqmg2vxdJjnWQe1bmo4%2BM9SyMqEcWq3%2B0ClJaj9X\"")
 
+            //Paypal
+            buildConfigField("String", "SANDBOX_ACCOUNT", "\"testfani@business.example.com\"")
+            buildConfigField("String", "CLIENT_ID", "\"AUXxPtbI6pN4Swr9k5oKxmr7wziUSZj_fkzNLmLNq9l1-bgnSMIc_p889ALWjR8Ie_N9U0bEtcbmnAzB\"")
+
             //RazorPay
             buildConfigField("String", "APP_KEY_RAZORPAY", "\"rzp_test_L4tt6SFP4UJPVt\"")
 
@@ -50,8 +55,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // firebase
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.firebase:firebase-firestore:24.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.3.2'
+    implementation 'com.google.firebase:firebase-analytics:20.1.1'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -70,8 +80,13 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     //dimens
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
+
     //razorpay
     implementation 'com.razorpay:checkout:1.6.19'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation('com.squareup.retrofit2:converter-gson:2.9.0')
 
     //Credit card https://github.com/maxpilotto/credit-card-view#grid-and-area-click
     implementation 'com.github.maxpilotto:credit-card-view:8.0.0'
@@ -87,4 +102,11 @@ dependencies {
 
     // Momo pay
     implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
+
+    //PayPal
+    //https://github.com/paypal/PayPal-Android-SDK
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation('com.paypal.sdk:paypal-android-sdk:2.16.0') {
+        exclude group: 'io.card'
+    }
 }

@@ -3,6 +3,7 @@ package com.example.fani.presentation;
 import static com.example.fani.R.string.message_add_to_favorite;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -49,9 +50,8 @@ public class DetailedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_detailed);
 
-        /* setup view biding
+        /** setup view biding
          Document: https://developer.android.com/topic/libraries/view-binding*/
         binding = ActivityDetailedBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -85,6 +85,27 @@ public class DetailedActivity extends AppCompatActivity {
             textImg = newProductsModel.getImg_url();
 
             totalPrice = newProductsModel.getPrice() * totalQuantity;
+
+            if (newProductsModel.getUrlModelAr() == null) {
+                binding.btnVirtual.setVisibility(View.GONE);
+            } else {
+                binding.btnVirtual.setVisibility(View.VISIBLE);
+                binding.btnVirtual.setOnClickListener(view13 -> {
+                    Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri intentUri =
+                            Uri.parse("https://arvr.google.com/scene-viewer/1.0").buildUpon()
+                                    .appendQueryParameter("file", newProductsModel.getUrlModelAr())
+                                    .appendQueryParameter("mode", "ar_only")
+                                    .appendQueryParameter("resizable", "false")
+                                    .appendQueryParameter("link", "app://myurl.com")
+                                    .appendQueryParameter("title", newProductsModel.getName() + " - $" + newProductsModel.getPrice())
+                                    .build();
+                    sceneViewerIntent.setData(intentUri);
+                    sceneViewerIntent.setPackage("com.google.ar.core");
+                    startActivity(sceneViewerIntent);
+                });
+
+            }
         }
 
         /*Popular Products*/
@@ -169,7 +190,7 @@ public class DetailedActivity extends AppCompatActivity {
         firestore.collection("AddToFav").add(favMap).addOnCompleteListener(task -> {
             Toast.makeText(DetailedActivity.this, message_add_to_favorite, Toast.LENGTH_SHORT).show();
             //TODO
-           // finish();
+            // finish();
         });
     }
 
@@ -185,11 +206,10 @@ public class DetailedActivity extends AppCompatActivity {
         cartMap.put("totalQuantity", totalQuantity);
         cartMap.put("totalPrice", totalPrice);
 
-
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").add(cartMap).addOnCompleteListener(task -> {
                     Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
-             //       finish();
+                    finish();
 
                 });
     }
