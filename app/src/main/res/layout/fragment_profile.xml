@@ -32,7 +32,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:text="Change Password"
+        android:text="@string/change_password"
         android:textColor="@color/white"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold" />

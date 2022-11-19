@@ -9,8 +9,11 @@
 package com.example.fani.presentation.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,10 +21,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.databinding.ActivityLoginBinding;
+import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
+
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        loadLocale();
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loginViewModel.getUserLiveData().observe(this, firebaseUser -> {
@@ -49,6 +56,26 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         handleEvent();
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("app_lang", language);
+        editor.apply();
+
+    }
+
+    private void loadLocale() {
+        SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
+        String language = preferences.getString("app_lang", "");
+        setLocale(language);
     }
 
     private void handleEvent() {

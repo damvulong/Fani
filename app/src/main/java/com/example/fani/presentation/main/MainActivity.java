@@ -9,7 +9,11 @@
 package com.example.fani.presentation.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -40,11 +44,18 @@ import com.zoho.commons.LauncherModes;
 import com.zoho.commons.LauncherProperties;
 import com.zoho.salesiqembed.ZohoSalesIQ;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActivityMainBinding binding;
     //init View Model
     private MainViewModel mainViewModel;
+
+    public Boolean isEnglish = true;
+    private Boolean isVietnam = false;
+
+    private Menu menu;
 
     private int mCurrentFragment = FragmentState.home.value;
 
@@ -56,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        //Load Locale
+        loadLocale();
 
         /**Setting main view model*/
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -107,8 +121,68 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             return true;
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+
+    //TODO Swich between En and Vi
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.english:
+                //isEnglish = false;
+                //isVietnam = true;
+                setLocale("en");
+                recreate();
+                Utilities.showToast(getApplicationContext(), "Translate to English");
+                return true;
+            case R.id.vietnamese:
+                //isEnglish = true;
+                //isVietnam = false;
+                setLocale("vi");
+                recreate();
+                Utilities.showToast(getApplicationContext(), "Translate to Vietnamese");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("app_lang", language);
+        editor.apply();
 
     }
+
+    private void loadLocale() {
+        SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
+        String language = preferences.getString("app_lang", "");
+        setLocale(language);
+    }
+
+    /*public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem english = menu.findItem(R.id.english);
+        MenuItem vietnamese = menu.findItem(R.id.vietnamese);
+
+        english.setVisible(isEnglish);
+        vietnamese.setVisible(isVietnam);
+
+        return true;
+    }*/
 
     @Override
     public void onBackPressed() {

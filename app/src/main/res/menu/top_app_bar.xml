@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by damvulong on 11/19/22, 5:48 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/19/22, 5:48 PM
+  ~  */
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/english"
+        android:icon="@drawable/english"
+        android:title="@string/english"
+        app:showAsAction="ifRoom"
+        android:visible="true"/>
+    <item
+        android:id="@+id/vietnamese"
+        android:icon="@drawable/vietnam"
+        android:title="@string/vietnamese"
+        app:showAsAction="ifRoom"
+        android:visible="true"/>
+
+</menu>
