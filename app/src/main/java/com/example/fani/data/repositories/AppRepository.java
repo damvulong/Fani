@@ -33,11 +33,11 @@ public class AppRepository {
             categoryRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     emitter.onNext(task.getResult().toObjects(CategoryModel.class));
+                    emitter.onComplete();
                 } else {
                     emitter.onError(task.getException());
                 }
             });
-            emitter.onComplete();
         });
     }
     }
