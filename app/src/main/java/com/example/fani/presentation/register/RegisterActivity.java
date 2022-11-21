@@ -24,7 +24,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityRegisterBinding;
-import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.login.LoginActivity;
 import com.example.fani.utils.LogUtil;
 

@@ -110,4 +110,9 @@ dependencies {
     implementation('com.paypal.sdk:paypal-android-sdk:2.16.0') {
         exclude group: 'io.card'
     }
+
+    // RxFirebase
+    implementation 'com.github.FrangSierra:RxFirebase:1.5.6'
+
+
 }

@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fani.R;
 import com.example.fani.data.model.MyCartModel;
-import com.example.fani.presentation.address.AddressActivity;
 import com.example.fani.presentation.adapter.MyCartAdapter;
+import com.example.fani.presentation.address.AddressActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

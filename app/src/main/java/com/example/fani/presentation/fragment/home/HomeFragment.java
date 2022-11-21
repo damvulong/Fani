@@ -10,32 +10,29 @@ package com.example.fani.presentation.fragment.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.fani.R;
-import com.example.fani.presentation.adapter.CategoryAdapter;
-import com.example.fani.presentation.adapter.NewProductsAdapter;
-import com.example.fani.presentation.adapter.PopularProductsAdapter;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.ShowAllActivity;
+import com.example.fani.presentation.adapter.CategoryAdapter;
+import com.example.fani.presentation.adapter.NewProductsAdapter;
+import com.example.fani.presentation.adapter.PopularProductsAdapter;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
 import com.facebook.shimmer.ShimmerFrameLayout;

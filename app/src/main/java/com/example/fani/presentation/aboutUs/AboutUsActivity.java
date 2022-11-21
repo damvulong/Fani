@@ -17,7 +17,6 @@ import com.example.fani.R;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.Utilities;
 
-
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 

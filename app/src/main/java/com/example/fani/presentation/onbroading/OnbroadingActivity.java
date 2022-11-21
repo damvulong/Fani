@@ -11,21 +11,13 @@ package com.example.fani.presentation.onbroading;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager.widget.ViewPager;
 
-import com.example.fani.R;
 import com.example.fani.databinding.ActivityOnbroadingBinding;
 import com.example.fani.presentation.adapter.OnbroadingAdapter;
 import com.example.fani.presentation.login.LoginActivity;
-
-import java.util.zip.Inflater;
-
-import me.relex.circleindicator.CircleIndicator;
 
 public class OnbroadingActivity extends AppCompatActivity {
 

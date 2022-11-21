@@ -8,17 +8,15 @@
 
 package com.example.fani.presentation.forgotpassword;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.example.fani.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.fani.databinding.ActivityForgotPasswordBinding;
-import com.example.fani.databinding.ActivityLoginBinding;
 import com.example.fani.presentation.login.LoginActivity;
 import com.example.fani.utils.LogUtil;
 

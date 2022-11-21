@@ -11,21 +11,14 @@ package com.example.fani.presentation.payment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.fani.R;
 import com.example.fani.databinding.ActivityPaymentBinding;
-import com.example.fani.databinding.FragmentCartBinding;
 import com.example.fani.presentation.PaymentMethodActivity;
 import com.example.fani.presentation.fragment.CartFragment;
-import com.maxpilotto.creditcardview.CreditCardView;
 import com.maxpilotto.creditcardview.animations.RotationAnimation;
 import com.maxpilotto.creditcardview.models.Brand;
-import com.maxpilotto.creditcardview.models.CardArea;
 
 public class PaymentActivity extends AppCompatActivity {
 

@@ -35,7 +35,7 @@ public class AuthAppRepository {
     }
 
 
-    public void login(String email, String password) {
+   public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
                     if (SystemClock.elapsedRealtime() - mLastClickTime < Constants.TIME_REPLY) {
