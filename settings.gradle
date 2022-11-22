@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Fani"
 include ':app'
+include ':fshiperapplication'
