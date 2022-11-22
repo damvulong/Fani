@@ -4,6 +4,7 @@ package com.example.fani.data.repositories;
 
 import android.app.Application;
 import android.os.SystemClock;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,6 +12,8 @@ import com.example.fani.utils.Constants;
 import com.example.fani.utils.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import javax.inject.Inject;
 
 public class AuthAppRepository {
 
@@ -22,6 +25,7 @@ public class AuthAppRepository {
 
     private long mLastClickTime = 0;
 
+    @Inject
     public AuthAppRepository(Application application) {
         this.application = application;
         this.firebaseAuth = FirebaseAuth.getInstance();
@@ -34,8 +38,7 @@ public class AuthAppRepository {
         }
     }
 
-
-   public void login(String email, String password) {
+    public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
                     if (SystemClock.elapsedRealtime() - mLastClickTime < Constants.TIME_REPLY) {

@@ -14,24 +14,30 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import io.reactivex.rxjava3.core.Observable;
+
 public class AppRepository {
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-    OnFirebaseStoreTaskComplete onFirebaseStoreTaskComplete;
     private CollectionReference categoryRef = mFirestore.collection("Category");
 
+    @Inject
+    public AppRepository() {
 
-    public AppRepository(OnFirebaseStoreTaskComplete onFirebaseStoreTaskComplete) {
-        this.onFirebaseStoreTaskComplete = onFirebaseStoreTaskComplete;
     }
 
-    public void getCategoryData(){
-        categoryRef.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                onFirebaseStoreTaskComplete.categoryDataAdded(task.getResult().toObjects(CategoryModel.class));
-            }else{
-                onFirebaseStoreTaskComplete.onError(task.getException());
-            }
+    public Observable<List<CategoryModel>> getCategoryObs(){
+        return Observable.create(emitter -> {
+            categoryRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    emitter.onNext(task.getResult().toObjects(CategoryModel.class));
+                    emitter.onComplete();
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
         });
     }
 
@@ -40,4 +46,5 @@ public class AppRepository {
 
         void onError(Exception e);
     }
+
 }

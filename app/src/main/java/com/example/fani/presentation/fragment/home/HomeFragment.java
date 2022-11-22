@@ -14,6 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +49,9 @@ import com.zoho.commons.InitConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
     TextView catShowAll;
@@ -86,6 +93,8 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         //define viewModel
+        // mWordViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(WordViewModel.class);
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         catRecyclerview = root.findViewById(R.id.rcv_category);
@@ -147,6 +156,7 @@ public class HomeFragment extends Fragment {
         catRecyclerview.setHasFixedSize(true);
         catRecyclerview.setAdapter(categoryAdapter);
 
+        homeViewModel.getCategories();
         homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), categoryModelList -> {
             categoryAdapter.setCategoryListModels(categoryModelList);
             mCategory.setVisibility(View.GONE);

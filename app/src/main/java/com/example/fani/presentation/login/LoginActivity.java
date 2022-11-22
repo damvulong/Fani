@@ -23,6 +23,9 @@ import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
