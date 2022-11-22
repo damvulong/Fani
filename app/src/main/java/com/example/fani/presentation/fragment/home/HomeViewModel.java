@@ -29,11 +29,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class HomeViewModel  extends ViewModel {
 
-
     private AppRepository firebaseRepository;
     private CompositeDisposable categoryDisposable = new CompositeDisposable();
     MutableLiveData<List<CategoryModel>> categoryListMutableLiveData = new MutableLiveData<>();
-
 
     @Inject
     public HomeViewModel(AppRepository firebaseRepository) {

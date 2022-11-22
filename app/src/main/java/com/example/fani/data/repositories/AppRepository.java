@@ -28,6 +28,17 @@ public class AppRepository {
 
     }
 
+    // #35 This function move to RxAndroid
+    /*    public void getCategoryData(){
+        categoryRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                onFirebaseStoreTaskComplete.categoryDataAdded(task.getResult().toObjects(CategoryModel.class));
+            }else{
+                onFirebaseStoreTaskComplete.onError(task.getException());
+            }
+        });
+    }*/
+
     public Observable<List<CategoryModel>> getCategoryObs(){
         return Observable.create(emitter -> {
             categoryRef.get().addOnCompleteListener(task -> {
@@ -41,10 +52,11 @@ public class AppRepository {
         });
     }
 
-    public interface OnFirebaseStoreTaskComplete {
+    // #35 This function move to RxAndroid
+    /*    public interface OnFirebaseStoreTaskComplete {
         void categoryDataAdded(List<CategoryModel> categoryModelList);
 
         void onError(Exception e);
-    }
+    }*/
 
 }
