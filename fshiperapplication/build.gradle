@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.example.fshiperapplication'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.fshiperapplication"
+        minSdk 30
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug{
+            //Mapbox
+            buildConfigField("String", "MAPBOX_ASSCESS_TOKEN", "\"sk.eyJ1IjoiZGFtdnVsb25nIiwiYSI6ImNsYXJ1Z3pydjF3ZXYzdnVyaGJ5aTVyYnEifQ.Jszy-V7DZPmr7U10darPPg\"")
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    //Mapbox
+    implementation ('com.mapbox.maps:android:10.9.1'){
+        exclude group: 'group_name', module: 'module_name'
+    }
+    implementation "com.mapbox.navigation:ui-dropin:2.9.2"
+    implementation "com.mapbox.navigation:android:2.9.2"
+
+    // Permission
+    implementation 'com.github.tbruyelle:rxpermissions:0.12'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+
+}
