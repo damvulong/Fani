@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.databinding.ActivityLoginBinding;
 import com.example.fani.presentation.forgotpassword.ForgotPasswordActivity;
+import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.LogUtil;

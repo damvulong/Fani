@@ -14,6 +14,8 @@ import static com.example.fani.R.string.Error_password_not_match;
 import static com.example.fani.R.string.Error_phone_number_empty;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +28,8 @@ import com.example.fani.R;
 import com.example.fani.databinding.ActivityRegisterBinding;
 import com.example.fani.presentation.login.LoginActivity;
 import com.example.fani.utils.LogUtil;
+
+import java.util.Locale;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -47,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        loadLocale();
+
         //setting viewModel
         registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
         registerViewModel.getUserLiveData().observe(this, firebaseUser -> {
@@ -57,6 +63,26 @@ public class RegisterActivity extends AppCompatActivity {
 
         handleEvent();
 
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("app_lang", language);
+        editor.apply();
+
+    }
+
+    private void loadLocale() {
+        SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
+        String language = preferences.getString("app_lang", "");
+        setLocale(language);
     }
 
     private void handleEvent() {

@@ -188,7 +188,6 @@ public class DetailedActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     //Add to Favorite
@@ -224,6 +223,7 @@ public class DetailedActivity extends AppCompatActivity {
                 .collection("User").add(cartMap).addOnCompleteListener(task -> {
                     Toast.makeText(DetailedActivity.this, "Added To Cart", Toast.LENGTH_SHORT).show();
                     finish();
+
                 });
     }
 
