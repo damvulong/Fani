@@ -61,7 +61,7 @@ public class AuthAppRepository {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         firebaseUser.sendEmailVerification()
                                 .addOnSuccessListener(unused ->
-                                        Utilities.showToast(application.getApplicationContext(), "Veryfication Email has been sent"))
+                                        Utilities.showToast(application.getApplicationContext(), "Verification Email has been sent"))
                                 .addOnFailureListener(e ->
                                         Utilities.showToast(application.getApplicationContext(), "onFailure: Email not sent " + e.getMessage()));
                         userLiveData.postValue(firebaseAuth.getCurrentUser());

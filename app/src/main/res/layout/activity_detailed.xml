@@ -63,29 +63,36 @@
         app:icon="@drawable/ic_camera"
         app:iconTint="@color/black" />
 
-    <TextView
-        android:id="@+id/txtRating"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:text="4.0"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp" />
+        android:layout_height="wrap_content">
 
-    <RatingBar
-        android:id="@+id/rbRatingStar"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_width="197dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:padding="@dimen/_5sdp"
-        android:stepSize="0.1" />
+        <TextView
+            android:id="@+id/txtRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:text="4.0"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            android:layout_toEndOf="@id/rbRatingStar"/>
+
+        <RatingBar
+            android:id="@+id/rbRatingStar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:padding="@dimen/_5sdp"
+            android:stepSize="0.1" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
