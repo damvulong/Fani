@@ -142,9 +142,9 @@ public class HomeFragment extends Fragment {
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel(R.drawable.discount1, "Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://online.visual-paradigm.com/repository/images/3da74839-096a-40ed-8519-0cf1f2c098d9/facebook-ads-design/orange-home-furniture-sale-facebook-ad.png", "Discount On Furniture", ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.discount2, "Discount On Furniture", ScaleTypes.FIT));
-        slideModels.add(new SlideModel(R.drawable.discount3, "Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://bensonstone.com/wp-content/uploads/2022/11/BlackFriday-Flexsteel-LOweb.jpg", "Discount On Furniture", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
