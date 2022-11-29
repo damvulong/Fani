@@ -145,7 +145,7 @@ public class DetailedActivity extends AppCompatActivity {
         });
 
         //Event Add to Favorite
-        binding.btnFavorite.setOnClickListener(view2 -> addToFav());
+        //binding.btnFavorite.setOnClickListener(view2 -> addToFav());
 
         //Plus item
         binding.btnAddItem.setOnClickListener(view3 -> {

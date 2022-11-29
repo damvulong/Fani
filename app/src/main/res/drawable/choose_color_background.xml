@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by thaituan on 11/29/22, 2:46 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/29/22, 2:46 PM
+  ~  */
+  -->
+
+<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/white"/>
+    <corners android:radius="30dp"/>
+</shape>
