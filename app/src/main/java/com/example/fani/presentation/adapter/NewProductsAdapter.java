@@ -23,7 +23,10 @@ import com.bumptech.glide.Glide;
 import com.example.fani.R;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
+import com.example.fani.databinding.CategoryListBinding;
+import com.example.fani.databinding.NewProductsBinding;
 import com.example.fani.presentation.DetailedActivity;
+import com.example.fani.utils.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,7 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
 
         Glide.with(context).load(newProductsModelList.get(position).getImg_url()).into(holder.newImg);
         holder.newName.setText(newProductsModelList.get(position).getName());
-        holder.newPrice.setText(String.valueOf(newProductsModelList.get(position).getPrice()));
+        holder.newPrice.setText(Utilities.currencyUnit(newProductsModelList.get(position).getPrice()));
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, DetailedActivity.class);
@@ -77,9 +80,9 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            newImg = itemView.findViewById(R.id.new_img);
-            newName = itemView.findViewById(R.id.new_product_name);
-            newPrice = itemView.findViewById(R.id.new_price);
+            newImg = itemView.findViewById(R.id.imgNew);
+            newName = itemView.findViewById(R.id.tvTitleNewProduct);
+            newPrice = itemView.findViewById(R.id.tvNewPrice);
         }
     }
 }
