@@ -19,11 +19,14 @@ public class ShowAllModel implements Serializable {
     int price;
     String type;
     String color;
+    String urlModelAr;
+
+    String isArGoogle;
 
     public ShowAllModel() {
     }
 
-    public ShowAllModel(String description, String img_url, String name, String rating, int price, String type, String color) {
+    public ShowAllModel(String description, String img_url, String name, String rating, int price, String type, String color, String urlModelAr, String isArGoogle) {
         this.description = description;
         this.img_url = img_url;
         this.name = name;
@@ -31,6 +34,8 @@ public class ShowAllModel implements Serializable {
         this.price = price;
         this.type = type;
         this.color = color;
+        this.urlModelAr = urlModelAr;
+        this.isArGoogle = isArGoogle;
     }
 
     public String getDescription() {
@@ -88,4 +93,21 @@ public class ShowAllModel implements Serializable {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public String getUrlModelAr() {
+        return urlModelAr;
+    }
+
+    public void setUrlModelAr(String urlModelAr) {
+        this.urlModelAr = urlModelAr;
+    }
+
+    public String getIsArGoogle() {
+        return isArGoogle;
+    }
+
+    public void setIsArGoogle(String isArGoogle) {
+        this.isArGoogle = isArGoogle;
+    }
 }
+

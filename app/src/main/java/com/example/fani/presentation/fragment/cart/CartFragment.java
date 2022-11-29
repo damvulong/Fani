@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,13 +26,8 @@ import com.example.fani.R;
 import com.example.fani.data.model.MyCartModel;
 import com.example.fani.presentation.adapter.MyCartAdapter;
 import com.example.fani.presentation.address.AddressActivity;
-import com.example.fani.presentation.fragment.home.HomeViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +89,7 @@ public class CartFragment extends Fragment {
         });
 
 
-
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+        /*firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -116,7 +109,7 @@ public class CartFragment extends Fragment {
                 }
                 calculateTotalAmount(myCartModelList);
             }
-        });
+        });*/
 
         btnBuyNow = root.findViewById(R.id.buy_now);
         btnBuyNow.setOnClickListener(view -> {
@@ -132,7 +125,7 @@ public class CartFragment extends Fragment {
         for (MyCartModel myCartModel : myCartModelList) {
             totalAmount += myCartModel.getTotalPrice();
         }
-        total.setText("Total Amount:   " + totalAmount+ "$");
+        total.setText("Total Amount:   " + totalAmount + "$");
         amount = totalAmount;
     }
 

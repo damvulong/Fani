@@ -11,6 +11,7 @@ package com.example.fani.data.repositories;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.MyCartModel;
 import com.example.fani.data.model.NewProductsModel;
+import com.example.fani.data.model.PopularProductsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,6 +32,7 @@ public class AppRepository {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private CollectionReference categoryRef = mFirestore.collection("Category");
     private CollectionReference newProductRef = mFirestore.collection("NewProducts");
+    private CollectionReference popularProductRef = mFirestore.collection("AllProducts");
 
     private CollectionReference cartRef = mFirestore
             .collection("AddToCart")
