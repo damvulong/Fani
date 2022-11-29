@@ -72,28 +72,20 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.totalPrice.setText(String.valueOf(cartModelList.get(position).getTotalPrice()));
         holder.priceCart.setText(cartModelList.get(position).getProductPrice());
 
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                        .collection("User")
-                        .document(cartModelList.get(holder.getAdapterPosition()).getDocumentId())
-                        .delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                                if (task.isSuccessful()) {
-                                    cartModelList.remove(cartModelList.get(holder.getAdapterPosition()));
-                                    notifyDataSetChanged();
-                                    Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(context, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
+        holder.deleteItem.setOnClickListener(view -> firestore
+                .collection("AddToCart").document(auth.getCurrentUser().getUid())
+                .collection("User")
+                .document(cartModelList.get(holder.getAdapterPosition()).getDocumentId())
+                .delete()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        cartModelList.remove(cartModelList.get(holder.getAdapterPosition()));
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }));
 
     }
 

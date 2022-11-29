@@ -20,12 +20,13 @@ public class MyCartModel {
     public MyCartModel() {
     }
 
-    public MyCartModel(String img_url, String productName, String productPrice, int totalQuantity, int totalPrice) {
+    public MyCartModel(String img_url, String productName, String productPrice, int totalQuantity, int totalPrice, String documentId) {
         this.img_url = img_url;
         this.productName = productName;
         this.productPrice = productPrice;
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
+        this.documentId = documentId;
     }
 
     public String getDocumentId() {

@@ -13,9 +13,13 @@ import com.example.fani.data.model.MyCartModel;
 import com.example.fani.data.model.NewProductsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -70,12 +74,21 @@ public class AppRepository {
         });
     }
 
-
+    /**
+     * Cart observable
+     */
     public Observable<List<MyCartModel>> getCartObs() {
         return Observable.create(emitter -> {
             cartRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    emitter.onNext(task.getResult().toObjects(MyCartModel.class));
+                    List<MyCartModel> list = new ArrayList<>();
+                    for (DocumentSnapshot doc : task.getResult()) {
+                        String documentId = doc.getId();
+                        MyCartModel myCartModel = doc.toObject(MyCartModel.class);
+                        myCartModel.setDocumentId(documentId);
+                        list.add(myCartModel);
+                    }
+                    emitter.onNext(list);
                     emitter.onComplete();
                 } else {
                     emitter.onError(task.getException());

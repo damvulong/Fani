@@ -91,11 +91,12 @@ public class CartFragment extends Fragment {
         cartViewModel.getCartLiveData().observe(getViewLifecycleOwner(), cartModelList -> {
             myCartAdapter.updateItemsCartListModel(cartModelList);
             recyclerView.setVisibility(View.VISIBLE);
-            //myCartAdapter.notifyDataSetChanged();
+            calculateTotalAmount(cartModelList);
         });
 
 
-        /*firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+
+        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -115,7 +116,7 @@ public class CartFragment extends Fragment {
                 }
                 calculateTotalAmount(myCartModelList);
             }
-        });*/
+        });
 
         btnBuyNow = root.findViewById(R.id.buy_now);
         btnBuyNow.setOnClickListener(view -> {

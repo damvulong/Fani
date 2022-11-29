@@ -54,15 +54,15 @@ public class HomeViewModel  extends ViewModel {
 
                     @Override
                     public void onNext(List<NewProductsModel> newProductsModels) {
-                        LogUtil.e("Category onNext"+ newProductsModels.toString());
-                        LogUtil.e("Category Observe onNext thread" + Thread.currentThread().getName());
+                        LogUtil.e("New Product onNext"+ newProductsModels.toString());
+                        LogUtil.e("New Product Observe onNext thread" + Thread.currentThread().getName());
                         // Check thread
                         newProductListMutableLiveData.postValue(newProductsModels);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.e("Category onError"+e.getMessage());
+                        LogUtil.e("New Product onError"+e.getMessage());
                     }
 
                     @Override
