@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityPaymentMethodBinding;
-import com.example.fani.presentation.fragment.CartFragment;
+import com.example.fani.presentation.fragment.cart.CartFragment;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;

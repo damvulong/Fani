@@ -1,12 +1,12 @@
 /*
  * *
- *  * Created by thaituan on 11/9/22, 2:35 PM
+ *  * Created by damvulong on 11/29/22, 3:55 PM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 11/9/22, 2:33 PM
+ *  * Last modified 11/26/22, 10:48 PM
  *
  */
 
-package com.example.fani.presentation.fragment;
+package com.example.fani.presentation.fragment.favorite;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,7 +44,6 @@ public class FavoriteFragment extends Fragment {
     public FavoriteFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

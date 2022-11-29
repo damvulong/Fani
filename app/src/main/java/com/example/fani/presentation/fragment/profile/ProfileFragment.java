@@ -1,12 +1,12 @@
 /*
  * *
- *  * Created by damvulong on 11/9/22, 2:35 PM
+ *  * Created by damvulong on 11/29/22, 3:16 PM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 11/7/22, 4:10 PM
+ *  * Last modified 11/26/22, 10:48 PM
  *
  */
 
-package com.example.fani.presentation.fragment;
+package com.example.fani.presentation.fragment.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
