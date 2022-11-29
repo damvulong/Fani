@@ -115,12 +115,11 @@ public class HomeFragment extends Fragment {
 
         slideModels.add(new SlideModel("https://online.visual-paradigm.com/repository/images/3da74839-096a-40ed-8519-0cf1f2c098d9/facebook-ads-design/orange-home-furniture-sale-facebook-ad.png", "Discount On Furniture", ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.discount2, "Discount On Furniture", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://bensonstone.com/wp-content/uploads/2022/11/BlackFriday-Flexsteel-LOweb.jpg", "Discount On Furniture", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://cdn.shopify.com/s/files/1/1993/8987/t/7/assets/MAR---Black-Friday-Ext----Mobile-Banner---Nov-2022.jpg?v=157220347907399318461669477839", "Discount On Furniture", ScaleTypes.FIT));
 
         binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
         categoryAdapter = new CategoryAdapter(getContext());
-
         //Category
         binding.rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         categoryModelList = new ArrayList<>();
@@ -151,13 +150,25 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        popularProductsAdapter = new PopularProductsAdapter(getContext());
         //Popular Products
         binding.rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         popularProductsModelList = new ArrayList<>();
-        popularProductsAdapter = new PopularProductsAdapter(getActivity(), popularProductsModelList);
+        binding.rvPopular.setHasFixedSize(true);
+        popularProductsAdapter = new PopularProductsAdapter(getContext());
         binding.rvPopular.setAdapter(popularProductsAdapter);
 
-        db.collection("AllProducts")
+        homeViewModel.getPopularProduct();
+        homeViewModel.getPopularProductLiveData().observe(getViewLifecycleOwner(), popularProductsModelList -> {
+            if (popularProductsModelList != null) {
+                popularProductsAdapter.updateItemPopularProduct(popularProductsModelList);
+                binding.sflAllProducts.setVisibility(View.GONE);
+                binding.rvPopular.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        /*db.collection("AllProducts")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -172,7 +183,7 @@ public class HomeFragment extends Fragment {
                         Utilities.showToast(getActivity(), "" + task.getException());
                         LogUtil.e("" + task.getException());
                     }
-                });
+                });*/
 
         return binding.getRoot();
     }

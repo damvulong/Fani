@@ -17,17 +17,22 @@ public class PopularProductsModel implements Serializable {
     String name;
     String rating;
     int price;
+    String urlModelAr;
+
+    String isArGoogle;
 
     public PopularProductsModel() {
 
     }
 
-    public PopularProductsModel(String description, String img_url, String name, String rating, int price) {
+    public PopularProductsModel(String description, String img_url, String name, String rating, int price, String urlModelAr, String isArGoogle) {
         this.description = description;
         this.img_url = img_url;
         this.name = name;
         this.rating = rating;
         this.price = price;
+        this.urlModelAr = urlModelAr;
+        this.isArGoogle = isArGoogle;
     }
 
     public String getDescription() {
@@ -68,5 +73,21 @@ public class PopularProductsModel implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getUrlModelAr() {
+        return urlModelAr;
+    }
+
+    public void setUrlModelAr(String urlModelAr) {
+        this.urlModelAr = urlModelAr;
+    }
+
+    public String getIsArGoogle() {
+        return isArGoogle;
+    }
+
+    public void setIsArGoogle(String isArGoogle) {
+        this.isArGoogle = isArGoogle;
     }
 }

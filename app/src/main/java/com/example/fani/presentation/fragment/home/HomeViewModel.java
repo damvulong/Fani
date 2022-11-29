@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.fani.base.Subscribe;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
+import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.data.repositories.AppRepository;
 import com.example.fani.utils.LogUtil;
 
@@ -33,8 +34,10 @@ public class HomeViewModel  extends ViewModel {
     private AppRepository firebaseRepository;
     private CompositeDisposable categoryDisposable = new CompositeDisposable();
     private CompositeDisposable newProductDisposable = new CompositeDisposable();
+    private CompositeDisposable popularProductDisposable = new CompositeDisposable();
     MutableLiveData<List<CategoryModel>> categoryListMutableLiveData = new MutableLiveData<>();
     MutableLiveData<List<NewProductsModel>> newProductListMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<List<PopularProductsModel>> popularProductListMutableLiveDate = new MutableLiveData<>();
 
     @Inject
     public HomeViewModel(AppRepository firebaseRepository) {
@@ -54,15 +57,15 @@ public class HomeViewModel  extends ViewModel {
 
                     @Override
                     public void onNext(List<NewProductsModel> newProductsModels) {
-                        LogUtil.e("Category onNext"+ newProductsModels.toString());
-                        LogUtil.e("Category Observe onNext thread" + Thread.currentThread().getName());
+                        LogUtil.e("New Product onNext"+ newProductsModels.toString());
+                        LogUtil.e("New Product Observe onNext thread" + Thread.currentThread().getName());
                         // Check thread
                         newProductListMutableLiveData.postValue(newProductsModels);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.e("Category onError"+e.getMessage());
+                        LogUtil.e("New Product onError"+e.getMessage());
                     }
 
                     @Override
@@ -73,6 +76,40 @@ public class HomeViewModel  extends ViewModel {
                     }
                 });
     }
+
+    public void getPopularProduct(){
+        firebaseRepository.getPopularProductObs()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscribe<List<PopularProductsModel>>(){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.e("Popular Product onSubscribe");
+                        newProductDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(List<PopularProductsModel> popularProductsModels) {
+                        LogUtil.e("Popular Product onNext"+ popularProductsModels.toString());
+                        LogUtil.e("Popular Product Observe onNext thread" + Thread.currentThread().getName());
+                        // Check thread
+                        popularProductListMutableLiveDate.postValue(popularProductsModels);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Popular Product onError"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                        LogUtil.e("Popular Product onComplete");
+                        LogUtil.e("Popular Product observe onComplete thread" + Thread.currentThread().getName());
+                    }
+                });
+    }
+
 
     public void  getCategories() {
         firebaseRepository.getCategoryObs()
@@ -116,10 +153,15 @@ public class HomeViewModel  extends ViewModel {
         return newProductListMutableLiveData;
     }
 
+    public MutableLiveData<List<PopularProductsModel>> getPopularProductLiveData() {
+        return popularProductListMutableLiveDate;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
         categoryDisposable.clear();
         newProductDisposable.clear();
+        popularProductDisposable.clear();
     }
 }

@@ -119,6 +119,27 @@ public class DetailedActivity extends AppCompatActivity {
             textImg = popularProductsModel.getImg_url();
 
             totalPrice = popularProductsModel.getPrice() * totalQuantity;
+
+            if (popularProductsModel.getUrlModelAr() == null) {
+                binding.btnVirtual.setVisibility(View.GONE);
+            } else {
+                binding.btnVirtual.setVisibility(View.VISIBLE);
+                binding.btnVirtual.setOnClickListener(view13 -> {
+                    Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri intentUri =
+                            Uri.parse("https://arvr.google.com/scene-viewer/1.0").buildUpon()
+                                    .appendQueryParameter("file", popularProductsModel.getUrlModelAr())
+                                    .appendQueryParameter("mode", "ar_only")
+                                    .appendQueryParameter("resizable", "false")
+                                    .appendQueryParameter("link", "app://myurl.com")
+                                    .appendQueryParameter("title", popularProductsModel.getName() + " - $" + popularProductsModel.getPrice())
+                                    .build();
+                    sceneViewerIntent.setData(intentUri);
+                    sceneViewerIntent.setPackage("com.google.ar.core");
+                    startActivity(sceneViewerIntent);
+                });
+
+            }
         }
 
         /*Show All Products*/
@@ -135,6 +156,27 @@ public class DetailedActivity extends AppCompatActivity {
             textImg = showAllModel.getImg_url();
 
             totalPrice = showAllModel.getPrice() * totalQuantity;
+
+            if (showAllModel.getUrlModelAr() == null) {
+                binding.btnVirtual.setVisibility(View.GONE);
+            } else {
+                binding.btnVirtual.setVisibility(View.VISIBLE);
+                binding.btnVirtual.setOnClickListener(view13 -> {
+                    Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri intentUri =
+                            Uri.parse("https://arvr.google.com/scene-viewer/1.0").buildUpon()
+                                    .appendQueryParameter("file", showAllModel.getUrlModelAr())
+                                    .appendQueryParameter("mode", "ar_only")
+                                    .appendQueryParameter("resizable", "false")
+                                    .appendQueryParameter("link", "app://myurl.com")
+                                    .appendQueryParameter("title", showAllModel.getName() + " - $" + showAllModel.getPrice())
+                                    .build();
+                    sceneViewerIntent.setData(intentUri);
+                    sceneViewerIntent.setPackage("com.google.ar.core");
+                    startActivity(sceneViewerIntent);
+                });
+
+            }
         }
 
         //Event Add to Cart
