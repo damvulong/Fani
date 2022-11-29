@@ -11,6 +11,7 @@ package com.example.fani.data.repositories;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.MyCartModel;
 import com.example.fani.data.model.NewProductsModel;
+import com.example.fani.data.model.PopularProductsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,6 +28,7 @@ public class AppRepository {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private CollectionReference categoryRef = mFirestore.collection("Category");
     private CollectionReference newProductRef = mFirestore.collection("NewProducts");
+    private CollectionReference popularProductRef = mFirestore.collection("AllProducts");
 
     private CollectionReference cartRef = mFirestore
             .collection("AddToCart")
@@ -70,6 +72,21 @@ public class AppRepository {
         });
     }
 
+    /**
+     * Popular Product observable
+     */
+    public Observable<List<PopularProductsModel>> getPopularProductObs() {
+        return Observable.create(emitter -> {
+            popularProductRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    emitter.onNext(task.getResult().toObjects(PopularProductsModel.class));
+                    emitter.onComplete();
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
 
     public Observable<List<MyCartModel>> getCartObs() {
         return Observable.create(emitter -> {

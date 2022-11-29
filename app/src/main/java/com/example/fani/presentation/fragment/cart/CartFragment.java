@@ -91,8 +91,10 @@ public class CartFragment extends Fragment {
         cartViewModel.getCartLiveData().observe(getViewLifecycleOwner(), cartModelList -> {
             myCartAdapter.updateItemsCartListModel(cartModelList);
             recyclerView.setVisibility(View.VISIBLE);
-            //myCartAdapter.notifyDataSetChanged();
+            myCartAdapter.notifyDataSetChanged();
         });
+        calculateTotalAmount(myCartModelList);
+
 
 
         /*firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())

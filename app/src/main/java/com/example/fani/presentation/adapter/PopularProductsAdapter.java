@@ -25,16 +25,21 @@ import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.DetailedActivity;
 import com.example.fani.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PopularProductsAdapter extends RecyclerView.Adapter<PopularProductsAdapter.ViewHolder> {
 
     private Context context;
-    private List<PopularProductsModel> popularProductsModelList;
+    private List<PopularProductsModel> popularProductsModelList = new ArrayList<>();
 
-    public PopularProductsAdapter(Context context, List<PopularProductsModel> popularProductsModelList) {
-        this.context = context;
+    public void updateItemPopularProduct(List<PopularProductsModel> popularProductsModelList) {
         this.popularProductsModelList = popularProductsModelList;
+    }
+
+    public PopularProductsAdapter(Context context) {
+        this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull
