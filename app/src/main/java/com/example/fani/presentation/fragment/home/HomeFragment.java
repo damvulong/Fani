@@ -14,11 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +29,7 @@ import com.example.fani.R;
 import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.model.PopularProductsModel;
+import com.example.fani.databinding.FragmentHomeBinding;
 import com.example.fani.presentation.ShowAllActivity;
 import com.example.fani.presentation.adapter.CategoryAdapter;
 import com.example.fani.presentation.adapter.NewProductsAdapter;
@@ -54,31 +50,22 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
-    TextView catShowAll;
-    TextView newShowAll;
-    TextView popShowAll;
-
-    RecyclerView catRecyclerview;
-    //Category recyclerview
+  //  RecyclerView catRecyclerview;
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
 
-    RecyclerView newProductsRecyclerview;
-    //New Products recyclerview
+  //  RecyclerView newProductsRecyclerview;
     NewProductsAdapter newProductsAdapter;
     List<NewProductsModel> newProductsModelList;
 
-    RecyclerView popularProductsRecyclerview;
-    //Popular Products recyclerview
+  //  RecyclerView popularProductsRecyclerview;
     PopularProductsAdapter popularProductsAdapter;
     List<PopularProductsModel> popularProductsModelList;
 
     //FireStore
     FirebaseFirestore db;
 
-    private ShimmerFrameLayout mCategory;
-    private ShimmerFrameLayout mAllProducts;
-    private ShimmerFrameLayout mNewProducts;
+    private FragmentHomeBinding binding;
 
     //init ViewModel
     private HomeViewModel homeViewModel;
@@ -90,109 +77,85 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         //define viewModel
-        // mWordViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(WordViewModel.class);
-
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        catRecyclerview = root.findViewById(R.id.rcv_category);
-        newProductsRecyclerview = root.findViewById(R.id.rcv_new_product);
-        popularProductsRecyclerview = root.findViewById(R.id.rcv_popular);
-
-        catShowAll = root.findViewById(R.id.category_see_all);
-        newShowAll = root.findViewById(R.id.newProducts_see_all);
-        popShowAll = root.findViewById(R.id.popular_see_all);
-
         db = FirebaseFirestore.getInstance();
-
-        mCategory = root.findViewById(R.id.sflCategory);
-        mAllProducts = root.findViewById(R.id.sflAllProducts);
-        mNewProducts = root.findViewById(R.id.sflNewProducts);
 
         InitConfig initConfig = new InitConfig();
         initConfig.setFont(Fonts.REGULAR, "Error");
 
         // init view when loading data
-        mCategory.startShimmer();
-        mAllProducts.startShimmer();
-        mNewProducts.startShimmer();
-
+        binding.sflCategory.startShimmer();
+        binding.sflNewProducts.startShimmer();
+        binding.sflAllProducts.startShimmer();
 
         //event click See All Category
-        catShowAll.setOnClickListener(view -> {
+        binding.tvCategorySeeAll.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), ShowAllActivity.class);
             startActivity(intent);
         });
 
         //event click See All New Products
-        newShowAll.setOnClickListener(view -> {
+        binding.tvNewProductsSeeAll.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), ShowAllActivity.class);
             startActivity(intent);
         });
 
         //event click See All Popular Products
-        popShowAll.setOnClickListener(view -> {
+        binding.tvPopularSeeAll.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), ShowAllActivity.class);
             startActivity(intent);
         });
 
         //image slider
-        ImageSlider imageSlider = root.findViewById(R.id.image_slider);
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
         slideModels.add(new SlideModel("https://online.visual-paradigm.com/repository/images/3da74839-096a-40ed-8519-0cf1f2c098d9/facebook-ads-design/orange-home-furniture-sale-facebook-ad.png", "Discount On Furniture", ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.discount2, "Discount On Furniture", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://bensonstone.com/wp-content/uploads/2022/11/BlackFriday-Flexsteel-LOweb.jpg", "Discount On Furniture", ScaleTypes.FIT));
 
-        imageSlider.setImageList(slideModels, ScaleTypes.FIT);
+        binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
         categoryAdapter = new CategoryAdapter(getContext());
 
         //Category
-        catRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        binding.rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         categoryModelList = new ArrayList<>();
-        catRecyclerview.setHasFixedSize(true);
-        catRecyclerview.setAdapter(categoryAdapter);
+        binding.rvCategory.setHasFixedSize(true);
+        binding.rvCategory.setAdapter(categoryAdapter);
 
         homeViewModel.getCategories();
         homeViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), categoryModelList -> {
             categoryAdapter.setCategoryListModels(categoryModelList);
-            mCategory.setVisibility(View.GONE);
-            catRecyclerview.setVisibility(View.VISIBLE);
+            binding.sflCategory.setVisibility(View.GONE);
+            binding.rvCategory.setVisibility(View.VISIBLE);
             categoryAdapter.notifyDataSetChanged();
         });
 
         //New Products
-        newProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        binding.rvNewProduct.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         newProductsModelList = new ArrayList<>();
-        newProductsAdapter = new NewProductsAdapter(getActivity(), newProductsModelList);
-        newProductsRecyclerview.setAdapter(newProductsAdapter);
+        binding.rvNewProduct.setHasFixedSize(true);
+        newProductsAdapter = new NewProductsAdapter(getContext());
+        binding.rvNewProduct.setAdapter(newProductsAdapter);
 
-        db.collection("NewProducts")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
-                            newProductsModelList.add(newProductsModel);
-                            mNewProducts.setVisibility(View.GONE);
-                            newProductsRecyclerview.setVisibility(View.VISIBLE);
-                            newProductsAdapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        Utilities.showToast(getActivity(), "" + task.getException());
-                        LogUtil.e("" + task.getException());
-                    }
-                });
+        homeViewModel.getNewProduct();
+        homeViewModel.getNewProductLiveData().observe(getViewLifecycleOwner(), newProductsModelList -> {
+            if (newProductsModelList != null) {
+                newProductsAdapter.updateItemsNewProduct(newProductsModelList);
+                binding.sflNewProducts.setVisibility(View.GONE);
+                binding.rvNewProduct.setVisibility(View.VISIBLE);
+            }
+        });
 
         //Popular Products
-        popularProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        binding.rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         popularProductsModelList = new ArrayList<>();
         popularProductsAdapter = new PopularProductsAdapter(getActivity(), popularProductsModelList);
-        popularProductsRecyclerview.setAdapter(popularProductsAdapter);
+        binding.rvPopular.setAdapter(popularProductsAdapter);
 
         db.collection("AllProducts")
                 .get()
@@ -201,8 +164,8 @@ public class HomeFragment extends Fragment {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             PopularProductsModel popularProductsModel = document.toObject(PopularProductsModel.class);
                             popularProductsModelList.add(popularProductsModel);
-                            mAllProducts.setVisibility(View.GONE);
-                            popularProductsRecyclerview.setVisibility(View.VISIBLE);
+                            binding.sflAllProducts.setVisibility(View.GONE);
+                            binding.rvPopular.setVisibility(View.VISIBLE);
                             popularProductsAdapter.notifyDataSetChanged();
                         }
                     } else {
@@ -210,6 +173,7 @@ public class HomeFragment extends Fragment {
                         LogUtil.e("" + task.getException());
                     }
                 });
-        return root;
+
+        return binding.getRoot();
     }
 }

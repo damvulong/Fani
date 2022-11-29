@@ -21,19 +21,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fani.R;
+import com.example.fani.data.model.CategoryModel;
 import com.example.fani.data.model.NewProductsModel;
+import com.example.fani.databinding.CategoryListBinding;
+import com.example.fani.databinding.NewProductsBinding;
 import com.example.fani.presentation.DetailedActivity;
+import com.example.fani.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder> {
 
     private Context context;
-    private List<NewProductsModel> list;
+    private List<NewProductsModel> newProductsModelList = new ArrayList<>();
 
-    public NewProductsAdapter(Context context, List<NewProductsModel> list) {
+    public void updateItemsNewProduct(List<NewProductsModel> items) {
+        newProductsModelList.clear();
+        newProductsModelList.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public NewProductsAdapter(Context context) {
         this.context = context;
-        this.list = list;
     }
 
     @NonNull
@@ -45,23 +55,20 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
     @Override
     public void onBindViewHolder(@NonNull NewProductsAdapter.ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.newImg);
-        holder.newName.setText(list.get(position).getName());
-        holder.newPrice.setText(String.valueOf(list.get(position).getPrice()));
+        Glide.with(context).load(newProductsModelList.get(position).getImg_url()).into(holder.newImg);
+        holder.newName.setText(newProductsModelList.get(position).getName());
+        holder.newPrice.setText(Utilities.currencyUnit(newProductsModelList.get(position).getPrice()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detailed", list.get(holder.getAdapterPosition()));
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailedActivity.class);
+            intent.putExtra("detailed", newProductsModelList.get(holder.getAdapterPosition()));
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return newProductsModelList.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,9 +80,9 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            newImg = itemView.findViewById(R.id.new_img);
-            newName = itemView.findViewById(R.id.new_product_name);
-            newPrice = itemView.findViewById(R.id.new_price);
+            newImg = itemView.findViewById(R.id.imgNew);
+            newName = itemView.findViewById(R.id.tvTitleNewProduct);
+            newPrice = itemView.findViewById(R.id.tvNewPrice);
         }
     }
 }

@@ -11,17 +11,14 @@ package com.example.fani.presentation.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.fani.R;
 import com.example.fani.data.model.CategoryModel;
+import com.example.fani.databinding.CategoryListBinding;
 import com.example.fani.presentation.ShowAllActivity;
 
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<CategoryModel> categoryModelList ;
+    private List<CategoryModel> categoryModelList;
 
     public void setCategoryListModels(List<CategoryModel> categoryModelList) {
         this.categoryModelList = categoryModelList;
@@ -43,22 +40,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list, parent, false));
+        return new ViewHolder(CategoryListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
 
-        Glide.with(context).load(categoryModelList.get(position).getImg_url()).into(holder.catImg);
-        holder.catName.setText(categoryModelList.get(position).getName());
+        Glide.with(context).load(categoryModelList.get(position).getImg_url()).into(holder.binding.catImg);
+        holder.binding.catName.setText(categoryModelList.get(position).getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ShowAllActivity.class);
-                intent.putExtra("type", categoryModelList.get(holder.getAdapterPosition()).getType());
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ShowAllActivity.class);
+            intent.putExtra("type", categoryModelList.get(holder.getAdapterPosition()).getType());
+            context.startActivity(intent);
         });
 
     }
@@ -70,14 +64,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView catImg;
-        TextView catName;
+        private CategoryListBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            catImg = itemView.findViewById(R.id.cat_img);
-            catName = itemView.findViewById(R.id.cat_name);
-
+        public ViewHolder(CategoryListBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityRegisterBinding;
 import com.example.fani.presentation.login.LoginActivity;
+import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
 
 import java.util.Locale;
@@ -126,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (userPassword.length() < 6) {
+        if (userPassword.length() < Constants.MAXIMUM_PASSWORD) {
             Toast.makeText(this, R.string.Error_password_short, Toast.LENGTH_SHORT).show();
             return;
         }

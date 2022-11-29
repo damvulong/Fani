@@ -1,7 +1,6 @@
 package com.example.fani.utils;
 
 public class Constants {
-    public static final String TAG = "TAG";
     public static final String LINK_GIT = "damvulong/FaniFurniture";
 
     //https://www.zoho.com/crm/developer/docs/mobile-sdk/android-app-redirection.html
@@ -11,6 +10,8 @@ public class Constants {
 
     public static final long TIME_REPLY = 1000;
     public static final int PAYPAL_REQUEST_CODE = 123;
+
+    public static final int MAXIMUM_PASSWORD = 6;
 
     public static final String DOLLAR = "$";
 

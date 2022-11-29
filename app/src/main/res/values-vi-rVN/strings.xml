@@ -75,6 +75,6 @@
     <string name="edit">Chỉnh sửa</string>
     <string name="new_product">Mới</string>
     <string name="product_name">Tên sản phẩm</string>
-    <string name="price">Giá: $</string>
+    <string name="price">VND 0</string>
     <string name="change_language">Thay đổi ngôn ngữ</string>
 </resources>

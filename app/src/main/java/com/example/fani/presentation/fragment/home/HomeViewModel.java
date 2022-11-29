@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.fani.base.Subscribe;
 import com.example.fani.data.model.CategoryModel;
+import com.example.fani.data.model.NewProductsModel;
 import com.example.fani.data.repositories.AppRepository;
 import com.example.fani.utils.LogUtil;
 
@@ -31,11 +32,46 @@ public class HomeViewModel  extends ViewModel {
 
     private AppRepository firebaseRepository;
     private CompositeDisposable categoryDisposable = new CompositeDisposable();
+    private CompositeDisposable newProductDisposable = new CompositeDisposable();
     MutableLiveData<List<CategoryModel>> categoryListMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<List<NewProductsModel>> newProductListMutableLiveData = new MutableLiveData<>();
 
     @Inject
     public HomeViewModel(AppRepository firebaseRepository) {
         this.firebaseRepository = firebaseRepository;
+    }
+
+    public void getNewProduct(){
+        firebaseRepository.getNewProductObs()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscribe<List<NewProductsModel>>(){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.e("New Product onSubscribe");
+                        newProductDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(List<NewProductsModel> newProductsModels) {
+                        LogUtil.e("Category onNext"+ newProductsModels.toString());
+                        LogUtil.e("Category Observe onNext thread" + Thread.currentThread().getName());
+                        // Check thread
+                        newProductListMutableLiveData.postValue(newProductsModels);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("Category onError"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                        LogUtil.e("New Product onComplete");
+                        LogUtil.e("New Product observe onComplete thread" + Thread.currentThread().getName());
+                    }
+                });
     }
 
     public void  getCategories() {
@@ -45,22 +81,29 @@ public class HomeViewModel  extends ViewModel {
                 .subscribe(new Subscribe<List<CategoryModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        LogUtil.e("Category onSubscribe");
                         categoryDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(List<CategoryModel> categoryModelList) {
+                        LogUtil.e("Category onNext"+ categoryModelList.toString());
+                        LogUtil.e("Category Observe onNext thread" + Thread.currentThread().getName());
+                        // Check thread
                         categoryListMutableLiveData.postValue(categoryModelList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        LogUtil.e("Category onError"+e.getMessage());
                         LogUtil.e(e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
                         super.onComplete();
+                        LogUtil.e("Category onComplete");
+                        LogUtil.e("Category Observe onComplete thread" + Thread.currentThread().getName());
                     }
                 });
     }
@@ -69,9 +112,14 @@ public class HomeViewModel  extends ViewModel {
         return categoryListMutableLiveData;
     }
 
+    public MutableLiveData<List<NewProductsModel>> getNewProductLiveData() {
+        return newProductListMutableLiveData;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
         categoryDisposable.clear();
+        newProductDisposable.clear();
     }
 }

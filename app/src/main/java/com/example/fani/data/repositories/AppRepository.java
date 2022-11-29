@@ -9,8 +9,11 @@
 package com.example.fani.data.repositories;
 
 import com.example.fani.data.model.CategoryModel;
+
 import com.example.fani.data.model.MyCartModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.fani.data.model.NewProductsModel;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +28,7 @@ public class AppRepository {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private CollectionReference categoryRef = mFirestore.collection("Category");
+    private CollectionReference newProductRef = mFirestore.collection("NewProducts");
 
     private CollectionReference cartRef = mFirestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("User");
 
@@ -33,17 +37,7 @@ public class AppRepository {
 
     }
 
-    // #35 This function move to RxAndroid
-    /*    public void getCategoryData(){
-        categoryRef.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                onFirebaseStoreTaskComplete.categoryDataAdded(task.getResult().toObjects(CategoryModel.class));
-            }else{
-                onFirebaseStoreTaskComplete.onError(task.getException());
-            }
-        });
-    }*/
-
+    /** Category observable*/
     public Observable<List<CategoryModel>> getCategoryObs(){
         return Observable.create(emitter -> {
             categoryRef.get().addOnCompleteListener(task -> {
@@ -57,12 +51,20 @@ public class AppRepository {
         });
     }
 
-    // #35 This function move to RxAndroid
-    /*    public interface OnFirebaseStoreTaskComplete {
-        void categoryDataAdded(List<CategoryModel> categoryModelList);
+    /** New Product observable*/
+    public  Observable<List<NewProductsModel>> getNewProductObs(){
+        return Observable.create(emitter -> {
+            newProductRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    emitter.onNext(task.getResult().toObjects(NewProductsModel.class));
+                    emitter.onComplete();
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
 
-        void onError(Exception e);
-    }*/
 
     public Observable<List<MyCartModel>> getCartObs() {
         return Observable.create(emitter -> {

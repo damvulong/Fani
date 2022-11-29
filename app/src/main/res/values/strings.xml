@@ -70,7 +70,7 @@
     <string name="edit">Edit</string>
     <string name="new_product">New</string>
     <string name="product_name">Product Name</string>
-    <string name="price">Price: $</string>
+    <string name="price">$ 0.0 </string>
     <string name="change_language">Change Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
