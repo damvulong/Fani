@@ -9,6 +9,8 @@
 package com.example.fani.data.repositories;
 
 import com.example.fani.data.model.CategoryModel;
+import com.example.fani.data.model.MyCartModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -21,7 +23,10 @@ import io.reactivex.rxjava3.core.Observable;
 public class AppRepository {
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private CollectionReference categoryRef = mFirestore.collection("Category");
+
+    private CollectionReference cartRef = mFirestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("User");
 
     @Inject
     public AppRepository() {
@@ -58,5 +63,18 @@ public class AppRepository {
 
         void onError(Exception e);
     }*/
+
+    public Observable<List<MyCartModel>> getCartObs() {
+        return Observable.create(emitter -> {
+            cartRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    emitter.onNext(task.getResult().toObjects(MyCartModel.class));
+                    emitter.onComplete();
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
 
 }

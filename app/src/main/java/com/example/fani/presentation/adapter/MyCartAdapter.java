@@ -34,14 +34,17 @@ import java.util.List;
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
 
     Context context;
-    List<MyCartModel> list;
+    List<MyCartModel> cartModelList;
 
     FirebaseFirestore firestore;
     FirebaseAuth auth;
 
-    public MyCartAdapter(Context context, List<MyCartModel> list) {
+    public void setCartListModel(List<MyCartModel> cartModelList) {
+        this.cartModelList = cartModelList;
+    }
+
+    public MyCartAdapter(Context context) {
         this.context = context;
-        this.list = list;
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
     }
@@ -55,29 +58,29 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyCartAdapter.ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.imgCart);
-        holder.name.setText(list.get(position).getProductName());
-        Log.e("name", list.get(position).getProductName());
+        Glide.with(context).load(cartModelList.get(position).getImg_url()).into(holder.imgCart);
+        holder.name.setText(cartModelList.get(position).getProductName());
+        Log.e("name", cartModelList.get(position).getProductName());
 
-        holder.quantityCart.setText(String.valueOf(list.get(position).getTotalQuantity()));
-        Log.e("quantity", String.valueOf(list.get(position).getTotalQuantity()));
+        holder.quantityCart.setText(String.valueOf(cartModelList.get(position).getTotalQuantity()));
+        Log.e("quantity", String.valueOf(cartModelList.get(position).getTotalQuantity()));
 
-        holder.totalPrice.setText(String.valueOf(list.get(position).getTotalPrice()));
-        holder.priceCart.setText(list.get(position).getProductPrice());
+        holder.totalPrice.setText(String.valueOf(cartModelList.get(position).getTotalPrice()));
+        holder.priceCart.setText(cartModelList.get(position).getProductPrice());
 
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                         .collection("User")
-                        .document(list.get(holder.getAdapterPosition()).getDocumentId())
+                        .document(cartModelList.get(holder.getAdapterPosition()).getDocumentId())
                         .delete()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if (task.isSuccessful()) {
-                                    list.remove(list.get(holder.getAdapterPosition()));
+                                    cartModelList.remove(cartModelList.get(holder.getAdapterPosition()));
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -92,7 +95,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return cartModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

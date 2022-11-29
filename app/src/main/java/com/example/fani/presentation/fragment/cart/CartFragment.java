@@ -1,12 +1,12 @@
 /*
  * *
- *  * Created by thaituan on 11/9/22, 2:35 PM
+ *  * Created by damvulong on 11/29/22, 3:16 PM
  *  * Copyright (c) 2022 . All rights reserved.
- *  * Last modified 11/9/22, 2:33 PM
+ *  * Last modified 11/27/22, 12:51 AM
  *
  */
 
-package com.example.fani.presentation.fragment;
+package com.example.fani.presentation.fragment.cart;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +48,9 @@ public class CartFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseFirestore firestore;
 
+    //Init ViewModel
+    private CartViewModel cartViewModel;
+
     public static double amount = 0.0;
 
 
@@ -67,12 +70,24 @@ public class CartFragment extends Fragment {
         total = root.findViewById(R.id.tv_total);
 
         recyclerView = root.findViewById(R.id.rcv_cart);
+
+        myCartAdapter = new MyCartAdapter(getContext());
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         myCartModelList = new ArrayList<>();
-        myCartAdapter = new MyCartAdapter(getActivity(), myCartModelList);
+        recyclerView.setHasFixedSize(true);
+        //myCartAdapter = new MyCartAdapter(getActivity(), myCartModelList);
         recyclerView.setAdapter(myCartAdapter);
 
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+        cartViewModel.getCart();
+        cartViewModel.getCartLiveData().observe(getViewLifecycleOwner(), cartModelList -> {
+            myCartAdapter.setCartListModel(cartModelList);
+            recyclerView.setVisibility(View.VISIBLE);
+            myCartAdapter.notifyDataSetChanged();
+        });
+
+
+        /*firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -92,7 +107,7 @@ public class CartFragment extends Fragment {
                 }
                 calculateTotalAmount(myCartModelList);
             }
-        });
+        });*/
 
         btnBuyNow = root.findViewById(R.id.buy_now);
         btnBuyNow.setOnClickListener(view -> {

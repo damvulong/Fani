@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fani.databinding.ActivityPaymentBinding;
 import com.example.fani.presentation.PaymentMethodActivity;
-import com.example.fani.presentation.fragment.CartFragment;
+import com.example.fani.presentation.fragment.cart.CartFragment;
 import com.maxpilotto.creditcardview.animations.RotationAnimation;
 import com.maxpilotto.creditcardview.models.Brand;
 
