@@ -18,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.databinding.ActivityLoginBinding;
 import com.example.fani.presentation.forgotpassword.ForgotPasswordActivity;
-import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.presentation.register.RegisterActivity;
+import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
 
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (userPassword.length() < 6) {
+        if (userPassword.length() < Constants.MAXIMUM_PASSWORD) {
             Utilities.showToast(this, "Password too short, enter minimum 6 characters!");
             return;
         }
