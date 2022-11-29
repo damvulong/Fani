@@ -29,18 +29,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
 
     Context context;
-    List<MyCartModel> cartModelList;
+    List<MyCartModel> cartModelList = new ArrayList<>();
 
     FirebaseFirestore firestore;
     FirebaseAuth auth;
 
-    public void setCartListModel(List<MyCartModel> cartModelList) {
-        this.cartModelList = cartModelList;
+    public void updateItemsCartListModel(List<MyCartModel> items) {
+        cartModelList.clear();
+        cartModelList.addAll(items);
+        notifyDataSetChanged();
+       // this.cartModelList = cartModelList;
     }
 
     public MyCartAdapter(Context context) {

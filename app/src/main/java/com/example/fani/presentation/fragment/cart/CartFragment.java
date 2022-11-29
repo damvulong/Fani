@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.example.fani.R;
 import com.example.fani.data.model.MyCartModel;
 import com.example.fani.presentation.adapter.MyCartAdapter;
 import com.example.fani.presentation.address.AddressActivity;
+import com.example.fani.presentation.fragment.home.HomeViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CartFragment extends Fragment {
 
     TextView total;
@@ -64,6 +69,9 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        //define viewModel
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
@@ -81,9 +89,9 @@ public class CartFragment extends Fragment {
 
         cartViewModel.getCart();
         cartViewModel.getCartLiveData().observe(getViewLifecycleOwner(), cartModelList -> {
-            myCartAdapter.setCartListModel(cartModelList);
+            myCartAdapter.updateItemsCartListModel(cartModelList);
             recyclerView.setVisibility(View.VISIBLE);
-            myCartAdapter.notifyDataSetChanged();
+            //myCartAdapter.notifyDataSetChanged();
         });
 
 
@@ -126,6 +134,5 @@ public class CartFragment extends Fragment {
         total.setText("Total Amount:   " + totalAmount+ "$");
         amount = totalAmount;
     }
-
 
 }

@@ -9,11 +9,9 @@
 package com.example.fani.data.repositories;
 
 import com.example.fani.data.model.CategoryModel;
-
 import com.example.fani.data.model.MyCartModel;
-import com.google.firebase.auth.FirebaseAuth;
 import com.example.fani.data.model.NewProductsModel;
-
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,15 +28,20 @@ public class AppRepository {
     private CollectionReference categoryRef = mFirestore.collection("Category");
     private CollectionReference newProductRef = mFirestore.collection("NewProducts");
 
-    private CollectionReference cartRef = mFirestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("User");
+    private CollectionReference cartRef = mFirestore
+            .collection("AddToCart")
+            .document(auth.getCurrentUser().getUid())
+            .collection("User");
 
     @Inject
     public AppRepository() {
 
     }
 
-    /** Category observable*/
-    public Observable<List<CategoryModel>> getCategoryObs(){
+    /**
+     * Category observable
+     */
+    public Observable<List<CategoryModel>> getCategoryObs() {
         return Observable.create(emitter -> {
             categoryRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -51,8 +54,10 @@ public class AppRepository {
         });
     }
 
-    /** New Product observable*/
-    public  Observable<List<NewProductsModel>> getNewProductObs(){
+    /**
+     * New Product observable
+     */
+    public Observable<List<NewProductsModel>> getNewProductObs() {
         return Observable.create(emitter -> {
             newProductRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
