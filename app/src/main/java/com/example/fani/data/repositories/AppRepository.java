@@ -77,6 +77,22 @@ public class AppRepository {
     }
 
     /**
+     * Popular Product observable
+     */
+    public Observable<List<PopularProductsModel>> getPopularProductObs() {
+        return Observable.create(emitter -> {
+            popularProductRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    emitter.onNext(task.getResult().toObjects(PopularProductsModel.class));
+                    emitter.onComplete();
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
+
+    /**
      * Cart observable
      */
     public Observable<List<MyCartModel>> getCartObs() {
