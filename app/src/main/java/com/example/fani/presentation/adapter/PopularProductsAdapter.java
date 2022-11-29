@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.fani.R;
 import com.example.fani.data.model.PopularProductsModel;
 import com.example.fani.presentation.DetailedActivity;
+import com.example.fani.utils.Utilities;
 
 import java.util.List;
 
@@ -47,15 +48,12 @@ public class PopularProductsAdapter extends RecyclerView.Adapter<PopularProducts
 
         Glide.with(context).load(popularProductsModelList.get(position).getImg_url()).into(holder.popularImg);
         holder.popularName.setText(popularProductsModelList.get(position).getName());
-        holder.popularPrice.setText(String.valueOf(popularProductsModelList.get(position).getPrice()));
+        holder.popularPrice.setText(Utilities.currencyUnit(popularProductsModelList.get(position).getPrice()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detailed", popularProductsModelList.get(holder.getAdapterPosition()));
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailedActivity.class);
+            intent.putExtra("detailed", popularProductsModelList.get(holder.getAdapterPosition()));
+            context.startActivity(intent);
         });
     }
 
@@ -64,7 +62,7 @@ public class PopularProductsAdapter extends RecyclerView.Adapter<PopularProducts
         return popularProductsModelList.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView popularImg;
         TextView popularName;
@@ -73,9 +71,9 @@ public class PopularProductsAdapter extends RecyclerView.Adapter<PopularProducts
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            popularImg = itemView.findViewById(R.id.popular_img);
-            popularName = itemView.findViewById(R.id.popular_product_name);
-            popularPrice = itemView.findViewById(R.id.popular_price);
+            popularImg = itemView.findViewById(R.id.imgPopular);
+            popularName = itemView.findViewById(R.id.tvPopularProductName);
+            popularPrice = itemView.findViewById(R.id.tvPopularPrice);
         }
     }
 }

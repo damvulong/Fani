@@ -25,25 +25,26 @@
             android:id="@+id/popular_img"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_centerHorizontal="true"
-            android:background="@color/shimmer_placeholder" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/shimmer_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/popular_product_name"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginTop="@dimen/_6sdp"
+            android:background="@color/shimmer_placeholder"
+            android:textColor="@color/black"
             android:textSize="@dimen/_17sdp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.246"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popular_img"
-            android:background="@color/shimmer_placeholder" />
+            app:layout_constraintTop_toBottomOf="@+id/popular_img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
