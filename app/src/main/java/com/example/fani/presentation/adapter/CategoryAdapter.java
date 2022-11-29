@@ -52,13 +52,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Glide.with(context).load(categoryModelList.get(position).getImg_url()).into(holder.catImg);
         holder.catName.setText(categoryModelList.get(position).getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ShowAllActivity.class);
-                intent.putExtra("type", categoryModelList.get(holder.getAdapterPosition()).getType());
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ShowAllActivity.class);
+            intent.putExtra("type", categoryModelList.get(holder.getAdapterPosition()).getType());
+            context.startActivity(intent);
         });
 
     }

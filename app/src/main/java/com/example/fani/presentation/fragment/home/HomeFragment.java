@@ -14,11 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -167,26 +162,18 @@ public class HomeFragment extends Fragment {
         //New Products
         newProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         newProductsModelList = new ArrayList<>();
-        newProductsAdapter = new NewProductsAdapter(getActivity(), newProductsModelList);
+        newProductsRecyclerview.setHasFixedSize(true);
+        newProductsAdapter = new NewProductsAdapter(getContext());
         newProductsRecyclerview.setAdapter(newProductsAdapter);
 
-        db.collection("NewProducts")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
-                            newProductsModelList.add(newProductsModel);
-                            mNewProducts.setVisibility(View.GONE);
-                            newProductsRecyclerview.setVisibility(View.VISIBLE);
-                            newProductsAdapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        Utilities.showToast(getActivity(), "" + task.getException());
-                        LogUtil.e("" + task.getException());
-                    }
-                });
+        homeViewModel.getNewProduct();
+        homeViewModel.getNewProductLiveData().observe(getViewLifecycleOwner(), newProductsModelList -> {
+            if (newProductsModelList!=null){
+                newProductsAdapter.updateItemsNewProduct(newProductsModelList);
+                mNewProducts.setVisibility(View.GONE);
+                newProductsRecyclerview.setVisibility(View.VISIBLE);
+            }
+        });
 
         //Popular Products
         popularProductsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
