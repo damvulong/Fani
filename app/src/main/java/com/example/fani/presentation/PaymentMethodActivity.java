@@ -21,6 +21,7 @@ import com.example.fani.BuildConfig;
 import com.example.fani.R;
 import com.example.fani.databinding.ActivityPaymentMethodBinding;
 import com.example.fani.presentation.fragment.cart.CartFragment;
+import com.example.fani.presentation.main.MainActivity;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
@@ -177,15 +178,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentR
 
     @Override
     public void onPaymentSuccess(String s) {
-//        //Initialize alert dialog
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        //Set title
-//        builder.setTitle("Payment ID");
-//        //Set message
-//        builder.setMessage(s);
-//        //Show alert dialog
-//        builder.show();
-        Toast.makeText(this, "Payment Successful!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(PaymentMethodActivity.this, CongratsActivity.class));
     }
 
     @Override

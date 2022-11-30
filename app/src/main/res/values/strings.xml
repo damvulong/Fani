@@ -74,4 +74,6 @@
     <string name="change_language">Change Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
+    <string name="success">SUCCESS!</string>
+    <string name="title_your_order_will_be_delivered_soon_thank_you_for_choosing_our_app">Your order will be delivered soon. Thank you for choosing our app!</string>
 </resources>
