@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Fani"
         tools:replace="android:theme">
         <activity
+            android:name=".presentation.CongratsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.forgotpassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
