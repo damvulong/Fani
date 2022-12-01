@@ -76,4 +76,11 @@
     <string name="vietnamese">Vietnamese</string>
     <string name="success">SUCCESS!</string>
     <string name="title_your_order_will_be_delivered_soon_thank_you_for_choosing_our_app">Your order will be delivered soon. Thank you for choosing our app!</string>
+    <string name="title_no_internet">No Internet</string>
+    <string name="btn_wifi">Wifi</string>
+    <string name="btn_mobile_data">Mobile data</string>
+    <string name="title_button">Please turn on</string>
+    <string name="msg_wifi">Check your Internet connection and try again</string>
+    <string name="msg_airplane">You have turned on the airplane mode.</string>
+    <string name="btn_airplane_mode">Airplane mode</string>
 </resources>

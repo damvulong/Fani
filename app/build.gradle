@@ -118,7 +118,6 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.38.1'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.38.1'
 
-
     //PayPal
     //https://github.com/paypal/PayPal-Android-SDK
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
@@ -129,5 +128,7 @@ dependencies {
     // RxFirebase
     implementation 'com.github.FrangSierra:RxFirebase:1.5.6'
 
+    // Dialog no internet
+    implementation 'org.imaginativeworld.oopsnointernet:oopsnointernet:2.0.0'
 
 }

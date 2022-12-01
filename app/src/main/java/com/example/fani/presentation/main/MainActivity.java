@@ -35,14 +35,19 @@ import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.aboutUs.AboutUsActivity;
 import com.example.fani.presentation.fragment.cart.CartFragment;
 import com.example.fani.presentation.fragment.favorite.FavoriteFragment;
-import com.example.fani.presentation.fragment.profile.ProfileFragment;
 import com.example.fani.presentation.fragment.home.HomeFragment;
+import com.example.fani.presentation.fragment.profile.ProfileFragment;
 import com.example.fani.presentation.login.LoginActivity;
+import com.example.fani.utils.DialogUtils;
+import com.example.fani.utils.Helper.WifiStateHelper;
+import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
 import com.google.android.material.navigation.NavigationView;
 import com.zoho.commons.LauncherModes;
 import com.zoho.commons.LauncherProperties;
 import com.zoho.salesiqembed.ZohoSalesIQ;
+
+import org.imaginativeworld.oopsnointernet.dialogs.signal.NoInternetDialogSignal;
 
 import java.util.Locale;
 
@@ -61,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Menu menu;
 
     private int mCurrentFragment = FragmentState.home.value;
+
+    NoInternetDialogSignal noInternetDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Check wifi state
+        checkConnectWifi();
+
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -123,6 +133,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
             }
             return true;
+        });
+    }
+
+    /**
+     * Listen wifi state change
+     */
+    private void checkConnectWifi() {
+        WifiStateHelper.wifiStateObs.observe(this, isConnect -> {
+            LogUtil.e("wifiStateObs" + isConnect);
+            if (!isConnect) {
+                DialogUtils.displayDialogInternet(this, getLifecycle());
+                LogUtil.e("No wifi");
+            } else {
+                LogUtil.e("wifi connect");
+                if (noInternetDialog != null) {
+                    noInternetDialog.destroy();
+                }
+            }
         });
     }
 
@@ -267,5 +295,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contentFrameLayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DialogUtils.displayDialogInternet(this, getLifecycle());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (noInternetDialog != null) {
+            noInternetDialog.destroy();
+        }
     }
 }
