@@ -8,7 +8,9 @@
 
 package com.example.fani.presentation.onbroading;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,10 +20,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.fani.databinding.ActivityOnbroadingBinding;
 import com.example.fani.presentation.adapter.OnbroadingAdapter;
 import com.example.fani.presentation.login.LoginActivity;
+import com.example.fani.utils.LogUtil;
 
 public class OnbroadingActivity extends AppCompatActivity {
 
     private ActivityOnbroadingBinding binding;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor sharedEditor;
 
     private OnbroadingAdapter viewPagerAdapter;
 
@@ -36,16 +41,39 @@ public class OnbroadingActivity extends AppCompatActivity {
         setContentView(view);
 
         handleEvent();
-
-        viewPagerAdapter = new OnbroadingAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.onbroadingViewPager.setAdapter(viewPagerAdapter);
-        binding.circleIndicator.setViewPager(binding.onbroadingViewPager);
     }
 
     private void handleEvent() {
         //Get Started
-        binding.btnGetStarted.setOnClickListener(view -> {
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        sharedEditor = sharedPreferences.edit();
+
+        if (isItFirestTime()) {
+            LogUtil.e("First Time");
+            viewPagerAdapter = new OnbroadingAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            binding.onbroadingViewPager.setAdapter(viewPagerAdapter);
+            binding.circleIndicator.setViewPager(binding.onbroadingViewPager);
+            binding.btnGetStarted.setOnClickListener(view -> {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            });
+        } else {
+            LogUtil.e("Not a First Time");
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        });
+            finish();
+        }
+
+    }
+
+    public boolean isItFirestTime() {
+        String firstPref = "firstTime";
+        if (sharedPreferences.getBoolean(firstPref, true)) {
+            sharedEditor.putBoolean(firstPref, false);
+            sharedEditor.commit();
+            sharedEditor.apply();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

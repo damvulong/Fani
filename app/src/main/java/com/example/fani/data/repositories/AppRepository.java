@@ -16,11 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -98,6 +96,9 @@ public class AppRepository {
     public Observable<List<MyCartModel>> getCartObs() {
         return Observable.create(emitter -> {
             cartRef.get().addOnCompleteListener(task -> {
+                if (auth.getCurrentUser() == null) {
+                    return;
+                }
                 if (task.isSuccessful()) {
                     List<MyCartModel> list = new ArrayList<>();
                     for (DocumentSnapshot doc : task.getResult()) {

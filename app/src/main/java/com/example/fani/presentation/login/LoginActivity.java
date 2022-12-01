@@ -9,22 +9,14 @@
 package com.example.fani.presentation.login;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.base.BaseMVVMActivity;
 import com.example.fani.databinding.ActivityLoginBinding;
-import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.forgotpassword.ForgotPasswordActivity;
 import com.example.fani.presentation.main.MainActivity;
-import com.example.fani.presentation.main.MainViewModel;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.Constants;
-import com.example.fani.utils.LogUtil;
 import com.example.fani.utils.Utilities;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -44,11 +36,6 @@ public class LoginActivity extends BaseMVVMActivity<ActivityLoginBinding,LoginVi
 
     @Override
     protected void initialize() {
-        getViewModel().getUserLiveData().observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                LogUtil.e("Login success");
-            }
-        });
 
         handleEvent();
     }
@@ -93,8 +80,13 @@ public class LoginActivity extends BaseMVVMActivity<ActivityLoginBinding,LoginVi
         }
 
         getViewModel().login(userEmail, userPassword);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
+        getViewModel().getUserLiveData().observe(this, firebaseUser -> {
+            if (firebaseUser != null) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 
     public void onForgotPassword() {

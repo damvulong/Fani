@@ -34,13 +34,11 @@ import com.example.fani.presentation.fragment.favorite.FavoriteFragment;
 import com.example.fani.presentation.fragment.home.HomeFragment;
 import com.example.fani.presentation.fragment.profile.ProfileFragment;
 import com.example.fani.presentation.login.LoginActivity;
-
 import com.example.fani.utils.Utilities;
 import com.google.android.material.navigation.NavigationView;
 import com.zoho.commons.LauncherModes;
 import com.zoho.commons.LauncherProperties;
 import com.zoho.salesiqembed.ZohoSalesIQ;
-
 
 import java.util.Locale;
 
@@ -48,11 +46,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainViewModel> implements NavigationView.OnNavigationItemSelectedListener {
-
-    public Boolean isEnglish = true;
-    private Boolean isVietnam = false;
-
-    private Menu menu;
 
     private int mCurrentFragment = FragmentState.home.value;
 
@@ -68,8 +61,6 @@ public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainView
 
     @Override
     protected void initialize() {
-        //Load Locale
-        loadLocale();
 
         getViewModel().getLoggedOutLiveData().observe(this, isLoggedOut -> {
             if (isLoggedOut) {
@@ -120,6 +111,12 @@ public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainView
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        loadLocale();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_app_bar, menu);
@@ -132,16 +129,12 @@ public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainView
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.english:
-                //isEnglish = false;
-                //isVietnam = true;
-                setLocale("en");
+                changeLang("en");
                 recreate();
                 Utilities.showToast(getApplicationContext(), "Translate to English");
                 return true;
             case R.id.vietnamese:
-                //isEnglish = true;
-                //isVietnam = false;
-                setLocale("vi");
+                changeLang("vi");
                 recreate();
                 Utilities.showToast(getApplicationContext(), "Translate to Vietnamese");
                 return true;
@@ -150,35 +143,35 @@ public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainView
         }
     }
 
-    private void setLocale(String language) {
+    private void changeLang(String language) {
+        if (language.equalsIgnoreCase("")){
+            return;
+        }
+
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
+        saveLocale(language);
 
         Configuration configuration = new Configuration();
-        configuration.locale = locale;
+        configuration.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+    }
 
-        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-        editor.putString("app_lang", language);
-        editor.apply();
-
+    public void saveLocale(String lang)
+    {
+        String langPref = "app_lang";
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.commit();
     }
 
     private void loadLocale() {
+        String langPref = "app_lang";
         SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        String language = preferences.getString("app_lang", "");
-        setLocale(language);
+        String language = preferences.getString(langPref, "");
+        saveLocale(language);
     }
-
-    /*public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem english = menu.findItem(R.id.english);
-        MenuItem vietnamese = menu.findItem(R.id.vietnamese);
-
-        english.setVisible(isEnglish);
-        vietnamese.setVisible(isVietnam);
-
-        return true;
-    }*/
 
     @Override
     public void onBackPressed() {

@@ -36,7 +36,17 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void login(String email, String password) {
-        authAppRepository.login(email, password);
+        authAppRepository.login(email, password, new AuthAppRepository.Result<FirebaseUser>() {
+            @Override
+            public void onResult(FirebaseUser data) {
+                userLiveData.postValue(data);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
     }
 
     public MutableLiveData<FirebaseUser> getUserLiveData() {

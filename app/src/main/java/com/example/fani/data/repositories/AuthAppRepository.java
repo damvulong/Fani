@@ -1,10 +1,7 @@
-
-
 package com.example.fani.data.repositories;
 
 import android.app.Application;
 import android.os.SystemClock;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -38,7 +35,7 @@ public class AuthAppRepository {
         }
     }
 
-    public void login(String email, String password) {
+    public void login(String email, String password, Result<FirebaseUser> listener) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), task -> {
                     if (SystemClock.elapsedRealtime() - mLastClickTime < Constants.TIME_REPLY) {
@@ -46,9 +43,10 @@ public class AuthAppRepository {
                     }
                     mLastClickTime = SystemClock.elapsedRealtime();
                     if (task.isSuccessful()) {
-                        userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        listener.onResult(firebaseAuth.getCurrentUser());
                         Utilities.showToast(application.getApplicationContext(), "Login Successfully!");
                     } else {
+                        listener.onFailed(task.getException());
                         Utilities.showToast(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage());
                     }
                 });
@@ -94,5 +92,11 @@ public class AuthAppRepository {
     public void logOut() {
         firebaseAuth.signOut();
         loggedOutLiveData.postValue(true);
+    }
+
+    public interface Result<T> {
+        void onResult(T data);
+
+        void onFailed(Exception e);
     }
 }
