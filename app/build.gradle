@@ -1,15 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.fani"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -21,54 +24,111 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            //Zoho
+            buildConfigField("String", "APP_KEY_ZOHO", "\"VaD9WWDrd%2BUyNrCbSciPRlNUzJUe57RfG9NWSham%2FDfeh3%2F0hvSx8CyTm%2BwHDCPz\"")
+            buildConfigField("String", "ACCESS_KEY_ZOHO", "\"VXYedrQX8SngHF5fh8GrF%2FruDPIO8ho5FievuUc9V%2F0C7dpQpYAZafQqpH3%2BoP9%2FzlUeqWPkSrZ2L0Wv53c8AQCQoWZwHcVtnRbPdM3D1squctAlSNZSNBosYqmg2vxdJjnWQe1bmo4%2BM9SyMqEcWq3%2B0ClJaj9X\"")
+
+            //Paypal
+            buildConfigField("String", "SANDBOX_ACCOUNT", "\"testfani@business.example.com\"")
+            buildConfigField("String", "CLIENT_ID", "\"AUXxPtbI6pN4Swr9k5oKxmr7wziUSZj_fkzNLmLNq9l1-bgnSMIc_p889ALWjR8Ie_N9U0bEtcbmnAzB\"")
+
+            //RazorPay
+            buildConfigField("String", "APP_KEY_RAZORPAY", "\"rzp_test_L4tt6SFP4UJPVt\"")
+
+
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    /** Document: https://developer.android.com/topic/libraries/view-binding */
     buildFeatures {
-        viewBinding = true // for view binding
+        viewBinding true
     }
+    namespace 'com.example.fani'
 }
 
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.3'
-    implementation 'com.google.firebase:firebase-firestore:24.1.0'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.3.2'
+    implementation 'com.google.firebase:firebase-analytics:21.2.0'
+
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     //PageIndicatorView
     implementation 'me.relex:circleindicator:2.1.6'
+
     //Slideshow
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
     //About Page
     implementation 'io.github.medyo:android-about-page:2.0.0'
+
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
     // RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     //dimens
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+
     //razorpay
     implementation 'com.razorpay:checkout:1.6.19'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation('com.squareup.retrofit2:converter-gson:2.9.0')
 
     //Credit card https://github.com/maxpilotto/credit-card-view#grid-and-area-click
     implementation 'com.github.maxpilotto:credit-card-view:8.0.0'
 
+    //Zoho chatBox
     implementation 'com.zoho.salesiq:mobilisten:4.2.9'
 
     //Loading image
     //https://github.com/facebook/shimmer-android?fbclid=IwAR2Nh9lNdj6qf2ZcehVpZdf2qNj9XurX2DF41XawvtDqyuLVxAdlJcJl9Ug
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+
+    // Android lifecycle
+    // https://developer.android.com/jetpack/androidx/releases/lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    // Momo pay
+    // https://github.com/momo-wallet/mobile-sdk
+    implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
+
+    // Hilt - Dagger
+    // https://developer.android.com/training/dependency-injection/hilt-android
+    implementation 'com.google.dagger:hilt-android:2.38.1'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.38.1'
+
+    //PayPal
+    //https://github.com/paypal/PayPal-Android-SDK
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation('com.paypal.sdk:paypal-android-sdk:2.16.0') {
+        exclude group: 'io.card'
+    }
+
+    // RxFirebase
+    implementation 'com.github.FrangSierra:RxFirebase:1.5.6'
+
+    // Dialog no internet
+    implementation 'org.imaginativeworld.oopsnointernet:oopsnointernet:2.0.0'
 
 }

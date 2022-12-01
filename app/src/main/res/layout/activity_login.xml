@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context=".ui.LoginActivity">
+    tools:context=".presentation.login.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="Alredy\nhave an \nAccount?"
+                    android:text="@string/alredy_nhave_an_naccount"
                     android:textColor="@color/dark"
                     android:textSize="@dimen/_25sdp"
                     android:textStyle="bold" />
@@ -66,7 +67,8 @@
                 android:id="@+id/textInputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_20sdp"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/et_password"
@@ -76,16 +78,17 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/tvForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Forgot password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/primary"
                 android:textSize="12sp" />
 
@@ -96,8 +99,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/button_login"
-                android:onClick="onLogin"
-                android:text="Login"
+                android:text="@string/login"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -106,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="Register a new account"
+                android:text="@string/register_a_new_account"
                 android:textAlignment="center"
                 android:textColor="@color/light"
                 android:textSize="@dimen/_17sdp"
@@ -129,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:text="Use another method"
+                    android:text="@string/use_another_method"
                     android:textAlignment="center"
                     android:textSize="12sp" />
 

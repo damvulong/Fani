@@ -7,4 +7,7 @@
     <color name="dark">#0086C3</color>
     <color name="background">#29B6F6</color>
     <color name="shimmer_placeholder">#dddddd</color>
+    <color name="scorpion">#606060</color>
+    <color name="mine_shaft">#303030</color>
+
 </resources>

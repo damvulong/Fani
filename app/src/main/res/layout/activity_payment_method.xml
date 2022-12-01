@@ -13,35 +13,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.PaymentMethodActivity">
+    tools:context=".presentation.PaymentMethodActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/method_toolbar"
+        android:id="@+id/tbMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light"
         app:title="Payment Method" />
 
     <Button
-        android:id="@+id/pay_paypal"
+        android:id="@+id/btnPayPayPal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         android:textAlignment="center"
-        android:text="Pay by Paypal"
+        android:text="@string/title_pay_by_paypal"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/_18sdp"/>
 
     <Button
-        android:id="@+id/pay_razorpay"
+        android:id="@+id/btnPayRazorpay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
+        android:text="@string/title_pay_by_razorpay"
         android:textAlignment="center"
-        android:text="Pay by RazorPay"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/_18sdp"/>
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnPayMomo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="@string/title_pay_by_momo"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold" />
 
 </LinearLayout>

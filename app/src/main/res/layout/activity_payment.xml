@@ -11,10 +11,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PaymentActivity">
+    tools:context=".presentation.payment.PaymentActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/payment_toolbar"
+        android:id="@+id/tbPayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light"
@@ -38,7 +38,7 @@
 
 
     <com.maxpilotto.creditcardview.CreditCardView
-        android:id="@+id/ccv_payment"
+        android:id="@+id/ccvPayment"
         android:layout_width="@dimen/_300sdp"
         android:layout_height="@dimen/_170sdp"
         android:layout_marginTop="@dimen/_24sdp"
@@ -52,70 +52,71 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/tbPayment" />
 
     <TextView
         android:id="@+id/tvSubtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_80sdp"
-        android:text="Subtotal"
+        android:text="@string/subtotal"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ccv_payment" />
+        app:layout_constraintTop_toBottomOf="@+id/ccvPayment" />
 
     <TextView
         android:id="@+id/tvDiscount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:text="Discount"
+        android:text="@string/discount"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="@+id/tvSubtotal"
         app:layout_constraintStart_toStartOf="@+id/tvSubtotal"
         app:layout_constraintTop_toBottomOf="@+id/tvSubtotal" />
 
     <TextView
+        android:id="@+id/tvShipping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:text="Shipping"
+        android:text="@string/shipping"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="@+id/tvDiscount"
         app:layout_constraintStart_toStartOf="@+id/tvDiscount"
         app:layout_constraintTop_toBottomOf="@+id/tvDiscount" />
 
     <TextView
-        android:id="@+id/sub_total"
+        android:id="@+id/tvSubTotalMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_84sdp"
         android:text="$ 0"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ccv_payment" />
+        app:layout_constraintTop_toBottomOf="@+id/ccvPayment" />
 
     <TextView
-        android:id="@+id/tv_discount"
+        android:id="@+id/tvDiscountMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:text="$ 0"
         android:textSize="@dimen/_18sdp"
-        app:layout_constraintEnd_toEndOf="@+id/sub_total"
-        app:layout_constraintStart_toStartOf="@+id/sub_total"
-        app:layout_constraintTop_toBottomOf="@+id/sub_total" />
+        app:layout_constraintEnd_toEndOf="@+id/tvSubTotalMoney"
+        app:layout_constraintStart_toStartOf="@+id/tvSubTotalMoney"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTotalMoney" />
 
     <TextView
-        android:id="@+id/tv_shipping"
+        android:id="@+id/tvShippingMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:text="$ 0"
         android:textSize="@dimen/_18sdp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_discount"
-        app:layout_constraintStart_toStartOf="@+id/tv_discount"
-        app:layout_constraintTop_toBottomOf="@+id/tv_discount" />
+        app:layout_constraintEnd_toEndOf="@+id/tvDiscountMoney"
+        app:layout_constraintStart_toStartOf="@+id/tvDiscountMoney"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiscountMoney" />
 
     <View
         android:id="@+id/divider_payment"
@@ -125,21 +126,21 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shipping" />
+        app:layout_constraintTop_toBottomOf="@+id/tvShippingMoney" />
 
     <TextView
-        android:id="@+id/tv_total_payment"
+        android:id="@+id/tvTotalPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_78sdp"
         android:layout_marginTop="@dimen/_18sdp"
-        android:text="Total"
+        android:text="@string/total"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_payment" />
 
     <TextView
-        android:id="@+id/total_atm"
+        android:id="@+id/tvTotalMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_18sdp"
@@ -150,16 +151,16 @@
         app:layout_constraintTop_toBottomOf="@+id/divider_payment" />
 
     <Button
-        android:id="@+id/btn_pay"
+        android:id="@+id/btnPay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_35sdp"
-        android:text="Check out"
+        android:text="@string/check_out"
         android:textColor="@color/white"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_payment" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalPayment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

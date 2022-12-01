@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by damvulong on 11/19/22, 12:35 AM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/19/22, 12:35 AM
+  ~  */
+  -->
+
+<resources>
+    <string name="app_name">Fani Furniture</string>
+    <string name="Error_username_empty">Vui lòng nhập tên người dùng!</string>
+    <string name="title_logout_successfully">Đăng xuất thành công!</string>
+    <string name="home">Trang chủ</string>
+    <string name="gitHub">Github</string>
+    <string name="email">Email</string>
+    <string name="navigation_drawer_open">Mở ngăn điều hướng</string>
+    <string name="navigation_drawer_close">Đóng ngăn điều hướng</string>
+    <string name="hello_blank_fragment">Xin chào đoạn trống</string>
+    <string name="title_category">Loại</string>
+    <string name="title_see_all">Xem tất cả</string>
+    <string name="title_new_products">Sản phẩm mới</string>
+    <string name="title_popular_products">Sản phẩm phổ biến</string>
+    <string name="Error_email_empty">Vui lòng nhập email của bạn!</string>
+    <string name="Error_phone_number_empty">Xin vui lòng điền số điện thoại của bạn!</string>
+    <string name="Error_password_empty">Xin vui lòng nhập mật khẩu!</string>
+    <string name="Error_confirm_password_empty">Vui lòng xác nhận mật khẩu!</string>
+    <string name="Error_password_short">Mật khẩu quá ngắn, hãy nhập tối thiểu 6 ký tự!</string>
+    <string name="Error_password_not_match">Mật khẩu không hợp lệ</string>
+    <string name="title_product_name">tên sản phẩm</string>
+    <string name="title_price_unit">$%S</string>
+    <string name="label_button_cart">Thêm vào giỏ hàng</string>
+    <string name="message_add_to_favorite">Đã thêm vào mục yêu thích</string>
+    <string name="title_pay_by_paypal">Thanh toán bằng Paypal</string>
+    <string name="title_pay_by_razorpay">Thanh toán bằng RazorPay</string>
+    <string name="title_pay_by_momo">Thanh toán bằng Momo</string>
+    <string name="btn_try_in_your_home">Hãy thử trong trang chủ</string>
+    <string name="CopyRight">Bản quyền thuộc về Đàm Vũ Long</string>
+    <string name="create_address">Tạo địa chỉ</string>
+    <string name="name">Tên</string>
+    <string name="address">Địa chỉ nhà</string>
+    <string name="city">Thành phố</string>
+    <string name="postal_code">Mã bưu điện</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="add_address">Thêm địa chỉ</string>
+    <string name="add_address_activity">Thêm địa chỉ</string>
+    <string name="continue_to_payment">Tiếp tục thanh toán</string>
+    <string name="your_address">Địa chỉ của bạn</string>
+    <string name="password">Mật khẩu</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="description">Sự mô tả</string>
+    <string name="alredy_nhave_an_naccount">Bạn có sẵng sàn để tạo một tai khoản?</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register_a_new_account">Đăng ký tài khoản mới</string>
+    <string name="use_another_method">Sử dụng một phương pháp khác</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="total">Tổng cộng</string>
+    <string name="check_out">Thủ tục thanh toán</string>
+    <string name="subtotal">Tổng phụ</string>
+    <string name="discount">Giảm giá</string>
+    <string name="shipping">Phí chuyển hàng</string>
+    <string name="here_s_nyour_first_nstep_with_nus">Đây là bước đầu tiên của bạn với chúng tôi!</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="register">Đăng ký</string>
+    <string name="already_have_an_account">Bạn có sẵng sàn để tạo một tai khoản?</string>
+    <string name="category_name">Tên danh mục</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="total_price">Tổng giá</string>
+    <string name="fast_delivery">Chuyển phát nhanh</string>
+    <string name="we_operate_our_own_logistics_deliveries_are_asap_and_without_complications_just_order_and_we_bring_the_product_to_you">Chúng tôi vận hành dịch vụ hậu cần của riêng mình, giao hàng nhanh nhất có thể và không phức tạp, chỉ cần đặt hàng và chúng tôi sẽ mang sản phẩm đến cho bạn.</string>
+    <string name="convenient_shopping">Mua sắm thuận tiện</string>
+    <string name="keep_safe_shopping_from_home">Giữ an toàn! mua sắm từ nhà</string>
+    <string name="easy_to_payment">Dễ dàng thanh toán</string>
+    <string name="easy_online_payment_with_many_gateway">Thanh toán trực tuyến dễ dàng với nhiều cổng thanh toán</string>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="new_product">Mới</string>
+    <string name="product_name">Tên sản phẩm</string>
+    <string name="price">VND 0</string>
+    <string name="change_language">Thay đổi ngôn ngữ</string>
+</resources>

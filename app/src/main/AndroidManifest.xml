@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fani">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".presentation.appApplication.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Fani">
+        android:theme="@style/Theme.Fani"
+        tools:replace="android:theme">
         <activity
-            android:name=".ui.ChangePasswordActivity"
+            android:name=".presentation.CongratsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".presentation.forgotpassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PaymentMethodActivity"
+            android:name=".presentation.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PaymentActivity"
+            android:name=".presentation.PaymentMethodActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddAddressActivity"
+            android:name=".presentation.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddressActivity"
+            android:name=".presentation.addaddress.AddAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ShowAllActivity"
+            android:name=".presentation.address.AddressActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.OnbroadingActivity"
+            android:name=".presentation.ShowAllActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.onbroading.OnbroadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +52,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.DetailedActivity" />
-        <activity android:name=".ui.AboutUsActivity" />
+        <activity android:name=".presentation.main.MainActivity" />
+        <activity android:name=".presentation.login.LoginActivity" />
+        <activity android:name=".presentation.register.RegisterActivity" />
+        <activity android:name=".presentation.DetailedActivity" />
+        <activity android:name=".presentation.aboutUs.AboutUsActivity" />
     </application>
 
 </manifest>

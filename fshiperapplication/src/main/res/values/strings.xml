@@ -1,0 +1,13 @@
+<!--
+  ~ /**
+  ~  * Created by thaituan on 11/22/22, 11:22 AM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/22/22, 11:22 AM
+  ~  */
+  -->
+
+<resources>
+    <string name="app_name">FshiperApplication</string>
+    <string name="mapbox_access_token">sk.eyJ1IjoiZGFtdnVsb25nIiwiYSI6ImNsYXJ1Z3pydjF3ZXYzdnVyaGJ5aTVyYnEifQ.Jszy-V7DZPmr7U10darPPg</string>
+
+</resources>

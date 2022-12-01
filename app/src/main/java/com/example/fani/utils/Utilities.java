@@ -14,22 +14,33 @@ import mehdi.sakout.aboutpage.Element;
 
 public class Utilities {
 
+
+    /**
+     * Show toast length short
+     * @param context Context
+     * @param message String
+     */
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showSnackBar(View view, String message) {
-        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-
-        snackbar.setAction("DISMISS", v -> snackbar.dismiss());
-
-        snackbar.show();
-
-    }
 
     /**
-     * @param context
-     * @return
+     * Show snack bar
+     * @param view View
+     * @param message String
+     */
+    public static void showSnackBar(View view, String message) {
+        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.setAction("DISMISS", v -> snackbar.dismiss());
+        snackbar.show();
+    }
+
+
+    /**
+     * This function to handle copy right in about us
+     * @param context Context
+     * @return copyright
      */
     public static Element createCopyright(Context context) {
         Element copyright = new Element();
@@ -45,4 +56,13 @@ public class Utilities {
         return copyright;
     }
 
+
+    /**
+     * Dollar currency conversion
+     * @param value Integer -> amount of money
+     * @return $value
+     */
+    public static String currencyUnit(Integer value) {
+        return (Constants.DOLLAR + String.valueOf(value)) ;
+    }
 }
