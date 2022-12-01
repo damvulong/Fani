@@ -11,25 +11,21 @@ package com.example.fani.presentation.main;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fani.BuildConfig;
 import com.example.fani.R;
+import com.example.fani.base.BaseMVVMActivity;
 import com.example.fani.data.State.FragmentState;
 import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.aboutUs.AboutUsActivity;
@@ -38,27 +34,20 @@ import com.example.fani.presentation.fragment.favorite.FavoriteFragment;
 import com.example.fani.presentation.fragment.home.HomeFragment;
 import com.example.fani.presentation.fragment.profile.ProfileFragment;
 import com.example.fani.presentation.login.LoginActivity;
-import com.example.fani.utils.DialogUtils;
-import com.example.fani.utils.Helper.WifiStateHelper;
-import com.example.fani.utils.LogUtil;
+
 import com.example.fani.utils.Utilities;
 import com.google.android.material.navigation.NavigationView;
 import com.zoho.commons.LauncherModes;
 import com.zoho.commons.LauncherProperties;
 import com.zoho.salesiqembed.ZohoSalesIQ;
 
-import org.imaginativeworld.oopsnointernet.dialogs.signal.NoInternetDialogSignal;
 
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private ActivityMainBinding binding;
-    //init View Model
-    private MainViewModel mainViewModel;
+public class MainActivity extends BaseMVVMActivity<ActivityMainBinding, MainViewModel> implements NavigationView.OnNavigationItemSelectedListener {
 
     public Boolean isEnglish = true;
     private Boolean isVietnam = false;
@@ -67,30 +56,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private int mCurrentFragment = FragmentState.home.value;
 
-    NoInternetDialogSignal noInternetDialog;
+    @Override
+    protected ActivityMainBinding getLayoutBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater());
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /** Setup view biding
-         Document: https://developer.android.com/topic/libraries/view-binding*/
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+    protected Class<MainViewModel> getViewModelClass() {
+        return MainViewModel.class;
+    }
 
+    @Override
+    protected void initialize() {
         //Load Locale
         loadLocale();
 
-        /**Setting main view model*/
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        mainViewModel.getLoggedOutLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoggedOut) {
-                if (isLoggedOut) {
-                    Utilities.showToast(getApplicationContext(), getString(R.string.title_logout_successfully));
-                }
+        getViewModel().getLoggedOutLiveData().observe(this, isLoggedOut -> {
+            if (isLoggedOut) {
+                Utilities.showToast(getApplicationContext(), getString(R.string.title_logout_successfully));
             }
         });
+
         // #10 TODO https://salesiq.zoho.com/long1234/settings/brands/712564000000002056/installation/android
         ZohoSalesIQ.init(getApplication(), BuildConfig.APP_KEY_ZOHO, BuildConfig.ACCESS_KEY_ZOHO);
         //to set can moving
@@ -102,22 +88,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, toolbar,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, getViewBinding().drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        binding.drawerLayout.addDrawerListener(toggle);
+        getViewBinding().drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        // Check wifi state
-        checkConnectWifi();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragment(new HomeFragment());
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-        binding.bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
+        getViewBinding().bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+        getViewBinding().bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
                 openHomeFragment();
@@ -133,24 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
             }
             return true;
-        });
-    }
-
-    /**
-     * Listen wifi state change
-     */
-    private void checkConnectWifi() {
-        WifiStateHelper.wifiStateObs.observe(this, isConnect -> {
-            LogUtil.e("wifiStateObs" + isConnect);
-            if (!isConnect) {
-                DialogUtils.displayDialogInternet(this, getLifecycle());
-                LogUtil.e("No wifi");
-            } else {
-                LogUtil.e("wifi connect");
-                if (noInternetDialog != null) {
-                    noInternetDialog.destroy();
-                }
-            }
         });
     }
 
@@ -217,8 +182,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        if (getViewBinding().drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            getViewBinding().drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -231,16 +196,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             openHomeFragment();
-            binding.bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
+            getViewBinding().bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
         } else if (id == R.id.nav_favorite) {
             openFavoriteFragment();
-            binding.bottomNavigationView.getMenu().findItem(R.id.bottom_favorite).setChecked(true);
+            getViewBinding().bottomNavigationView.getMenu().findItem(R.id.bottom_favorite).setChecked(true);
         } else if (id == R.id.nav_cart) {
             openCartFragment();
-            binding.bottomNavigationView.getMenu().findItem(R.id.bottom_cart).setChecked(true);
+            getViewBinding().bottomNavigationView.getMenu().findItem(R.id.bottom_cart).setChecked(true);
         } else if (id == R.id.nav_profile) {
             openProfileFragment();
-            binding.bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+            getViewBinding().bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
         } else if (id == R.id.nav_logout) {
             /**Handle logout in firebase*/
             Intent intent = new Intent(this, LoginActivity.class);
@@ -251,14 +216,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
-            mainViewModel.logOut();
+            getViewModel().logOut();
 
         } else if (id == R.id.nav_aboutUS) {
             Intent intent = new Intent(this, AboutUsActivity.class);
             startActivity(intent);
         }
 
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        getViewBinding().drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -295,19 +260,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contentFrameLayout, fragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        DialogUtils.displayDialogInternet(this, getLifecycle());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (noInternetDialog != null) {
-            noInternetDialog.destroy();
-        }
     }
 }

@@ -11,9 +11,9 @@ package com.example.fani.presentation.main;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.fani.base.BaseViewModel;
 import com.example.fani.data.repositories.AuthAppRepository;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends BaseViewModel {
 
     //init
     private AuthAppRepository authAppRepository;
@@ -29,7 +29,6 @@ public class MainViewModel extends AndroidViewModel {
 
     @Inject
     public MainViewModel(@NonNull Application application) {
-        super(application);
         authAppRepository = new AuthAppRepository(application);
         loggedOutLiveData = authAppRepository.getLoggedOutLiveData();
     }
