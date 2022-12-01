@@ -16,9 +16,12 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fani.base.BaseMVVMActivity;
 import com.example.fani.databinding.ActivityLoginBinding;
+import com.example.fani.databinding.ActivityMainBinding;
 import com.example.fani.presentation.forgotpassword.ForgotPasswordActivity;
 import com.example.fani.presentation.main.MainActivity;
+import com.example.fani.presentation.main.MainViewModel;
 import com.example.fani.presentation.register.RegisterActivity;
 import com.example.fani.utils.Constants;
 import com.example.fani.utils.LogUtil;
@@ -27,25 +30,21 @@ import com.example.fani.utils.Utilities;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class LoginActivity extends AppCompatActivity {
-
-    private ActivityLoginBinding binding;
-
-    //init View Model
-    private LoginViewModel loginViewModel;
+public class LoginActivity extends BaseMVVMActivity<ActivityLoginBinding,LoginViewModel> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected ActivityLoginBinding getLayoutBinding() {
+        return ActivityLoginBinding.inflate(getLayoutInflater());
+    }
 
-        /** setup view biding
-         Document: https://developer.android.com/topic/libraries/view-binding*/
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+    @Override
+    protected Class<LoginViewModel> getViewModelClass() {
+        return LoginViewModel.class;
+    }
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        loginViewModel.getUserLiveData().observe(this, firebaseUser -> {
+    @Override
+    protected void initialize() {
+        getViewModel().getUserLiveData().observe(this, firebaseUser -> {
             if (firebaseUser != null) {
                 LogUtil.e("Login success");
             }
@@ -56,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleEvent() {
         /**Check validation email and password to pass view model*/
-        binding.btnLogin.setOnClickListener(view -> {
+        getViewBinding().btnLogin.setOnClickListener(view -> {
             checkValidationEmailAndPassword();
         });
         /**Move to Register page*/
-        binding.txtRegister.setOnClickListener(view -> onRegister());
+        getViewBinding().txtRegister.setOnClickListener(view -> onRegister());
 
         /**Move to Forgot Password page*/
-        binding.tvForgotPassword.setOnClickListener(view -> onForgotPassword());
+        getViewBinding().tvForgotPassword.setOnClickListener(view -> onForgotPassword());
     }
 
     public void checkValidationEmailAndPassword() {
@@ -71,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         String userEmailFake = "admin@gmail.com";
         String passwordEmailFake = "123456";
 
-        String userEmail = binding.etEmail.getText().toString();
-        String userPassword = binding.etPassword.getText().toString();
+        String userEmail = getViewBinding().etEmail.getText().toString();
+        String userPassword = getViewBinding().etPassword.getText().toString();
 
         //TODO fake data to check
         userEmail = userEmailFake;
@@ -93,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        loginViewModel.login(userEmail, userPassword);
+        getViewModel().login(userEmail, userPassword);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
     }
